@@ -1,14 +1,6 @@
-# 👨‍💼 Human Resource Management System
-### Enterprise-Grade Web Application for Employee Administration
-
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/Django-4.0+-green.svg)](https://www.djangoproject.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)]()
+# 👨‍💼 Ms.Vy English Human Resource Management System
 
 > **Giải pháp quản lý nhân sự toàn diện** giúp doanh nghiệp tự động hóa quy trình quản lý nhân viên, chấm công và tính lương - tiết kiệm đến **70% thời gian** xử lý hành chính nhân sự.
-
----
 
 ## 🎯 ĐIỂM NỔI BẬT
 
@@ -18,30 +10,6 @@
 - 📱 **Responsive Design** tương thích mọi thiết bị với Bootstrap framework
 - ⚡ **Hiệu suất tối ưu** với Django ORM và database indexing
 - 🎨 **UX/UI thân thiện** giúp người dùng làm quen nhanh chóng
-
----
-
-## 🏗️ KIẾN TRÚC HỆ THỐNG
-
-\`\`\`
-┌─────────────────────────────────────────────────┐
-│              PRESENTATION LAYER                 │
-│   (HTML/CSS/JS + Bootstrap + Django Templates)  │
-└────────────────┬────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────┐
-│              APPLICATION LAYER                  │
-│        (Django MVC + Business Logic)            │
-└────────────────┬────────────────────────────────┘
-                 │
-┌────────────────▼────────────────────────────────┐
-│               DATA LAYER                        │
-│         (Django ORM + SQLite/PostgreSQL)        │
-└─────────────────────────────────────────────────┘
-\`\`\`
-
-**Design Pattern:** MVC (Model-View-Controller)  
-**Architecture:** Monolithic với khả năng mở rộng sang Microservices
 
 ---
 
@@ -102,17 +70,6 @@
 - 👥 Role-based access control (Admin, HR Manager, Employee)
 - 🛡️ CSRF protection & SQL injection prevention
 - 📝 Audit log cho các thao tác quan trọng
-
----
-
-## 📊 IMPACT & ACHIEVEMENTS
-
-| Metric | Kết quả |
-|--------|---------|
-| **Giảm thời gian xử lý lương** | 70% (từ 2 ngày → 6 giờ) |
-| **Độ chính xác tính lương** | 99.8% (giảm sai sót thủ công) |
-| **Thời gian training người dùng** | < 2 giờ (UX trực quan) |
-| **Database query optimization** | Giảm 40% thời gian load trang |
 
 ---
 
@@ -296,61 +253,7 @@ python manage.py migrate
 # Collect static files
 python manage.py collectstatic
 \`\`\`
-
 ---
-
-## 👨‍💻 VỀ TÁC GIẢ
-
-**Vai trò:** Full-stack Developer  
-
-**Đóng góp chính:**
-- Thiết kế database schema với relationships phức tạp (One-to-Many, Many-to-Many)
-- Xây dựng business logic cho module tính lương tự động
-- Implement authentication & authorization system với role-based access
-- Tối ưu hóa performance với query optimization và database indexing
-- Thiết kế responsive UI/UX với Bootstrap framework
-- Viết unit tests và đảm bảo code coverage >85%
-
-**Kỹ năng thể hiện:**
-- ✅ Backend development với Python/Django
-- ✅ Database design & ORM optimization
-- ✅ Frontend development với HTML/CSS/JavaScript
-- ✅ Security best practices (CSRF, SQL injection prevention)
-- ✅ Clean code & comprehensive documentation
-- ✅ Problem-solving & system architecture design
-
----
-
-## 🤝 ĐÓNG GÓP
-
-Mọi đóng góp đều được chào đón! Vui lòng:
-
-1. Fork repository
-2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Mở Pull Request
-
----
-
-## 📞 LIÊN HỆ
-
-📧 Email: your.email@example.com  
-💼 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)  
-🐙 GitHub: [github.com/tramy212](https://github.com/tramy212)  
-🌐 Portfolio: yourportfolio.com
-
----
-
-## 📄 LICENSE
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-**⭐ Nếu bạn thấy project hữu ích, hãy cho một star! ⭐**
 
 Made with ❤️ by [Your Name]
 
