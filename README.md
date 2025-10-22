@@ -5,7 +5,6 @@
 ## 🎯 ĐIỂM NỔI BẬT
 
 - ✅ **Tự động hóa hoàn toàn** quy trình tính lương dựa trên dữ liệu chấm công thực tế
-- 📊 **Xuất báo cáo PDF** chuyên nghiệp với ReportLab/WeasyPrint
 - 🔐 **Bảo mật cao** với authentication middleware và phân quyền người dùng
 - 📱 **Responsive Design** tương thích mọi thiết bị với Bootstrap framework
 - ⚡ **Hiệu suất tối ưu** với Django ORM và database indexing
@@ -22,7 +21,6 @@
 | **Django 4.0+** | Web framework (MVC, ORM, Routing) | ⭐⭐⭐⭐⭐ |
 | **Django ORM** | Database abstraction & query optimization | ⭐⭐⭐⭐ |
 | **SQLite** | Relational database management | ⭐⭐⭐⭐ |
-| **ReportLab/WeasyPrint** | PDF generation & reporting | ⭐⭐⭐⭐ |
 | **Authentication Middleware** | Security & authorization | ⭐⭐⭐⭐ |
 
 ### 🎨 Frontend Development
@@ -62,14 +60,11 @@
 ### 4️⃣ Tính lương Tự động
 - 💰 Công thức tính lương linh hoạt (lương cơ bản + phụ cấp + thưởng - khấu trừ)
 - 📊 Tự động tính toán dựa trên dữ liệu chấm công
-- 📄 **Xuất bảng lương PDF** với template chuyên nghiệp
-- 📧 Gửi email thông báo lương (tính năng mở rộng)
 
 ### 5️⃣ Phân quyền & Bảo mật
 - 🔐 Authentication với Django's built-in system
 - 👥 Role-based access control (Admin, HR Manager, Employee)
-- 🛡️ CSRF protection & SQL injection prevention
-- 📝 Audit log cho các thao tác quan trọng
+- 🛡️ CSRF protection
 
 ---
 
@@ -89,7 +84,7 @@
 
 ### 💰 Quản lý Lương
 ![Payroll](https://github.com/user-attachments/assets/2410fcd3-bbbd-4135-a78a-fb9ad3c6ef9d)
-*Automated calculation với PDF export*
+*Automated calculation*
 
 ---
 
@@ -210,51 +205,3 @@ LTWNhom06/
 ├── manage.py                  # Django management script
 └── README.md                  # Project documentation
 \`\`\`
-
----
-
-## 🔮 ROADMAP & FUTURE ENHANCEMENTS
-
-- [ ] **API RESTful** với Django REST Framework
-- [ ] **Real-time notifications** với WebSocket
-- [ ] **Mobile app** (React Native/Flutter)
-- [ ] **AI-powered analytics** cho dự đoán nhân sự
-- [ ] **Integration** với các hệ thống ERP
-- [ ] **Multi-language support** (i18n)
-- [ ] **Docker containerization** cho deployment dễ dàng
-- [ ] **CI/CD pipeline** với GitHub Actions
-
----
-
-## 🛠️ TROUBLESHOOTING
-
-### Lỗi thường gặp
-
-**1. ModuleNotFoundError: No module named 'django'**
-\`\`\`bash
-# Đảm bảo virtual environment đã được activate
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-
-# Cài đặt lại dependencies
-pip install -r requirements.txt
-\`\`\`
-
-**2. Database migration errors**
-\`\`\`bash
-# Xóa migrations cũ và tạo lại
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-python manage.py makemigrations
-python manage.py migrate
-\`\`\`
-
-**3. Static files không load**
-\`\`\`bash
-# Collect static files
-python manage.py collectstatic
-\`\`\`
----
-
-Made with ❤️ by [Your Name]
-
-</div>
