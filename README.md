@@ -177,8 +177,6 @@ pylint **/*.py
 ---
 
 ## 📁 CẤU TRÚC PROJECT
-
-\`\`\`
 LTWNhom06/
 ├── hrm_app/                    # Main application
 │   ├── models.py              # Database models (Employee, Contract, Attendance, Payroll)
@@ -204,4 +202,3 @@ LTWNhom06/
 ├── requirements.txt           # Python dependencies
 ├── manage.py                  # Django management script
 └── README.md                  # Project documentation
-\`\`\`
