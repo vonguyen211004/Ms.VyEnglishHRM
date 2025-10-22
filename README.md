@@ -21,7 +21,7 @@
 | **Python 3.8+** | Core programming language | ⭐⭐⭐⭐⭐ |
 | **Django 4.0+** | Web framework (MVC, ORM, Routing) | ⭐⭐⭐⭐⭐ |
 | **Django ORM** | Database abstraction & query optimization | ⭐⭐⭐⭐ |
-| **SQLite/PostgreSQL** | Relational database management | ⭐⭐⭐⭐ |
+| **SQLite** | Relational database management | ⭐⭐⭐⭐ |
 | **ReportLab/WeasyPrint** | PDF generation & reporting | ⭐⭐⭐⭐ |
 | **Authentication Middleware** | Security & authorization | ⭐⭐⭐⭐ |
 
