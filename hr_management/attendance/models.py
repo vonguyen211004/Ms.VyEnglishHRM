@@ -1,7 +1,6 @@
 from django.db import models
 from employees.models import Employee, Position
 from django.utils.translation import gettext_lazy as _
-from employees.models import Position
 
 class WorkShift(models.Model):
     name = models.CharField(max_length=100, verbose_name="Tên ca làm việc")

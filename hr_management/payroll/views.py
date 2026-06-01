@@ -5,23 +5,17 @@ from django.db.models import Q, Sum
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
 from decimal import Decimal
 import json
 import xlsxwriter
 from io import BytesIO
 from datetime import datetime
-from payroll.models import PayrollDeduction
-from .models import Payroll, PayrollDetail, PayrollAllowance
+
+from .models import Payroll, PayrollDetail, PayrollAllowance, PayrollDeduction
 from .forms import PayrollForm, PayrollDetailForm
 from employees.models import Employee, Position
 from attendance.models import AttendanceSummary, DailyAttendance
-
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
-import json
-from decimal import Decimal
-from .models import Employee
 
 
 @login_required

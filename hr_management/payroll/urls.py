@@ -13,11 +13,6 @@ urlpatterns = [
     path('<int:payroll_id>/detail/<int:detail_id>/', views.payroll_employee_detail, name='payroll_employee_detail'),
     path('calculate/', views.calculate_payroll, name='calculate_payroll'),
 
-    path('<int:pk>/export/', views.export_payroll, name='export_payroll'),
-
-# Thêm URL cho chức năng chuyển tính lương từ bảng chấm công
+    # Chuyển tính lương từ bảng chấm công
     path('transfer/<int:attendance_summary_id>/', views.transfer_to_payroll, name='transfer_to_payroll'),
-    # Thêm URL cho chức năng chuyển tính lương từ bảng chấm công
-    path('transfer/<int:attendance_summary_id>/', views.transfer_to_payroll, name='transfer_to_payroll'),
-
 ]

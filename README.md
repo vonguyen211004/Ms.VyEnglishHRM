@@ -91,75 +91,83 @@
 ## ⚙️ HƯỚNG DẪN CÀI ĐẶT
 
 ### Prerequisites
-\`\`\`bash
+```bash
 Python 3.8+
 pip 20.0+
 virtualenv (recommended)
-\`\`\`
+```
 
 ### Installation Steps
 
 **1. Clone repository**
-\`\`\`bash
+```bash
 git clone https://github.com/tramy212/LTWNhom06.git
 cd LTWNhom06
-\`\`\`
+```
 
 **2. Tạo virtual environment**
-\`\`\`bash
+```bash
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # hoặc
 venv\Scripts\activate  # Windows
-\`\`\`
+```
 
 **3. Cài đặt dependencies**
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
+```bash
+pip install -r hr_management/requirements.txt
+```
 
-**4. Cấu hình database**
-\`\`\`python
-# settings.py - Mặc định dùng SQLite
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-# Có thể chuyển sang PostgreSQL cho production
-\`\`\`
+**4. Navigate to project directory**
+```bash
+cd hr_management
+```
 
 **5. Chạy migrations**
-\`\`\`bash
+```bash
 python manage.py makemigrations
 python manage.py migrate
-\`\`\`
+```
 
-**6. Tạo superuser**
-\`\`\`bash
+**6. Tạo superuser (admin)**
+```bash
 python manage.py createsuperuser
-\`\`\`
+```
 
-**7. Load sample data (optional)**
-\`\`\`bash
-python manage.py loaddata fixtures/sample_data.json
-\`\`\`
-
-**8. Khởi chạy server**
-\`\`\`bash
+**7. Khởi chạy server**
+```bash
 python manage.py runserver
-\`\`\`
+```
 
-**9. Truy cập ứng dụng**
-- **Frontend:** http://127.0.0.1:8000/
+**8. Truy cập ứng dụng**
+- **Homepage:** http://127.0.0.1:8000/
 - **Admin Panel:** http://127.0.0.1:8000/admin/
+- **Employees:** http://127.0.0.1:8000/nhan-vien/
+- **Attendance:** http://127.0.0.1:8000/attendance/
+- **Payroll:** http://127.0.0.1:8000/tien-luong/
+
+---
+
+## 📖 USING THE APPLICATION
+
+### Admin Functions
+1. Login with superuser credentials
+2. Access Admin Panel at `/admin/`
+3. Create Departments, Positions, Work Shifts
+4. Add and manage employees
+5. Configure attendance records
+6. Generate payroll
+
+### For Employees
+1. View their profile
+2. Check attendance records
+3. View salary information (if implemented)
 
 ---
 
 ## 🧪 TESTING & QUALITY ASSURANCE
 
-\`\`\`bash
+```bash
 # Chạy unit tests
 python manage.py test
 
@@ -177,28 +185,236 @@ pylint **/*.py
 ---
 
 ## 📁 CẤU TRÚC PROJECT
+
+```
 LTWNhom06/
-├── hrm_app/                    # Main application
-│   ├── models.py              # Database models (Employee, Contract, Attendance, Payroll)
-│   ├── views.py               # Business logic & request handlers
-│   ├── urls.py                # URL routing
-│   ├── forms.py               # Form validation
-│   ├── admin.py               # Admin interface customization
-│   └── templates/             # HTML templates
-│       ├── base.html          # Base template với navigation
-│       ├── dashboard.html     # Dashboard với statistics
-│       ├── employees/         # Employee management templates
-│       ├── attendance/        # Attendance tracking templates
-│       └── payroll/           # Payroll management templates
-├── static/                    # Static files
-│   ├── css/                   # Custom stylesheets
-│   ├── js/                    # JavaScript files
-│   └── images/                # Images & assets
-├── media/                     # User uploaded files
-├── hrm_project/               # Project settings
-│   ├── settings.py            # Django configuration
-│   ├── urls.py                # Root URL configuration
-│   └── wsgi.py                # WSGI configuration
-├── requirements.txt           # Python dependencies
-├── manage.py                  # Django management script
-└── README.md                  # Project documentation
+├── hr_management/                    # Django Project Settings
+│   ├── settings.py                  # Django configuration
+│   ├── urls.py                      # Root URL configuration
+│   ├── wsgi.py                      # WSGI configuration
+│   ├── views.py                     # Project-wide views (home, login)
+│   └── asgi.py                      # ASGI configuration
+│
+├── employees/                        # Employee Management App
+│   ├── models.py                    # Employee, Contract, Department, Position, etc.
+│   ├── views.py                     # Employee CRUD & contract management
+│   ├── forms.py                     # Employee & contract forms
+│   ├── urls.py                      # Employee routing
+│   ├── api_views.py                 # REST API endpoints
+│   ├── utils.py                     # Helper functions
+│   ├── admin.py                     # Admin customization
+│   ├── migrations/                  # Database migrations
+│   └── templates/employees/         # Employee templates
+│
+├── attendance/                       # Attendance Management App
+│   ├── models.py                    # WorkShift, AttendanceRecord, DailyAttendance, etc.
+│   ├── views.py                     # Attendance tracking & Excel export
+│   ├── forms.py                     # Attendance forms
+│   ├── urls.py                      # Attendance routing
+│   ├── utils.py                     # Attendance calculations
+│   ├── admin.py                     # Admin customization
+│   ├── migrations/                  # Database migrations
+│   └── templates/attendance/        # Attendance templates
+│
+├── payroll/                          # Payroll Management App
+│   ├── models.py                    # Payroll, PayrollDetail, etc.
+│   ├── views.py                     # Payroll calculation & tax API
+│   ├── forms.py                     # Payroll forms
+│   ├── urls.py                      # Payroll routing
+│   ├── admin.py                     # Admin customization
+│   ├── migrations/                  # Database migrations
+│   └── templates/payroll/           # Payroll templates
+│
+├── static/                          # Static Files
+│   ├── css/
+│   │   ├── custom.css              # Custom styles
+│   │   └── main.css                # Main styles
+│   └── js/
+│       ├── charts.js               # Chart.js for dashboard
+│       └── main.js                 # Main JavaScript
+│
+├── templates/                       # Global Templates
+│   ├── base.html                   # Base template with navbar
+│   ├── home.html                   # Homepage
+│   └── login.html                  # Login page
+│
+├── media/                          # User Uploaded Files
+│   ├── employee_photos/            # Employee photos
+│   └── employees/                  # Other employee files
+│
+├── manage.py                       # Django management script
+├── requirements.txt                # Python dependencies
+├── db.sqlite3                      # Development database
+├── PROJECT_CONTEXT.md              # Detailed project context for AI
+└── README.md                       # This file
+```
+
+---
+
+## 📚 KEY FEATURES BREAKDOWN
+
+### 1️⃣ Employee Management (Quản lý nhân sự)
+- ✅ CRUD operations for employees
+- ✅ Contract tracking (probation, fixed-term, indefinite)
+- ✅ Work history & salary history
+- ✅ Photo upload functionality
+- ✅ Department & position management
+- ✅ Advanced search & filtering
+
+### 2️⃣ Attendance System (Hệ thống chấm công)
+- ✅ Work shift configuration with flexible times
+- ✅ Daily attendance recording
+- ✅ Check-in/check-out tracking
+- ✅ Monthly attendance summaries
+- ✅ Excel export functionality
+- ✅ Absence type classification
+
+### 3️⃣ Payroll System (Hệ thống tính lương)
+- ✅ Automatic salary calculation
+- ✅ Attendance-based compensation
+- ✅ Shift coefficient multipliers (1x, 2x, 3x)
+- ✅ Tax calculation API
+- ✅ Payroll status management
+- ✅ Report generation
+
+---
+
+## 🔧 TECHNOLOGY STACK
+
+| Component | Technology | Version |
+|-----------|-----------|---------|
+| **Backend** | Django | 4.2.7 |
+| **Language** | Python | 3.8+ |
+| **Database** | SQLite (dev) / PostgreSQL (prod) | Latest |
+| **Frontend** | Bootstrap | 5 |
+| **Forms** | django-crispy-forms | 2.0 |
+| **Excel** | openpyxl, xlsxwriter | 3.11.2, 3.1.7 |
+| **Images** | Pillow | 10.1.0 |
+
+---
+
+## 🔐 Security Features
+- ✅ Django authentication system
+- ✅ CSRF protection enabled
+- ✅ Login required decorators
+- ✅ Role-based access control
+- ✅ Password validation rules
+- ✅ Session management
+
+---
+
+## 📝 USAGE EXAMPLES
+
+### Add a New Employee
+1. Go to `/nhan-vien/them/`
+2. Fill in employee information
+3. Upload photo if needed
+4. Click Save
+
+### Create Attendance Record
+1. Go to `/attendance/`
+2. Select Work Shift
+3. Choose employees
+4. Set date range
+5. Submit
+
+### Generate Payroll
+1. Go to `/tien-luong/`
+2. Select attendance summary
+3. Review calculations
+4. Approve/Process
+
+---
+
+## 🐛 TROUBLESHOOTING
+
+### Database Issues
+```bash
+# Reset database
+python manage.py migrate --zero [app_name]
+python manage.py migrate
+
+# Clear all data
+python manage.py flush
+```
+
+### Import Errors
+```bash
+# Reinstall dependencies
+pip install --force-reinstall -r requirements.txt
+
+# Check installed packages
+pip list
+```
+
+### Static Files Issues
+```bash
+# Collect static files
+python manage.py collectstatic --noinput
+
+# Clear cache
+python manage.py clear_cache
+```
+
+---
+
+## 📞 SUPPORT & CONTRIBUTION
+
+### Reporting Issues
+- Check existing issues first
+- Provide clear description
+- Include error messages & logs
+- Attach screenshots if applicable
+
+### Contributing
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 LICENSE
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 👥 CONTRIBUTORS
+
+- **Lead Developer**: Ms.Vy English Team
+- **Project Manager**: Development Team
+
+---
+
+## 📅 PROJECT STATUS
+
+- ✅ Core functionality implemented
+- ✅ Database schema finalized
+- ✅ Import issues fixed (June 2026)
+- ✅ Requirements.txt updated
+- ⏳ Full test coverage (in progress)
+- ⏳ API documentation (pending)
+
+---
+
+## 🎓 LEARNING OUTCOMES
+
+This project demonstrates:
+- Django Web Framework mastery
+- Database design & ORM usage
+- RESTful API development
+- Form validation & error handling
+- Template inheritance & static files
+- Authentication & authorization
+- Business logic implementation
+- Excel file generation
+
+---
+
+**Last Updated**: June 1, 2026
+**Version**: 1.0.0
+**Status**: Development/Beta
+
+For detailed project context, architecture, and coding guidelines, please refer to [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)

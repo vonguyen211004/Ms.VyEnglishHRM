@@ -1,27 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse, JsonResponse
+from django.core.paginator import Paginator
+from django.db import transaction, models
+from django.db.models import Prefetch
+from decimal import Decimal
+import json
 import openpyxl
 from openpyxl.utils import get_column_letter
-from django.http import HttpResponse
-from django.contrib import messages
-from .models import WorkShift, AttendanceRecord, DailyAttendance, AttendanceSummary
-from employees.models import Employee, Position
 from datetime import datetime, timedelta
-from .utils import get_attendance_summary_data
-from django.core.paginator import Paginator
-from django.http import JsonResponse
-import json
-from django.contrib import messages
-from .models import AttendanceRecord
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
-from django.db import transaction
-from decimal import Decimal
-from django.db import models
-from .models import AttendanceSummary, EmployeeAttendance
-from payroll.models import Payroll, PayrollDetail
-from .models import AttendanceSummary, AttendanceRecord
+
+from .models import (WorkShift, AttendanceRecord, DailyAttendance, 
+                     AttendanceSummary, EmployeeAttendance)
 from .forms import DailyAttendanceForm
+from .utils import get_attendance_summary_data
+from employees.models import Employee, Position
+from payroll.models import Payroll, PayrollDetail
 
 
 def dashboard(request):

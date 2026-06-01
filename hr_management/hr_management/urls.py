@@ -8,16 +8,15 @@ urlpatterns = [
     path('', home, name='home'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('admin/', admin.site.urls),
+
+    # App URLs
     path('nhan-vien/', include('employees.urls')),
-        path('api/', include('employees.urls_api')),
+    path('api/', include('employees.urls_api')),
     path('tien-luong/', include('payroll.urls')),
     path('attendance/', include('attendance.urls')),
-    path('attendance/', include('attendance.urls', namespace='attendance')),  # Thêm namespace='attendance'
-    path('admin/', admin.site.urls),
-    path('employees/', include('employees.urls')),
-    path('attendance/', include('attendance.urls')),
-    path('payroll/', include('payroll.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
