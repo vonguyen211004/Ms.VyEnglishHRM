@@ -158,23 +158,6 @@ python manage.py runserver
 5. Configure attendance records
 6. Generate payroll
 
----
-
-## 🚀 DEPLOYMENT GUIDE
-
-**Muốn chia sẻ sản phẩm với nhà tuyển dụng qua URL?**
-
-Xem hướng dẫn chi tiết trong [**DEPLOYMENT.md**](DEPLOYMENT.md) để:
-- ✅ Deploy trên **Render** (FREE tier, 15 ngày) - **NHANH NHẤT**
-- ✅ Deploy trên **PythonAnywhere** (FREE 3 tháng) - **DỄ NHẤT**
-- ✅ Deploy trên **Railway** (FREE tier)
-- ✅ Deploy trên **AWS** (FREE tier 1 năm)
-- ✅ Deploy trên **DigitalOcean** ($6/tháng)
-
-**Thời gian setup: 20-60 phút**
-
-📌 **Khuyến nghị:** Dùng **Render** hoặc **PythonAnywhere** cho demo nhanh!
-
 ### For Employees
 1. View their profile
 2. Check attendance records
@@ -434,16 +417,4 @@ This project demonstrates:
 **Version**: 1.0.0
 **Status**: Development/Beta
 
----
-
-## 📚 Documentation
-
-| Tài liệu | Mục đích |
-|---------|---------|
-| [**PROJECT_CONTEXT.md**](PROJECT_CONTEXT.md) | Tổng quan project, architecture, coding guidelines |
-| [**DEPLOYMENT.md**](DEPLOYMENT.md) | Hướng dẫn deploy lên Render, PythonAnywhere, AWS, v.v. |
-| [**GITHUB_PUSH.md**](GITHUB_PUSH.md) | Hướng dẫn push code lên GitHub |
-| **.env.example** | Các environment variables cần thiết |
-| **Procfile** | Configuration cho deployment |
-| **build.sh** | Build script tự động cho deployment |
-| **runtime.txt** | Python version specification |
+For detailed project context, architecture, and coding guidelines, please refer to [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)
