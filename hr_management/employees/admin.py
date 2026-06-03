@@ -20,7 +20,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_filter = ('position', 'is_active', 'gender', 'education_level')
     fieldsets = (
         ('Thông tin cơ bản', {
-            'fields': ('code', 'first_name', 'last_name', 'gender', 'date_of_birth', 'photo')
+            'fields': ('code', 'first_name', 'last_name', 'gender', 'date_of_birth')
         }),
         ('Thông tin liên hệ', {
             'fields': ('phone', 'email', 'id_number', 'address')

@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}
- - Ms.Vy English
-{% endblock %}
+{% block title %}Danh sách ca làm việc - Ms.Vy English{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
@@ -10,71 +8,83 @@
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="text-center fw-bold">Quản lý Danh Sách Ca Làm Việc</h2>
-    <a href="{% url 'attendance:work_shift_form' %}" class="btn btn-primary">
-    <i class="bi bi-plus-circle me-1"></i> Thêm ca làm việc
-</a>
+    <h2 class="fw-bold mb-0">Danh sách ca làm việc</h2>
+    <a href="{% url 'attendance:work_shift_add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Thêm ca làm việc
+    </a>
 </div>
 
-<!-- Bộ lọc -->
-<div class="d-flex gap-3 mb-3 align-items-center">
-    <input type="text" class="form-control" placeholder="Tìm kiếm theo mã ca hoặc tên ca..." style="max-width: 300px;" id="searchInput">
-    <button class="btn btn-primary" type="submit">
-        <i class="bi bi-search"></i>
-    </button>
-</div>
-
-<div class="card">
-    <div class="card-body p-0">
-        <table class="table table-hover mb-0" id="workShiftTable">
-            <thead>
-                <tr>
-                    <th>Tên ca</th>
-                    <th>Mã ca</th>
-                    <th>Giờ bắt đầu ca</th>
-                    <th>Giờ kết thúc ca</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for shift in work_shifts %}
-                <tr>
-                    <td>{{ shift.name }}</td>
-                    <td>{{ shift.code }}</td>
-                    <td>{{ shift.start_time }}</td>
-                    <td>{{ shift.end_time }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'attendance:work_shift_form' shift.id %}"><i class="bi bi-pencil me-2"></i> Sửa</a></li>
-                                <li><a class="dropdown-item" href="{% url 'attendance:work_shift_detail' shift.id %}"><i class="bi bi-eye me-2"></i> Xem chi tiết</a></li>
-                                <li><a class="dropdown-item text-danger" href="{% url 'attendance:work_shift_delete' shift.id %}" onclick="return confirm('Bạn có chắc chắn muốn xóa ca làm việc này không?');"><i class="bi bi-trash me-2"></i> Xóa</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center text-muted">Chưa có ca làm việc nào.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="list-filter-card">
+    <div class="row g-3 align-items-center">
+        <div class="col-lg-5 col-md-7">
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo mã ca hoặc tên ca..." id="searchInput">
+        </div>
     </div>
 </div>
 
-<div class="mt-3">
-    <p>Tổng số bản ghi: {{ work_shifts|length }}</p>
-    <p>Từ 1 đến {{ work_shifts|length }} bản ghi</p>
+<div class="card list-card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="workShiftTable">
+                <thead>
+                    <tr>
+                        <th>Tên ca</th>
+                        <th>Mã ca</th>
+                        <th>Giờ bắt đầu ca</th>
+                        <th>Giờ kết thúc ca</th>
+                        <th class="action-column">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for shift in work_shifts %}
+                    <tr>
+                        <td>{{ shift.name }}</td>
+                        <td>{{ shift.code }}</td>
+                        <td>{{ shift.start_time }}</td>
+                        <td>{{ shift.end_time }}</td>
+                        <td class="action-column">
+                            <div class="dropdown action-dropdown">
+                                <button class="btn action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Thao tác">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'attendance:work_shift_edit' shift.id %}"><i class="bi bi-pencil me-2"></i>Sửa</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'attendance:work_shift_detail' shift.id %}"><i class="bi bi-eye me-2"></i>Xem chi tiết</a></li>
+                                    <li><a class="dropdown-item text-danger" href="{% url 'attendance:work_shift_delete' shift.id %}" onclick="return confirm('Bạn có chắc chắn muốn xóa ca làm việc này không?');"><i class="bi bi-trash me-2"></i>Xóa</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">Chưa có ca làm việc nào.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% if page_obj %}
+<div class="list-pagination">
+    <div class="pagination-summary">
+        Tổng số bản ghi: {{ page_obj.paginator.count }}
+        {% if page_obj.paginator.count %} | Từ {{ page_obj.start_index }} đến {{ page_obj.end_index }}{% endif %}
+    </div>
     <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled"><a class="page-link" href="#">1 / 1</a></li>
+        <ul class="pagination">
+            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">Trước</a>
+            </li>
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">Sau</a>
+            </li>
         </ul>
     </nav>
 </div>
+{% endif %}
 
 <script>
 function filterTable() {
@@ -82,15 +92,14 @@ function filterTable() {
     const rows = document.querySelectorAll('#workShiftTable tbody tr');
 
     rows.forEach(row => {
-        const name = row.cells[0].innerText.toLowerCase();
-        const code = row.cells[1].innerText.toLowerCase();
-
-        if (name.includes(searchInput) || code.includes(searchInput)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
+        if (row.classList.contains('empty-row')) return;
+        const name = row.cells[0]?.innerText.toLowerCase() || '';
+        const code = row.cells[1]?.innerText.toLowerCase() || '';
+        row.style.display = name.includes(searchInput) || code.includes(searchInput) ? '' : 'none';
     });
 }
+
+document.getElementById('searchInput').addEventListener('input', filterTable);
+filterTable();
 </script>
 {% endblock %}

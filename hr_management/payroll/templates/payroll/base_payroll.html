@@ -6,7 +6,7 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="{% url 'payroll_list' %}" class="nav-link {% if request.path == '/tien-luong/' %}active{% endif %}">
+                <a href="{% url 'payroll_list' %}" class="nav-link {% if request.resolver_match.url_name == 'payroll_list' %}active{% endif %}">
                     <i class="bi bi-list-ul me-2"></i> Danh sách bảng lương
                 </a>
             </li>

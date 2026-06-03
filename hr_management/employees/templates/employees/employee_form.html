@@ -23,7 +23,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
             {% csrf_token %}
 
             <!-- Thông tin cơ bản -->
@@ -71,20 +71,6 @@
                             {{ form.faculty|as_crispy_field }}
                             {{ form.ranking|as_crispy_field }}
                             {{ form.basic_salary|as_crispy_field }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ảnh đại diện -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Ảnh đại diện</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form.photo|as_crispy_field }}
                         </div>
                     </div>
                 </div>

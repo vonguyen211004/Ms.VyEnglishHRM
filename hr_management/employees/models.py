@@ -92,9 +92,6 @@ class Employee(models.Model):
     # Thông tin lương
     basic_salary = models.DecimalField(_("Lương cơ bản"), max_digits=12, decimal_places=0, blank=True, null=True)
 
-    # Ảnh đại diện
-    photo = models.ImageField(_("Ảnh"), upload_to='employees/', blank=True, null=True)
-
     # Thời gian tạo và cập nhật
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -10,7 +10,7 @@ class EmployeeForm(forms.ModelForm):
             'code', 'first_name', 'last_name', 'gender', 'date_of_birth', 'id_number',
             'phone', 'email', 'address', 'position', 'join_date', 'is_active',
             'education_level', 'degree', 'major', 'graduation_year', 'graduation_place',
-            'faculty', 'ranking', 'basic_salary', 'photo'
+            'faculty', 'ranking', 'basic_salary'
         ]
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
@@ -39,7 +39,6 @@ class EmployeeForm(forms.ModelForm):
             'faculty': _('Khoa'),
             'ranking': _('Xếp loại'),
             'basic_salary': _('Lương cơ bản (VNĐ)'),
-            'photo': _('Ảnh đại diện'),
         }
 
     def __init__(self, *args, **kwargs):

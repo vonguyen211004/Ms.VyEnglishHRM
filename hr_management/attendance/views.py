@@ -21,11 +21,17 @@ from payroll.models import Payroll, PayrollDetail
 
 
 def dashboard(request):
-    return redirect('daily_attendance_form')
+    return redirect('attendance:daily_attendance_form')
 
 def work_shift_list(request):
-    work_shifts = WorkShift.objects.all()
-    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+    work_shifts = WorkShift.objects.all().order_by('code')
+    paginator = Paginator(work_shifts, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'attendance/work_shift_list.html', {
+        'work_shifts': page_obj,
+        'page_obj': page_obj,
+    })
 
 def work_shift_form(request, id=None):
     if id:
@@ -614,11 +620,15 @@ def get_daily_attendance(request, record_id, employee_id, date_str):
         return JsonResponse({'status': 'error', 'message': f'Lỗi khi lấy dữ liệu: {str(e)}'})
 
 def attendance_summary(request):
-    attendance_summaries = AttendanceSummary.objects.all()
+    attendance_summaries = AttendanceSummary.objects.all().order_by('-year', '-month', 'name')
+    paginator = Paginator(attendance_summaries, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     positions = Position.objects.all()  # Thêm danh sách vị trí
     attendance_records = AttendanceRecord.objects.all()  # Thêm danh sách bảng chấm công chi tiết
     return render(request, 'attendance/attendance_summary.html', {
-        'attendance_summaries': attendance_summaries,
+        'attendance_summaries': page_obj,
+        'page_obj': page_obj,
         'positions': positions,
         'attendance_records': attendance_records
     })

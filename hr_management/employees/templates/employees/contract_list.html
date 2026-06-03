@@ -13,121 +13,94 @@
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Danh sách hợp đồng</h1>
+    <h1 class="h2 mb-0">Danh sách hợp đồng</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+        {% comment %} <div class="btn-group me-2">
+            <button type="button" class="btn btn-outline-secondary" onclick="window.print()">
                 <i class="bi bi-printer me-1"></i> In
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="exportExcel">
+            <button type="button" class="btn btn-outline-secondary" id="exportExcel">
                 <i class="bi bi-download me-1"></i> Xuất Excel
             </button>
-        </div>
-        <a href="{% url 'contract_create_general' %}" class="btn btn-sm btn-primary">
-            <i class="bi bi-plus me-1"></i> Thêm
+        </div> {% endcomment %}
+        <a href="{% url 'contract_create_general' %}" class="btn btn-primary">
+            <i class="bi bi-plus me-1"></i> Thêm mới hợp đồng
         </a>
     </div>
 </div>
 
-<!-- Thống kê -->
 <div class="row mb-4">
-    <div class="col-md-4">
+    <div class="col-md-4 mb-3 mb-md-0">
         <div class="card bg-primary text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="card-title mb-0">Tổng số hợp đồng</h6>
-                        <h2 class="mt-2 mb-0">{{ total_contracts }}</h2>
-                    </div>
-                    <i class="bi bi-file-earmark-text fs-1"></i>
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title mb-0">Tổng số hợp đồng</h6>
+                    <h2 class="mt-2 mb-0">{{ total_contracts }}</h2>
                 </div>
+                <i class="bi bi-file-earmark-text fs-1"></i>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 mb-3 mb-md-0">
         <div class="card bg-success text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="card-title mb-0">Hợp đồng đang hiệu lực</h6>
-                        <h2 class="mt-2 mb-0">{{ active_contracts }}</h2>
-                    </div>
-                    <i class="bi bi-check-circle fs-1"></i>
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title mb-0">Hợp đồng đang hiệu lực</h6>
+                    <h2 class="mt-2 mb-0">{{ active_contracts }}</h2>
                 </div>
+                <i class="bi bi-check-circle fs-1"></i>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card bg-warning text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="card-title mb-0">Hợp đồng sắp hết hạn</h6>
-                        <h2 class="mt-2 mb-0">{{ expiring_contracts }}</h2>
-                    </div>
-                    <i class="bi bi-exclamation-triangle fs-1"></i>
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title mb-0">Hợp đồng sắp hết hạn</h6>
+                    <h2 class="mt-2 mb-0">{{ expiring_contracts }}</h2>
                 </div>
+                <i class="bi bi-exclamation-triangle fs-1"></i>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bộ lọc -->
-<div class="card mb-4">
-    <div class="card-body">
-        <form method="get" class="row g-3">
-            <div class="col-md-4">
-                <div class="input-group">
-                    {{ filter_form.search }}
-                    <button class="btn btn-outline-secondary" type="submit">
-                        <i class="bi bi-search me-1"></i>
-                    </button>
-                </div>
+<div class="list-filter-card">
+    <form method="get" class="row g-3" id="contractFilterForm">
+        <div class="col-lg-4 col-md-6">
+            <div class="input-group">
+                {{ filter_form.search }}
+                {% comment %} <button class="btn btn-outline-secondary" type="submit">
+                    <i class="bi bi-search me-1"></i>
+                </button> {% endcomment %}
             </div>
-            <div class="col-md-2">
-                {{ filter_form.contract_type }}
-            </div>
-            <div class="col-md-2">
-                {{ filter_form.department }}
-            </div>
-            <div class="col-md-2">
-                {{ filter_form.status }}
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="bi bi-funnel me-1"></i> Lọc
-                </button>
-            </div>
-
-            <div class="col-md-3 mt-3">
-                <label class="form-label">Từ ngày:</label>
-                {{ filter_form.date_from }}
-            </div>
-            <div class="col-md-3 mt-3">
-                <label class="form-label">Đến ngày:</label>
-                {{ filter_form.date_to }}
-            </div>
-            <div class="col-md-6 mt-3 text-end">
-                <a href="{% url 'contract_list' %}" class="btn btn-outline-secondary">
-                    <i class="bi bi-x-circle me-1"></i> Xóa bộ lọc
-                </a>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="col-lg-3 col-md-3">{{ filter_form.contract_type }}</div>
+        <div class="col-lg-3 col-md-3">{{ filter_form.department }}</div>
+        <div class="col-lg-2 col-md-3">{{ filter_form.status }}</div>
+        {% comment %} <div class="col-lg-2 col-md-3">
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-funnel me-1"></i> Lọc
+            </button>
+        </div> {% endcomment %}
+        {% comment %} <div class="col-md-3">
+            <label class="form-label">Từ ngày:</label>
+            {{ filter_form.date_from }}
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Đến ngày:</label>
+            {{ filter_form.date_to }}
+        </div> {% endcomment %}
+    </form>
 </div>
 
-<!-- Danh sách hợp đồng -->
-<div class="card">
+<div class="card list-card">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-striped table-hover mb-0">
-                <thead class="table-light">
+                <thead>
                     <tr>
-                        <th width="40px">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="selectAll">
-                            </div>
-                        </th>
+                        <th width="40px"><input class="form-check-input" type="checkbox" id="selectAll"></th>
                         <th>Ngày ký HĐ</th>
                         <th>Số hợp đồng</th>
                         <th>Họ và tên NLĐ</th>
@@ -136,45 +109,27 @@
                         <th>Loại hợp đồng</th>
                         <th>Thời hạn</th>
                         <th>Trạng thái</th>
-                        <th width="60px" class="text-center">Thao tác</th>
+                        <th class="action-column">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for contract in page_obj %}
                     <tr>
-                        <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="{{ contract.id }}">
-                            </div>
-                        </td>
+                        <td><input class="form-check-input" type="checkbox" value="{{ contract.id }}"></td>
                         <td>{{ contract.sign_date|date:"d/m/Y" }}</td>
                         <td>{{ contract.contract_number }}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                {% if contract.employee.photo %}
-                                <img src="{{ contract.employee.photo.url }}" alt="{{ contract.employee.full_name }}"
-                                     class="rounded-circle me-2" width="32" height="32">
-                                {% else %}
-                                <div class="avatar me-2" style="background-color:
-                                    {% cycle '#6366F1' '#F59E0B' '#EC4899' '#10B981' '#3B82F6' %};
-                                    width: 32px; height: 32px; border-radius: 50%; display: flex;
-                                    align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                <div class="avatar me-2" style="background-color: {% cycle '#6366F1' '#F59E0B' '#EC4899' '#10B981' '#3B82F6' %}; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; flex: 0 0 auto;">
                                     {{ contract.employee.first_name|first }}{{ contract.employee.last_name|first }}
                                 </div>
-                                {% endif %}
                                 <a href="{% url 'employee_detail' contract.employee.id %}">{{ contract.employee.full_name }}</a>
                             </div>
                         </td>
                         <td>{{ contract.position.name }}</td>
                         <td>{% if contract.department %}{{ contract.department.name }}{% elif contract.position.department %}{{ contract.position.department.name }}{% else %}Chưa xác định{% endif %}</td>
                         <td>{{ contract.get_contract_type_display }}</td>
-                        <td>
-                            {% if contract.end_date %}
-                                {{ contract.end_date|date:"d/m/Y" }}
-                            {% else %}
-                                <span class="text-muted">Không xác định</span>
-                            {% endif %}
-                        </td>
+                        <td>{% if contract.end_date %}{{ contract.end_date|date:"d/m/Y" }}{% else %}<span class="text-muted">Không xác định</span>{% endif %}</td>
                         <td>
                             {% if not contract.is_active or contract.end_date and contract.end_date <= today %}
                                 <span class="badge bg-secondary">Hết hiệu lực</span>
@@ -184,28 +139,20 @@
                                 <span class="badge bg-success">Đang hiệu lực</span>
                             {% endif %}
                         </td>
-                        <td class="text-center action-column">
+                        <td class="action-column">
                             <div class="dropdown action-dropdown">
-                                <button class="btn btn-sm action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Thao tác">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{% url 'contract_detail' contract.id %}">
-                                        <i class="bi bi-eye me-2"></i>Xem chi tiết
-                                    </a>
-                                    <a class="dropdown-item" href="{% url 'contract_update' contract.id %}">
-                                        <i class="bi bi-pencil me-2"></i>Chỉnh sửa
-                                    </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="{% url 'contract_detail' contract.id %}"><i class="bi bi-eye me-2"></i>Xem chi tiết</a>
+                                    <a class="dropdown-item" href="{% url 'contract_update' contract.id %}"><i class="bi bi-pencil me-2"></i>Chỉnh sửa</a>
                                     {% if contract.is_active and not contract.end_date or contract.end_date > today %}
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="{% url 'contract_terminate' contract.id %}">
-                                        <i class="bi bi-x-circle me-2"></i>Chấm dứt hợp đồng
-                                    </a>
+                                    <a class="dropdown-item text-danger" href="{% url 'contract_terminate' contract.id %}"><i class="bi bi-x-circle me-2"></i>Chấm dứt hợp đồng</a>
                                     {% elif not contract.is_active %}
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item text-danger" href="{% url 'contract_delete' contract.id %}">
-                                        <i class="bi bi-trash me-2"></i>Xóa hợp đồng
-                                    </a>
+                                    <a class="dropdown-item text-danger" href="{% url 'contract_delete' contract.id %}"><i class="bi bi-trash me-2"></i>Xóa hợp đồng</a>
                                     {% endif %}
                                 </div>
                             </div>
@@ -214,13 +161,11 @@
                     {% empty %}
                     <tr>
                         <td colspan="10" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center">
-                                <i class="bi bi-file-earmark-x text-muted" style="font-size: 3rem;"></i>
-                                <p class="mt-3 mb-0">Không có hợp đồng nào.</p>
-                                <a href="{% url 'contract_create_general' %}" class="btn btn-primary btn-sm mt-2">
-                                    <i class="bi bi-plus me-1"></i> Thêm hợp đồng mới
-                                </a>
-                            </div>
+                            <i class="bi bi-file-earmark-x text-muted d-block" style="font-size: 3rem;"></i>
+                            <p class="mt-3 mb-0">Không có hợp đồng nào.</p>
+                            <a href="{% url 'contract_create_general' %}" class="btn btn-primary btn-sm mt-2">
+                                <i class="bi bi-plus me-1"></i> Thêm hợp đồng mới
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -230,128 +175,49 @@
     </div>
 </div>
 
-<!-- Phân trang -->
-{% if page_obj.has_other_pages %}
-<nav aria-label="Page navigation" class="mt-4">
-    <ul class="pagination justify-content-center">
-        {% if page_obj.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="First">
-                <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="First">
-                <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        {% endif %}
-
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <li class="page-item"><a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a></li>
-            {% endif %}
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Last">
-                <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        <li class="page-item disabled">
-            <a class="page-link" href="#" aria-label="Last">
-                <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-        </li>
-        {% endif %}
-    </ul>
-</nav>
+{% if page_obj %}
+<div class="list-pagination">
+    <div class="pagination-summary">
+        Tổng số bản ghi: {{ page_obj.paginator.count }}
+        {% if page_obj.paginator.count %} | Từ {{ page_obj.start_index }} đến {{ page_obj.end_index }}{% endif %}
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% else %}#{% endif %}">Trước</a>
+            </li>
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% else %}#{% endif %}">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
 {% endif %}
 
-<style>
-    /* Đảm bảo menu dropdown hiển thị bên ngoài khung bảng */
-    .table-responsive {
-        overflow: visible !important;
-    }
-
-    /* Định dạng cột thao tác */
-    .action-column {
-        position: relative;
-    }
-
-    /* Định dạng dropdown */
-    .action-dropdown {
-        position: static;
-    }
-
-    /* Định dạng nút thao tác */
-    .action-btn {
-        background: transparent;
-        border: none;
-        color: #6c757d;
-        padding: 0.25rem 0.5rem;
-    }
-
-    .action-btn:hover, .action-btn:focus {
-        color: #000;
-        background-color: rgba(108, 117, 125, 0.1);
-    }
-
-    /* Định dạng menu dropdown */
-    .action-dropdown .dropdown-menu {
-        position: absolute;
-        right: 0;
-        left: auto;
-        z-index: 1000;
-        min-width: 10rem;
-    }
-</style>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Xử lý chọn tất cả
-        const selectAllCheckbox = document.getElementById('selectAll');
-        if (selectAllCheckbox) {
-            selectAllCheckbox.addEventListener('change', function() {
-                const checkboxes = document.querySelectorAll('tbody .form-check-input');
-                checkboxes.forEach(checkbox => {
-                    checkbox.checked = selectAllCheckbox.checked;
-                });
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAllCheckbox = document.getElementById('selectAll');
+    if (selectAllCheckbox) {
+        selectAllCheckbox.addEventListener('change', function() {
+            document.querySelectorAll('tbody .form-check-input').forEach((checkbox) => {
+                checkbox.checked = selectAllCheckbox.checked;
             });
-        }
+        });
+    }
 
-        // Xuất Excel
-        const exportExcelBtn = document.getElementById('exportExcel');
-        if (exportExcelBtn) {
-            exportExcelBtn.addEventListener('click', function() {
-                window.location.href = "{% url 'contract_list' %}?export=excel{% for key, value in request.GET.items %}{% if key != 'export' %}&{{ key }}={{ value }}{% endif %}{% endfor %}";
-            });
-        }
+    const exportExcelBtn = document.getElementById('exportExcel');
+    if (exportExcelBtn) {
+        exportExcelBtn.addEventListener('click', function() {
+            window.location.href = "{% url 'contract_list' %}?export=excel{% for key, value in request.GET.items %}{% if key != 'export' %}&{{ key }}={{ value }}{% endif %}{% endfor %}";
+        });
+    }
+
+    document.querySelectorAll('#contractFilterForm select').forEach((select) => {
+        select.addEventListener('change', function() {
+            document.getElementById('contractFilterForm').submit();
+        });
     });
+});
 </script>
 {% endblock %}

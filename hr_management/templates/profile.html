@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Hồ sơ cá nhân{% endblock %}
+
+{# Hide sidebar on profile page #}
+{% block sidebar %}{% endblock %}
+{% block main_classes %}col-12 px-md-4{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <h1>Hồ sơ cá nhân</h1>
+        </div>
+        <div class="col-lg-4 text-end">
+            <a href="{% url 'home' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Quay lại
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        {% if employee.photo %}
+                            <img src="{{ employee.photo.url }}" class="rounded-circle" width="150" height="150" alt="Avatar">
+                        {% else %}
+                            <i class="bi bi-person-circle" style="font-size: 8rem; color: #2980b9;"></i>
+                        {% endif %}
+                    </div>
+                    <h5>{{ user.get_full_name|default:user.username }}</h5>
+                    <p class="text-muted">{{ employee.position.name|default:"N/A" }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="card mb-3">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Thông tin cơ bản</h5>
+                </div>
+                <div class="card-body">
+                    {% if employee %}
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Mã nhân viên:</strong>
+                            <p class="text-muted">{{ employee.code }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Họ và tên:</strong>
+                            <p class="text-muted">{{ employee.full_name }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Giới tính:</strong>
+                            <p class="text-muted">
+                                {% if employee.gender == 'M' %}Nam{% elif employee.gender == 'F' %}Nữ{% else %}Khác{% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Ngày sinh:</strong>
+                            <p class="text-muted">{{ employee.date_of_birth|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Số điện thoại:</strong>
+                            <p class="text-muted">{{ employee.phone }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Email:</strong>
+                            <p class="text-muted">{{ employee.email }}</p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Địa chỉ:</strong>
+                            <p class="text-muted">{{ employee.address }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Ngày vào làm:</strong>
+                            <p class="text-muted">{{ employee.join_date|date:"d/m/Y" }}</p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">Không có hồ sơ nhân viên liên kết</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Bảo mật</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a href="{% url 'change_password' %}" class="btn btn-warning">
+                            <i class="bi bi-key me-2"></i>Đổi mật khẩu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

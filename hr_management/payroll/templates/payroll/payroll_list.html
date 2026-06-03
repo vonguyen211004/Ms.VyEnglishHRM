@@ -6,47 +6,52 @@
 {% block content %}
 <div class="container-fluid">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-         <h2 class="text-center fw-bold">Quản lý Tiền lương</h2>
-        <a href="{% url 'payroll_create' %}" class="btn btn-primary">
-            <i class="bi bi-plus-circle me-1"></i>Tạo bảng lương mới
-        </a>
+        <h2 class="fw-bold mb-0">Quản lý Tiền lương</h2>
+        <div>
+            <a href="{% url 'home' %}" class="btn btn-secondary me-2">
+                <i class="bi bi-arrow-left me-1"></i>Quay lại
+            </a>
+            <a href="{% url 'payroll_create' %}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i>Tạo bảng lương mới
+            </a>
+        </div>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <form method="get" class="d-flex">
-                        <input type="text" name="search" class="form-control" placeholder="Tìm kiếm bảng lương..." value="{{ search_query }}">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <form method="get" class="d-flex justify-content-md-end">
-                        <select name="status" class="form-select"  onchange="this.form.submit()">
-                            <option value="">-- Tất cả trạng thái --</option>
-                            <option value="draft" {% if status_filter == 'draft' %}selected{% endif %}>Nháp</option>
-                            <option value="processing" {% if status_filter == 'processing' %}selected{% endif %}>Đang xử lý</option>
-                            <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Đã duyệt</option>
-                            <option value="paid" {% if status_filter == 'paid' %}selected{% endif %}>Đã thanh toán</option>
-                            <option value="disabled" {% if status_filter == 'disabled' %}selected{% endif %}>Đã vô hiệu hóa</option>
-                        </select>
-                    </form>
+    <div class="list-filter-card">
+        <form method="get" class="row g-3" id="payrollFilterForm">
+            <div class="col-lg-5 col-md-6">
+                <div class="d-flex gap-2">
+                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm bảng lương..." value="{{ search_query }}">
+                    {% comment %} <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button> {% endcomment %}
                 </div>
             </div>
+            <div class="col-lg-4 col-md-6">
+                <select name="status" class="form-select" onchange="this.form.submit()">
+                    <option value="">-- Tất cả trạng thái --</option>
+                    <option value="draft" {% if status_filter == 'draft' %}selected{% endif %}>Nháp</option>
+                    <option value="processing" {% if status_filter == 'processing' %}selected{% endif %}>Đang xử lý</option>
+                    <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Đã duyệt</option>
+                    <option value="paid" {% if status_filter == 'paid' %}selected{% endif %}>Đã thanh toán</option>
+                    <option value="disabled" {% if status_filter == 'disabled' %}selected{% endif %}>Đã vô hiệu hóa</option>
+                </select>
+            </div>
+        </form>
+    </div>
 
+    <div class="card list-card">
+        <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-light">
+                <table class="table table-hover mb-0">
+                    <thead>
                         <tr>
                             <th>Mã</th>
                             <th>Tên bảng lương</th>
                             <th>Thời gian</th>
                             <th>Trạng thái</th>
                             <th>Ngày tạo</th>
-                            <th class="text-center">Thao tác</th>
+                            <th class="action-column">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,27 +74,23 @@
                                 {% endif %}
                             </td>
                             <td>{{ payroll.created_at|date:"d/m/Y" }}</td>
-                            <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a href="{% url 'payroll_detail' pk=payroll.pk %}" class="btn btn-sm btn-info" title="Xem chi tiết">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
-
-                                    {% if payroll.status == 'draft' %}
-                                    <a href="{% url 'payroll_update' pk=payroll.pk %}" class="btn btn-sm btn-primary" title="Sửa">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    {% endif %}
-
-                                    {% if payroll.status != 'disabled' %}
-                                    <a href="{% url 'disable_payroll' pk=payroll.pk %}" class="btn btn-sm btn-danger" title="Vô hiệu hóa">
-                                        <i class="bi bi-slash-circle"></i>
-                                    </a>
-                                    {% else %}
-                                    <a href="{% url 'activate_payroll' pk=payroll.pk %}" class="btn btn-sm btn-success" title="Kích hoạt">
-                                        <i class="bi bi-check-circle"></i>
-                                    </a>
-                                    {% endif %}
+                            <td class="action-column">
+                                <div class="dropdown action-dropdown">
+                                    <button class="btn action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Thao tác">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item" href="{% url 'payroll_detail' pk=payroll.pk %}"><i class="bi bi-eye me-2"></i>Xem chi tiết</a>
+                                        {% if payroll.status == 'draft' %}
+                                        <a class="dropdown-item" href="{% url 'payroll_update' pk=payroll.pk %}"><i class="bi bi-pencil me-2"></i>Sửa</a>
+                                        {% endif %}
+                                        <div class="dropdown-divider"></div>
+                                        {% if payroll.status != 'disabled' %}
+                                        <a class="dropdown-item text-danger" href="{% url 'disable_payroll' pk=payroll.pk %}"><i class="bi bi-slash-circle me-2"></i>Vô hiệu hóa</a>
+                                        {% else %}
+                                        <a class="dropdown-item text-success" href="{% url 'activate_payroll' pk=payroll.pk %}"><i class="bi bi-check-circle me-2"></i>Kích hoạt</a>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -106,49 +107,27 @@
                     </tbody>
                 </table>
             </div>
-
-            {% if page_obj.has_other_pages %}
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}" aria-label="First">
-                            <span aria-hidden="true">&laquo;&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-
-                    {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}">{{ num }}</a>
-                    </li>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}" aria-label="Last">
-                            <span aria-hidden="true">&raquo;&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
         </div>
     </div>
+
+    {% if page_obj %}
+    <div class="list-pagination">
+        <div class="pagination-summary">
+            Tổng số bản ghi: {{ page_obj.paginator.count }}
+            {% if page_obj.paginator.count %} | Từ {{ page_obj.start_index }} đến {{ page_obj.end_index }}{% endif %}
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                    <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% else %}#{% endif %}">Trước</a>
+                </li>
+                <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+                <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                    <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% else %}#{% endif %}">Sau</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

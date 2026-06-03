@@ -26,13 +26,11 @@
 
 <div class="row">
     <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                {% if employee.photo %}
-                <img src="{{ employee.photo.url }}" alt="{{ employee.full_name }}" class="rounded-circle img-fluid mb-3" style="max-width: 150px;">
-                {% else %}
-                <img src="{% static 'img/default-avatar.png' %}" alt="{{ employee.full_name }}" class="rounded-circle img-fluid mb-3" style="max-width: 150px;">
-                {% endif %}
+        <div class="card employee-detail-card">
+            <div class="card-body text-center p-4">
+                <div class="avatar-placeholder mx-auto mb-3 d-flex align-items-center justify-content-center text-white fw-bold rounded-circle" style="width: 150px; height: 150px; font-size: 3rem; background-color: #2980b9;">
+                    {{ employee.first_name|first|upper }}{{ employee.last_name|first|upper }}
+                </div>
                 <h5 class="card-title">{{ employee.full_name }}</h5>
                 <p class="card-text text-muted">{{ employee.position.name }}</p>
                 <p class="card-text">
@@ -47,48 +45,48 @@
     </div>
 
     <div class="col-md-8 mb-4">
-        <div class="card">
+        <div class="card employee-detail-card">
             <div class="card-header">
                 <h5 class="card-title mb-0">Thông tin cá nhân</h5>
             </div>
-            <div class="card-body">
-                <div class="row mb-2">
+            <div class="card-body p-4">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Mã nhân viên:</div>
                     <div class="col-md-8">{{ employee.code }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Họ và tên:</div>
                     <div class="col-md-8">{{ employee.full_name }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Giới tính:</div>
                     <div class="col-md-8">{{ employee.get_gender_display }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Ngày sinh:</div>
                     <div class="col-md-8">{{ employee.date_of_birth }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Số CMND/CCCD:</div>
                     <div class="col-md-8">{{ employee.id_number }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Số điện thoại:</div>
                     <div class="col-md-8">{{ employee.phone }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Email:</div>
                     <div class="col-md-8">{{ employee.email }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Địa chỉ:</div>
                     <div class="col-md-8">{{ employee.address }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2 border-bottom">
                     <div class="col-md-4 fw-bold">Vị trí:</div>
                     <div class="col-md-8">{{ employee.position.name }}</div>
                 </div>
-                <div class="row mb-2">
+                <div class="row gy-2 py-2">
                     <div class="col-md-4 fw-bold">Ngày vào làm:</div>
                     <div class="col-md-8">{{ employee.join_date }}</div>
                 </div>
@@ -102,7 +100,7 @@
     <div class="card-header">
         <h5 class="card-title mb-0">Trình độ/Bằng cấp</h5>
     </div>
-    <div class="card-body">
+    <div class="card-body p-4">
         <div class="row">
             <div class="col-md-6">
                 <div class="row mb-2">
@@ -151,7 +149,7 @@
             <i class="bi bi-plus me-1"></i> Thêm hợp đồng
         </a>
     </div>
-    <div class="card-body">
+    <div class="card-body p-4">
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -190,4 +188,11 @@
         </div>
     </div>
 </div>
+<style>
+    .employee-detail-card .card-header,
+    .employee-detail-card .card-body {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+</style>
 {% endblock %}

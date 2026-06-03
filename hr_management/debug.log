@@ -13592,3 +13592,1600 @@ INFO 2025-05-21 02:13:28,792 basehttp "GET /attendance/summary/4/ HTTP/1.1" 200 
 WARNING 2025-05-21 02:13:28,842 basehttp "GET /static/js/attendance.js HTTP/1.1" 404 1807
 INFO 2025-05-21 02:13:34,899 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 14720
 INFO 2025-05-21 02:13:36,800 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 14494
+INFO 2026-06-02 15:19:53,959 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:20:02,457 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-06-02 15:20:02,520 basehttp "GET /login/?next=/ HTTP/1.1" 200 1820
+WARNING 2026-06-02 15:20:03,450 log Not Found: /favicon.ico
+WARNING 2026-06-02 15:20:03,451 basehttp "GET /favicon.ico HTTP/1.1" 404 3143
+INFO 2026-06-02 15:20:23,592 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:20:24,364 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-06-02 15:20:24,378 basehttp "GET /login/?next=/ HTTP/1.1" 200 1820
+WARNING 2026-06-02 15:20:24,844 log Not Found: /favicon.ico
+WARNING 2026-06-02 15:20:24,846 basehttp "GET /favicon.ico HTTP/1.1" 404 3143
+INFO 2026-06-02 15:20:34,252 basehttp "POST /login/?next=/ HTTP/1.1" 200 2103
+INFO 2026-06-02 15:24:16,310 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:24:21,260 basehttp "POST /login/?next=/ HTTP/1.1" 200 2103
+INFO 2026-06-02 15:24:27,287 basehttp "POST /login/?next=/ HTTP/1.1" 302 0
+INFO 2026-06-02 15:24:27,432 basehttp "GET / HTTP/1.1" 200 13087
+INFO 2026-06-02 15:25:10,739 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27964
+ERROR 2026-06-02 15:25:12,266 log Internal Server Error: /attendance/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 24, in dashboard
+    return redirect('daily_attendance_form')
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_attendance_form' not found. 'daily_attendance_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:25:12,274 basehttp "GET /attendance/ HTTP/1.1" 500 92336
+INFO 2026-06-02 15:25:15,337 basehttp "GET /tien-luong/ HTTP/1.1" 200 17341
+INFO 2026-06-02 15:25:17,852 basehttp "GET / HTTP/1.1" 200 13087
+INFO 2026-06-02 15:25:18,782 basehttp "GET / HTTP/1.1" 200 13087
+INFO 2026-06-02 15:26:23,595 basehttp "GET / HTTP/1.1" 200 13078
+INFO 2026-06-02 15:30:10,838 basehttp - Broken pipe from ('127.0.0.1', 54163)
+INFO 2026-06-02 15:30:10,843 basehttp - Broken pipe from ('127.0.0.1', 57736)
+INFO 2026-06-02 15:30:10,857 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:30:30,844 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:30:30,893 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:30:40,811 basehttp "GET /nhan-vien/?search=&position=3&status=inactive HTTP/1.1" 200 13900
+INFO 2026-06-02 15:30:43,100 basehttp "GET /nhan-vien/?search=&position=1&status=inactive HTTP/1.1" 200 13900
+INFO 2026-06-02 15:30:47,176 basehttp "GET /nhan-vien/?search=&position=1&status=all HTTP/1.1" 200 16239
+INFO 2026-06-02 15:30:49,631 basehttp "GET /nhan-vien/?search=&position=&status=all HTTP/1.1" 200 27965
+INFO 2026-06-02 15:30:53,759 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 25495
+INFO 2026-06-02 15:31:18,313 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:32:46,180 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:32:46,966 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 25495
+INFO 2026-06-02 15:32:47,889 basehttp "GET /nhan-vien/hop-dong/ HTTP/1.1" 200 26166
+INFO 2026-06-02 15:33:01,498 basehttp "GET /nhan-vien/hop-dong/ HTTP/1.1" 200 26166
+ERROR 2026-06-02 15:33:02,587 log Internal Server Error: /attendance/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 24, in dashboard
+    return redirect('daily_attendance_form')
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_attendance_form' not found. 'daily_attendance_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:33:02,595 basehttp "GET /attendance/ HTTP/1.1" 500 92345
+INFO 2026-06-02 15:33:06,025 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:33:07,786 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:33:09,657 basehttp "GET /tien-luong/create/ HTTP/1.1" 200 14258
+INFO 2026-06-02 15:33:11,916 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:33:15,795 basehttp "GET /tien-luong/4/ HTTP/1.1" 200 13454
+INFO 2026-06-02 15:33:19,494 basehttp "GET /tien-luong/4/update/ HTTP/1.1" 200 14313
+INFO 2026-06-02 15:33:20,817 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:33:22,685 basehttp "GET /tien-luong/4/update/ HTTP/1.1" 200 14313
+INFO 2026-06-02 15:33:23,911 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:33:26,396 basehttp "GET / HTTP/1.1" 200 13078
+INFO 2026-06-02 15:33:29,484 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:33:33,557 basehttp "GET / HTTP/1.1" 200 13078
+INFO 2026-06-02 15:33:38,083 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:33:43,678 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 25495
+INFO 2026-06-02 15:33:45,068 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:33:53,991 basehttp "GET / HTTP/1.1" 200 13078
+INFO 2026-06-02 15:33:54,407 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:34:01,292 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:36:33,357 basehttp "GET /nhan-vien/1/ HTTP/1.1" 200 16014
+WARNING 2026-06-02 15:36:33,408 basehttp "GET /static/img/default-avatar.png HTTP/1.1" 404 1825
+INFO 2026-06-02 15:36:44,715 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:36:46,934 basehttp "GET /nhan-vien/1/cap-nhat/ HTTP/1.1" 200 25860
+INFO 2026-06-02 15:36:51,312 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+INFO 2026-06-02 15:36:53,645 basehttp "GET /nhan-vien/1/hop-dong/them/ HTTP/1.1" 200 20043
+INFO 2026-06-02 15:36:58,921 basehttp "GET /nhan-vien/1/ HTTP/1.1" 200 16014
+WARNING 2026-06-02 15:36:58,956 basehttp "GET /static/img/default-avatar.png HTTP/1.1" 404 1825
+INFO 2026-06-02 15:37:00,402 basehttp "GET /nhan-vien/ HTTP/1.1" 200 27965
+ERROR 2026-06-02 15:37:05,514 log Internal Server Error: /attendance/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 24, in dashboard
+    return redirect('daily_attendance_form')
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_attendance_form' not found. 'daily_attendance_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:37:05,518 basehttp "GET /attendance/ HTTP/1.1" 500 92336
+ERROR 2026-06-02 15:37:33,789 log Internal Server Error: /attendance/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 24, in dashboard
+    return redirect('daily_attendance_form')
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'daily_attendance_form' not found. 'daily_attendance_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:37:33,793 basehttp "GET /attendance/ HTTP/1.1" 500 92336
+INFO 2026-06-02 15:37:35,586 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:37:41,619 basehttp "GET /tien-luong/?status=paid HTTP/1.1" 200 11631
+INFO 2026-06-02 15:37:43,129 basehttp "GET /tien-luong/?status=draft HTTP/1.1" 200 17350
+INFO 2026-06-02 15:37:44,219 basehttp "GET /tien-luong/?status= HTTP/1.1" 200 17342
+INFO 2026-06-02 15:37:48,970 basehttp "GET /tien-luong/4/update/ HTTP/1.1" 200 14313
+INFO 2026-06-02 15:37:50,559 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:37:51,650 basehttp "GET /tien-luong/4/ HTTP/1.1" 200 13454
+INFO 2026-06-02 15:37:57,912 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:38:01,198 basehttp "GET /tien-luong/4/ HTTP/1.1" 200 13454
+INFO 2026-06-02 15:38:02,673 basehttp "GET /tien-luong/ HTTP/1.1" 200 17342
+INFO 2026-06-02 15:38:56,224 basehttp "GET /tien-luong/4/ HTTP/1.1" 200 13454
+INFO 2026-06-02 15:39:26,984 basehttp "GET / HTTP/1.1" 200 13078
+INFO 2026-06-02 15:41:42,980 autoreload D:\dev-python\LTWNhom06\hr_management\attendance\views.py changed, reloading.
+INFO 2026-06-02 15:41:45,624 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:43:15,145 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\views.py changed, reloading.
+INFO 2026-06-02 15:43:16,995 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:43:23,380 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\urls.py changed, reloading.
+INFO 2026-06-02 15:43:24,642 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:45:37,860 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:47:55,797 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:48:00,572 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:48:02,075 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 26363
+INFO 2026-06-02 15:48:02,647 basehttp "GET /nhan-vien/hop-dong/ HTTP/1.1" 200 27034
+INFO 2026-06-02 15:48:03,655 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:48:05,279 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 15:48:05,387 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15572
+ERROR 2026-06-02 15:48:07,099 log Internal Server Error: /attendance/attendance-details/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 129, in attendance_detail_list
+    return render(request, 'attendance/attendance_detail_list.html', {
+        'attendance_records': page_obj,
+        'work_shifts': work_shifts,
+        'page_obj': page_obj
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_detail_form' not found. 'attendance_detail_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:48:07,120 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 500 166124
+ERROR 2026-06-02 15:48:09,234 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'work_shift_form' not found. 'work_shift_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:48:09,243 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 500 161695
+ERROR 2026-06-02 15:48:11,084 log Internal Server Error: /attendance/attendance-details/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 129, in attendance_detail_list
+    return render(request, 'attendance/attendance_detail_list.html', {
+        'attendance_records': page_obj,
+        'work_shifts': work_shifts,
+        'page_obj': page_obj
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_detail_form' not found. 'attendance_detail_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:48:11,092 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 500 166124
+ERROR 2026-06-02 15:48:13,150 log Internal Server Error: /attendance/summary/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 620, in attendance_summary
+    return render(request, 'attendance/attendance_summary.html', {
+        'attendance_summaries': attendance_summaries,
+        'positions': positions,
+        'attendance_records': attendance_records
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_summary_form' not found. 'attendance_summary_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 15:48:13,157 basehttp "GET /attendance/summary/ HTTP/1.1" 500 181819
+INFO 2026-06-02 15:48:16,913 basehttp "GET /tien-luong/ HTTP/1.1" 200 18368
+INFO 2026-06-02 15:48:18,906 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:48:19,829 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:48:21,135 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:48:23,249 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:48:24,815 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 15:48:24,839 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15572
+INFO 2026-06-02 15:48:25,763 basehttp "GET /tien-luong/ HTTP/1.1" 200 18368
+INFO 2026-06-02 15:48:27,797 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:48:29,844 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:48:31,033 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:48:32,149 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:51:36,092 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 15:51:39,528 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:51:47,207 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:51:47,880 basehttp "GET / HTTP/1.1" 200 13668
+ERROR 2026-06-02 15:51:49,200 log Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\hr_management\views.py", line 33, in user_profile
+    employee = Employee.objects.get(user=request.user)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 623, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1545, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1576, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1426, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1236, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\query.py", line 1724, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'user' into field. Choices are: address, basic_salary, code, contracts, created_at, dailyattendance, date_of_birth, degree, education_level, email, employeeattendance, faculty, first_name, full_name, gender, graduation_place, graduation_year, id, id_number, is_active, join_date, last_name, major, payrolldetail, phone, photo, position, position_id, ranking, salary_histories, updated_at, work_histories, workshift
+ERROR 2026-06-02 15:51:49,211 basehttp "GET /profile/ HTTP/1.1" 500 129996
+INFO 2026-06-02 15:52:17,713 basehttp "GET /change-password/ HTTP/1.1" 200 11833
+INFO 2026-06-02 15:53:30,597 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:53:36,940 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:53:40,635 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:53:41,247 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:53:42,099 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:53:43,310 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 26363
+INFO 2026-06-02 15:53:44,103 basehttp "GET /nhan-vien/hop-dong/ HTTP/1.1" 200 27034
+INFO 2026-06-02 15:53:44,993 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:53:45,643 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 26363
+INFO 2026-06-02 15:53:45,955 basehttp "GET /nhan-vien/hop-dong/ HTTP/1.1" 200 27034
+INFO 2026-06-02 15:53:46,350 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:53:48,700 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 26363
+INFO 2026-06-02 15:53:49,019 basehttp "GET /nhan-vien/hop-dong/ HTTP/1.1" 200 27034
+INFO 2026-06-02 15:53:49,418 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:53:54,019 basehttp "GET /nhan-vien/?search=&position=&status=all HTTP/1.1" 200 28834
+INFO 2026-06-02 15:55:41,654 basehttp "GET /nhan-vien/1/ HTTP/1.1" 200 16882
+WARNING 2026-06-02 15:55:41,696 basehttp "GET /static/img/default-avatar.png HTTP/1.1" 404 1825
+INFO 2026-06-02 15:57:15,454 basehttp "GET /nhan-vien/1/hop-dong/them/ HTTP/1.1" 200 20911
+INFO 2026-06-02 15:57:18,520 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28834
+INFO 2026-06-02 15:57:32,860 basehttp "GET / HTTP/1.1" 200 13668
+INFO 2026-06-02 15:58:43,594 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\views.py changed, reloading.
+INFO 2026-06-02 15:58:44,933 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 16:00:33,289 basehttp "GET / HTTP/1.1" 200 13737
+INFO 2026-06-02 16:00:37,967 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 16:00:39,378 basehttp "GET / HTTP/1.1" 200 13737
+INFO 2026-06-02 16:00:41,083 basehttp "GET /profile/ HTTP/1.1" 200 11086
+INFO 2026-06-02 16:00:50,171 basehttp "GET /change-password/ HTTP/1.1" 200 11902
+INFO 2026-06-02 16:01:39,375 basehttp "GET / HTTP/1.1" 200 13737
+INFO 2026-06-02 16:01:52,635 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\views.py changed, reloading.
+INFO 2026-06-02 16:01:54,049 autoreload Watching for file changes with StatReloader
+INFO 2026-06-02 16:02:27,716 basehttp "GET / HTTP/1.1" 200 13759
+INFO 2026-06-02 16:03:20,637 basehttp "GET / HTTP/1.1" 200 13784
+INFO 2026-06-02 16:03:32,631 basehttp "GET / HTTP/1.1" 200 13787
+INFO 2026-06-02 16:04:09,835 basehttp "GET / HTTP/1.1" 200 13688
+INFO 2026-06-02 16:04:45,933 basehttp "GET / HTTP/1.1" 200 13539
+INFO 2026-06-02 16:05:17,305 basehttp "GET / HTTP/1.1" 200 13654
+INFO 2026-06-02 16:05:25,207 basehttp "GET / HTTP/1.1" 200 13585
+INFO 2026-06-02 16:05:39,028 basehttp "GET / HTTP/1.1" 200 13627
+INFO 2026-06-02 16:07:11,907 basehttp "GET / HTTP/1.1" 200 13578
+INFO 2026-06-02 16:07:28,072 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 16:07:28,729 basehttp "GET / HTTP/1.1" 200 13578
+INFO 2026-06-02 16:07:29,838 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 16:07:30,938 basehttp "GET / HTTP/1.1" 200 13578
+INFO 2026-06-02 16:07:34,869 basehttp "GET /profile/ HTTP/1.1" 200 11086
+INFO 2026-06-02 16:07:38,781 basehttp "GET /change-password/ HTTP/1.1" 200 11965
+INFO 2026-06-02 16:08:16,648 basehttp "GET /change-password/ HTTP/1.1" 200 11738
+INFO 2026-06-02 16:08:24,470 basehttp "GET / HTTP/1.1" 200 13578
+INFO 2026-06-02 16:08:27,089 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 16:09:34,622 basehttp "GET /nhan-vien/1/ HTTP/1.1" 200 17101
+INFO 2026-06-02 16:11:02,578 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 16:11:44,741 basehttp "GET /nhan-vien/them/ HTTP/1.1" 200 26455
+INFO 2026-06-02 16:12:53,090 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 16:12:59,169 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 16:12:59,232 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15664
+ERROR 2026-06-02 16:13:01,521 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'work_shift_form' not found. 'work_shift_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 16:13:01,538 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 500 161964
+ERROR 2026-06-02 16:13:34,146 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'work_shift_form' not found. 'work_shift_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 16:13:34,155 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 500 161964
+ERROR 2026-06-02 16:13:35,634 log Internal Server Error: /attendance/attendance-details/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 129, in attendance_detail_list
+    return render(request, 'attendance/attendance_detail_list.html', {
+        'attendance_records': page_obj,
+        'work_shifts': work_shifts,
+        'page_obj': page_obj
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_detail_form' not found. 'attendance_detail_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 16:13:35,640 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 500 166393
+ERROR 2026-06-02 16:13:42,246 log Internal Server Error: /attendance/summary/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 620, in attendance_summary
+    return render(request, 'attendance/attendance_summary.html', {
+        'attendance_summaries': attendance_summaries,
+        'positions': positions,
+        'attendance_records': attendance_records
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_summary_form' not found. 'attendance_summary_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 16:13:42,254 basehttp "GET /attendance/summary/ HTTP/1.1" 500 182088
+INFO 2026-06-02 16:13:52,052 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 16:13:55,034 basehttp "GET /tien-luong/create/ HTTP/1.1" 200 15218
+INFO 2026-06-02 16:13:58,368 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 16:13:59,940 basehttp "GET /tien-luong/4/ HTTP/1.1" 200 14414
+INFO 2026-06-02 16:14:10,375 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 16:14:10,396 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15664
+INFO 2026-06-02 16:14:11,094 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 16:14:13,015 basehttp "GET /tien-luong/4/ HTTP/1.1" 200 14414
+INFO 2026-06-02 16:15:55,275 basehttp "GET /tien-luong/4/update/ HTTP/1.1" 200 15273
+INFO 2026-06-02 16:15:57,290 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 16:16:00,427 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 16:16:00,449 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15664
+INFO 2026-06-02 21:01:14,722 basehttp "GET / HTTP/1.1" 200 13578
+INFO 2026-06-02 21:01:17,955 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 21:01:18,901 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 21:01:18,930 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15664
+INFO 2026-06-02 21:01:19,957 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 21:01:20,980 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 21:01:22,260 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 21:01:22,949 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-02 21:01:22,967 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 15664
+ERROR 2026-06-02 21:01:24,325 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'work_shift_form' not found. 'work_shift_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 21:01:24,339 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 500 161964
+ERROR 2026-06-02 21:02:02,175 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'work_shift_form' not found. 'work_shift_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 21:02:02,183 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 500 161964
+ERROR 2026-06-02 21:02:31,739 log Internal Server Error: /attendance/attendance-details/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 129, in attendance_detail_list
+    return render(request, 'attendance/attendance_detail_list.html', {
+        'attendance_records': page_obj,
+        'work_shifts': work_shifts,
+        'page_obj': page_obj
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_detail_form' not found. 'attendance_detail_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 21:02:31,748 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 500 166393
+ERROR 2026-06-02 21:02:45,655 log Internal Server Error: /attendance/summary/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 620, in attendance_summary
+    return render(request, 'attendance/attendance_summary.html', {
+        'attendance_summaries': attendance_summaries,
+        'positions': positions,
+        'attendance_records': attendance_records
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_summary_form' not found. 'attendance_summary_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 21:02:45,664 basehttp "GET /attendance/summary/ HTTP/1.1" 500 182088
+ERROR 2026-06-02 21:02:57,635 log Internal Server Error: /attendance/attendance-details/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 129, in attendance_detail_list
+    return render(request, 'attendance/attendance_detail_list.html', {
+        'attendance_records': page_obj,
+        'work_shifts': work_shifts,
+        'page_obj': page_obj
+    })
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'attendance_detail_form' not found. 'attendance_detail_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 21:02:57,644 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 500 166393
+ERROR 2026-06-02 21:03:02,035 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'work_shift_form' not found. 'work_shift_form' is not a valid view function or pattern name.
+ERROR 2026-06-02 21:03:02,045 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 500 161964
+INFO 2026-06-02 21:03:03,983 basehttp "GET / HTTP/1.1" 200 13578
+INFO 2026-06-02 21:03:05,397 basehttp "GET /nhan-vien/ HTTP/1.1" 200 28754
+INFO 2026-06-02 21:03:33,504 basehttp "GET /tien-luong/ HTTP/1.1" 200 18460
+INFO 2026-06-02 21:03:42,824 basehttp "GET / HTTP/1.1" 200 13578
+ERROR 2026-06-03 13:33:42,977 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2026-06-03 13:33:43,834 log Bad Request: /attendance/work-shifts/
+ERROR 2026-06-03 13:33:43,835 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2026-06-03 13:33:43,865 log Bad Request: /attendance/attendance-details/
+ERROR 2026-06-03 13:33:43,866 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2026-06-03 13:33:43,893 log Bad Request: /attendance/summary/
+ERROR 2026-06-03 13:33:43,894 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2026-06-03 13:33:43,916 log Bad Request: /employees/
+ERROR 2026-06-03 13:33:43,917 exception Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2026-06-03 13:33:43,942 log Bad Request: /payroll/
+ERROR 2026-06-03 13:34:29,789 log Internal Server Error: /attendance/work-shifts/
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 289, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\sqlite3\base.py", line 181, in get_new_connection
+    register_functions(conn)
+    ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\sqlite3\_functions.py", line 85, in register
+    if not connection.execute(sql).fetchone()[0]:
+           ~~~~~~~~~~~~~~~~~~^^^^^
+sqlite3.OperationalError: disk I/O error
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\dev-python\LTWNhom06\hr_management\attendance\views.py", line 28, in work_shift_list
+    return render(request, 'attendance/work_shift_list.html', {'work_shifts': work_shifts})
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\template\defaulttags.py", line 194, in render
+    len_values = len(values)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 380, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\models\sql\compiler.py", line 1560, in execute_sql
+    cursor = self.connection.cursor()
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 330, in cursor
+    return self._cursor()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 306, in _cursor
+    self.ensure_connection()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 288, in ensure_connection
+    with self.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 289, in ensure_connection
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\base\base.py", line 270, in connect
+    self.connection = self.get_new_connection(conn_params)
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\utils\asyncio.py", line 26, in inner
+    return func(*args, **kwargs)
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\sqlite3\base.py", line 181, in get_new_connection
+    register_functions(conn)
+    ~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ACER\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\db\backends\sqlite3\_functions.py", line 85, in register
+    if not connection.execute(sql).fetchone()[0]:
+           ~~~~~~~~~~~~~~~~~~^^^^^
+django.db.utils.OperationalError: disk I/O error
+INFO 2026-06-03 14:36:58,436 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 14:38:44,802 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-06-03 14:38:44,820 basehttp "GET /login/?next=/ HTTP/1.1" 200 1820
+INFO 2026-06-03 14:38:49,970 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-06-03 14:38:49,975 basehttp "GET /login/?next=/ HTTP/1.1" 200 1820
+WARNING 2026-06-03 14:38:50,617 log Not Found: /favicon.ico
+WARNING 2026-06-03 14:38:50,619 basehttp "GET /favicon.ico HTTP/1.1" 404 3409
+INFO 2026-06-03 14:39:00,961 basehttp "POST /login/?next=/ HTTP/1.1" 302 0
+INFO 2026-06-03 14:39:01,023 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 14:39:07,714 basehttp "GET /employees/ HTTP/1.1" 200 29703
+INFO 2026-06-03 14:39:09,154 basehttp "GET /employees/create/ HTTP/1.1" 200 27316
+INFO 2026-06-03 14:39:09,924 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27987
+INFO 2026-06-03 14:39:12,042 basehttp "GET /employees/create/ HTTP/1.1" 200 27316
+INFO 2026-06-03 14:39:20,012 basehttp "GET /employees/ HTTP/1.1" 200 29703
+INFO 2026-06-03 14:39:21,229 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 14:39:21,274 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 14:39:22,980 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 14:39:24,639 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 14:39:26,637 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 14:39:29,039 basehttp "GET /payroll/ HTTP/1.1" 200 19298
+INFO 2026-06-03 14:39:32,182 basehttp "GET /payroll/4/ HTTP/1.1" 200 15102
+INFO 2026-06-03 14:39:35,859 basehttp "GET /payroll/ HTTP/1.1" 200 19298
+INFO 2026-06-03 14:39:39,643 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 14:39:41,894 basehttp "GET /employees/ HTTP/1.1" 200 29703
+INFO 2026-06-03 14:39:43,978 basehttp "GET /employees/?search=&position=1&status=all HTTP/1.1" 200 17980
+INFO 2026-06-03 14:39:45,185 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 14:39:46,358 basehttp "GET /employees/?search=&position=&status=active HTTP/1.1" 200 27055
+INFO 2026-06-03 14:39:47,388 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 14:39:48,397 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 14:39:48,416 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 14:39:49,632 basehttp "GET /payroll/ HTTP/1.1" 200 19298
+INFO 2026-06-03 14:39:53,363 basehttp "GET /payroll/?search=&status=processing HTTP/1.1" 200 13623
+INFO 2026-06-03 14:39:54,858 basehttp "GET /payroll/?search=&status= HTTP/1.1" 200 19298
+INFO 2026-06-03 14:41:21,594 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 15:18:30,199 basehttp "GET /profile/ HTTP/1.1" 200 11937
+INFO 2026-06-03 15:18:39,241 basehttp "GET /change-password/ HTTP/1.1" 200 12589
+INFO 2026-06-03 15:18:42,394 basehttp "GET /profile/ HTTP/1.1" 200 11937
+INFO 2026-06-03 15:18:45,434 basehttp "GET /change-password/ HTTP/1.1" 200 12589
+INFO 2026-06-03 15:18:54,897 basehttp "POST /change-password/ HTTP/1.1" 200 12906
+INFO 2026-06-03 15:19:09,454 basehttp "POST /change-password/ HTTP/1.1" 200 12840
+INFO 2026-06-03 15:20:23,880 basehttp "POST /change-password/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:20:23,903 basehttp "GET /profile/ HTTP/1.1" 200 12366
+INFO 2026-06-03 15:20:27,246 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:20:27,251 basehttp "GET /login/ HTTP/1.1" 200 1820
+INFO 2026-06-03 15:20:32,510 basehttp "POST /login/ HTTP/1.1" 200 2103
+INFO 2026-06-03 15:20:38,796 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:20:38,808 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 15:20:43,328 basehttp "GET /profile/ HTTP/1.1" 200 11937
+INFO 2026-06-03 15:20:44,748 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 15:20:48,072 basehttp "GET /employees/ HTTP/1.1" 200 29703
+INFO 2026-06-03 15:21:05,585 basehttp "GET /employees/?search=&position=1&status=all HTTP/1.1" 200 17980
+INFO 2026-06-03 15:21:06,795 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 15:21:07,835 basehttp "GET /employees/?search=&position=2&status=all HTTP/1.1" 200 20629
+INFO 2026-06-03 15:21:09,059 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 15:21:10,210 basehttp "GET /employees/?search=&position=3&status=all HTTP/1.1" 200 21002
+INFO 2026-06-03 15:21:11,266 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 15:21:12,851 basehttp "GET /employees/?search=&position=&status=active HTTP/1.1" 200 27055
+INFO 2026-06-03 15:21:14,150 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 15:21:18,466 basehttp "GET /employees/?search=&position=&status=active HTTP/1.1" 200 27055
+INFO 2026-06-03 15:21:21,070 basehttp "GET /employees/?search=&position=&status=inactive HTTP/1.1" 200 17590
+INFO 2026-06-03 15:21:22,011 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29703
+INFO 2026-06-03 15:22:08,504 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 29709
+INFO 2026-06-03 15:22:14,518 basehttp "GET /employees/1/ HTTP/1.1" 200 18360
+INFO 2026-06-03 15:22:55,797 basehttp "GET /employees/1/contracts/create/ HTTP/1.1" 200 21858
+INFO 2026-06-03 15:23:09,656 basehttp "GET /employees/1/ HTTP/1.1" 200 18360
+INFO 2026-06-03 15:23:11,015 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:23:16,362 basehttp "GET /employees/1/update/ HTTP/1.1" 200 27681
+INFO 2026-06-03 15:23:19,829 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:23:23,924 basehttp "GET /employees/1/ HTTP/1.1" 200 18360
+INFO 2026-06-03 15:23:26,106 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:23:29,317 basehttp "GET /employees/1/update/ HTTP/1.1" 200 27681
+INFO 2026-06-03 15:23:41,870 autoreload D:\dev-python\LTWNhom06\hr_management\employees\forms.py changed, reloading.
+INFO 2026-06-03 15:23:43,455 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 15:24:15,564 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:24:19,051 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:24:19,081 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:24:20,223 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:24:40,014 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:24:41,157 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:24:41,178 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:24:44,394 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:24:44,699 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:24:46,778 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 15:24:47,920 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:25:06,425 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:25:06,439 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:25:07,426 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:25:51,457 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:25:53,351 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:25:53,376 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:25:54,960 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:25:59,911 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:27:10,250 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:27:10,271 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:27:17,819 basehttp "GET /attendance/daily-attendance/?selected_date=2026-06-04 HTTP/1.1" 200 16515
+INFO 2026-06-03 15:27:24,224 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:27:25,048 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:27:26,458 basehttp "GET /attendance/attendance-details/view/1/ HTTP/1.1" 200 53410
+INFO 2026-06-03 15:27:46,772 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:27:47,671 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:27:49,475 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:27:50,749 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 15:27:51,494 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:27:53,421 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 15:27:55,710 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:27:56,710 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:27:57,845 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:27:58,757 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:28:05,142 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:28:08,862 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 15:28:46,344 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:28:47,078 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:28:51,565 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:28:51,589 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:28:52,716 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:30:04,783 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:30:05,609 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:30:06,615 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 15:30:07,849 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:30:08,445 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:30:09,645 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:30:09,665 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:30:11,409 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:30:13,010 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:30:13,531 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:30:14,394 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 15:30:15,549 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 15:30:16,933 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:30:17,660 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:30:17,678 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:30:17,980 basehttp "GET /payroll/ HTTP/1.1" 200 19298
+INFO 2026-06-03 15:30:21,295 basehttp "GET /payroll/create/ HTTP/1.1" 200 16066
+INFO 2026-06-03 15:31:10,257 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 15:31:10,695 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:31:10,713 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:31:11,168 basehttp "GET /payroll/ HTTP/1.1" 200 19298
+INFO 2026-06-03 15:31:12,622 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 15:31:12,636 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:31:13,220 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 15:31:13,692 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:31:14,176 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:31:14,612 basehttp "GET /attendance/summary/ HTTP/1.1" 200 17448
+INFO 2026-06-03 15:31:37,195 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:31:37,955 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:31:40,187 basehttp "GET /attendance/attendance-details/view/1/ HTTP/1.1" 200 53410
+INFO 2026-06-03 15:31:44,277 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 16515
+INFO 2026-06-03 15:31:44,893 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 16289
+INFO 2026-06-03 15:31:45,873 basehttp "GET /attendance/attendance-details/view/1/ HTTP/1.1" 200 53410
+INFO 2026-06-03 18:14:29,640 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 18:14:35,326 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 14499
+INFO 2026-06-03 18:14:41,177 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 18:14:42,688 basehttp "GET /payroll/ HTTP/1.1" 200 19298
+INFO 2026-06-03 18:14:44,459 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 18:14:45,612 basehttp "GET / HTTP/1.1" 200 14426
+INFO 2026-06-03 18:14:53,794 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 18:14:57,133 basehttp "GET /employees/create/ HTTP/1.1" 200 27302
+INFO 2026-06-03 18:14:58,855 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27987
+INFO 2026-06-03 18:15:03,380 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 18:15:04,747 basehttp "GET /employees/create/ HTTP/1.1" 200 27302
+INFO 2026-06-03 18:15:05,932 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27987
+INFO 2026-06-03 18:15:10,074 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 18:15:10,795 basehttp "GET /employees/create/ HTTP/1.1" 200 27302
+INFO 2026-06-03 18:15:11,400 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27987
+INFO 2026-06-03 18:16:10,618 basehttp "GET /employees/create/ HTTP/1.1" 200 27302
+INFO 2026-06-03 18:16:12,218 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27987
+INFO 2026-06-03 18:16:14,343 basehttp "GET /employees/contracts/?export=excel HTTP/1.1" 200 27987
+INFO 2026-06-03 18:19:21,465 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 18:19:31,471 basehttp "GET /employees/ HTTP/1.1" 200 29709
+INFO 2026-06-03 18:20:20,397 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27987
+INFO 2026-06-03 18:22:52,765 autoreload D:\dev-python\LTWNhom06\hr_management\employees\admin.py changed, reloading.
+INFO 2026-06-03 18:22:55,733 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 18:23:51,198 autoreload D:\dev-python\LTWNhom06\hr_management\employees\views.py changed, reloading.
+INFO 2026-06-03 18:23:52,487 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 18:24:48,099 autoreload D:\dev-python\LTWNhom06\hr_management\attendance\views.py changed, reloading.
+INFO 2026-06-03 18:24:49,414 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 18:25:20,066 autoreload D:\dev-python\LTWNhom06\hr_management\attendance\views.py changed, reloading.
+INFO 2026-06-03 18:25:21,365 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 20:33:03,530 basehttp "GET /employees/contracts/ HTTP/1.1" 200 28347
+INFO 2026-06-03 20:33:06,294 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:33:12,542 basehttp "GET / HTTP/1.1" 200 17555
+INFO 2026-06-03 20:33:14,530 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:33:20,682 basehttp "GET /employees/create/ HTTP/1.1" 200 29429
+INFO 2026-06-03 20:33:24,419 basehttp "GET /employees/contracts/ HTTP/1.1" 200 28347
+INFO 2026-06-03 20:33:30,635 basehttp "GET /employees/contracts/?search=&contract_type=probation&department=&status=&date_from=&date_to= HTTP/1.1" 200 21232
+INFO 2026-06-03 20:33:31,987 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 28428
+INFO 2026-06-03 20:33:33,871 basehttp "GET /employees/contracts/?search=&contract_type=probation&department=&status=&date_from=&date_to= HTTP/1.1" 200 21232
+INFO 2026-06-03 20:33:35,576 basehttp "GET /employees/contracts/?search=&contract_type=definite&department=&status=&date_from=&date_to= HTTP/1.1" 200 25996
+INFO 2026-06-03 20:33:37,110 basehttp "GET /employees/contracts/?search=&contract_type=indefinite&department=&status=&date_from=&date_to= HTTP/1.1" 200 23649
+INFO 2026-06-03 20:33:38,901 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 28428
+INFO 2026-06-03 20:33:43,317 basehttp "GET /employees/contracts/?search=&contract_type=&department=1&status=&date_from=&date_to= HTTP/1.1" 200 23593
+INFO 2026-06-03 20:33:44,940 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 28428
+INFO 2026-06-03 20:33:46,520 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=active&date_from=&date_to= HTTP/1.1" 200 23601
+INFO 2026-06-03 20:33:52,900 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 28428
+INFO 2026-06-03 20:34:34,185 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 28172
+INFO 2026-06-03 20:35:02,008 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:35:09,002 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:35:18,188 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:35:29,770 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:35:39,936 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:35:51,153 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:35:59,826 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:36:17,150 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:36:20,239 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:36:31,504 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27983
+INFO 2026-06-03 20:37:26,156 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:37:29,553 basehttp "GET /employees/?search=s&position=&status=all HTTP/1.1" 200 17424
+INFO 2026-06-03 20:37:33,341 basehttp "GET /employees/?search=&position=&status=all HTTP/1.1" 200 31888
+INFO 2026-06-03 20:37:35,102 basehttp "GET /employees/create/ HTTP/1.1" 200 29429
+INFO 2026-06-03 20:37:35,842 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:37:36,311 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27902
+INFO 2026-06-03 20:38:01,890 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27766
+INFO 2026-06-03 20:38:04,444 basehttp "GET /employees/contracts/?search=a&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 25418
+INFO 2026-06-03 20:38:05,980 basehttp "GET /employees/contracts/?search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27847
+INFO 2026-06-03 20:38:14,973 basehttp "GET /employees/contracts/?export=excel&search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27847
+INFO 2026-06-03 20:38:48,530 basehttp "GET /employees/contracts/?export=excel&search=&contract_type=&department=&status=&date_from=&date_to= HTTP/1.1" 200 27461
+INFO 2026-06-03 20:38:54,144 basehttp "GET /employees/contracts/new/ HTTP/1.1" 200 28539
+INFO 2026-06-03 20:38:56,861 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27380
+INFO 2026-06-03 20:39:08,355 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27400
+INFO 2026-06-03 20:39:09,678 basehttp "GET /employees/contracts/new/ HTTP/1.1" 200 28539
+INFO 2026-06-03 20:39:16,623 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27400
+INFO 2026-06-03 20:40:14,757 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27027
+INFO 2026-06-03 20:40:29,627 basehttp "GET /employees/create/ HTTP/1.1" 200 29429
+INFO 2026-06-03 20:40:33,998 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:40:36,602 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 20:40:36,650 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:40:38,360 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 18213
+INFO 2026-06-03 20:40:38,894 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:40:39,987 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:40:40,375 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 20:40:40,391 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:40:47,264 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 18213
+INFO 2026-06-03 20:40:54,700 basehttp "GET /attendance/work-shifts/add/ HTTP/1.1" 200 28193
+INFO 2026-06-03 20:41:01,736 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 18213
+INFO 2026-06-03 20:41:02,951 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:41:07,042 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19815
+INFO 2026-06-03 20:41:11,907 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 18213
+INFO 2026-06-03 20:41:15,349 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:41:16,691 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19815
+INFO 2026-06-03 20:41:39,455 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19602
+INFO 2026-06-03 20:41:50,476 basehttp "GET /attendance/summary/ HTTP/1.1" 200 21262
+INFO 2026-06-03 20:41:53,827 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19602
+INFO 2026-06-03 20:41:54,372 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:41:55,460 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19602
+INFO 2026-06-03 20:42:05,350 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19613
+INFO 2026-06-03 20:42:07,024 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:42:09,446 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 18213
+INFO 2026-06-03 20:42:10,745 basehttp "GET /payroll/ HTTP/1.1" 200 23902
+INFO 2026-06-03 20:42:30,320 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 20:42:32,683 basehttp "GET /payroll/?search=&status=draft HTTP/1.1" 200 23781
+INFO 2026-06-03 20:42:33,800 basehttp "GET /payroll/?search=&status= HTTP/1.1" 200 23773
+INFO 2026-06-03 20:42:37,580 basehttp "GET /payroll/create/ HTTP/1.1" 200 19195
+INFO 2026-06-03 20:42:45,272 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 20:42:46,692 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 20:42:46,720 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 20:42:48,851 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 20:42:50,403 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 20:42:54,846 basehttp "GET /payroll/4/ HTTP/1.1" 200 18231
+INFO 2026-06-03 20:42:58,414 basehttp "GET /payroll/4/detail/4/ HTTP/1.1" 200 18808
+INFO 2026-06-03 20:43:01,975 basehttp "GET /payroll/4/ HTTP/1.1" 200 18231
+INFO 2026-06-03 20:43:04,258 basehttp "GET /payroll/ HTTP/1.1" 200 23773

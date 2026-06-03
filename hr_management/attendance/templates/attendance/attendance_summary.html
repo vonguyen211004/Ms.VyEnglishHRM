@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Bảng chấm công tổng hợp - Ms.Vy English
-{% endblock %}
+{% block title %}Bảng chấm công tổng hợp - Ms.Vy English{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
@@ -10,60 +8,81 @@ Bảng chấm công tổng hợp - Ms.Vy English
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="text-center fw-bold">Bảng chấm công tổng hợp</h2>
+    <h2 class="fw-bold mb-0">Bảng chấm công tổng hợp</h2>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attendanceSummaryModal">
         <i class="bi bi-plus-circle me-1"></i> Thêm bảng chấm công tổng hợp
     </button>
 </div>
 
-<!-- Bộ lọc -->
-<div class="d-flex gap-3 mb-3 align-items-center">
-    <input type="text" class="form-control" placeholder="Tìm kiếm theo tên bảng..." style="max-width: 300px;" id="searchInput">
-    <button class="btn btn-primary" onclick="filterTable()">
-        <i class="bi bi-funnel me-1"></i> Lọc
-    </button>
-</div>
-
-<div class="card">
-    <div class="card-body p-0">
-        <table class="table table-hover mb-0" id="attendanceSummaryTable">
-            <thead>
-                <tr>
-                    <th>Tên bảng chấm công</th>
-                    <th>Khoảng thời gian</th>
-                    <th>Vị trí áp dụng</th>
-                    <th>Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for summary in attendance_summaries %}
-                <tr>
-                    <td><a href="{% url 'attendance:attendance_summary_view' summary.id %}">{{ summary.name }}</a></td>
-                    <td>{{ summary.date_range }}</td>
-                    <td>{{ summary.position.name }}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'attendance:attendance_summary_form' summary.id %}"><i class="bi bi-pencil me-2"></i> Sửa</a></li>
-                                <li><a class="dropdown-item text-danger" href="{% url 'attendance:attendance_summary_delete' summary.id %}" onclick="return confirm('Bạn có chắc chắn muốn xóa bảng chấm công tổng hợp này không?');"><i class="bi bi-trash me-2"></i> Xóa</a></li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center text-muted">Chưa có bảng chấm công tổng hợp nào.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+<div class="list-filter-card">
+    <div class="row g-3 align-items-center">
+        <div class="col-lg-5 col-md-7">
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên bảng..." id="searchInput">
+        </div>
     </div>
 </div>
 
-<!-- Modal thêm bảng chấm công tổng hợp -->
+<div class="card list-card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="attendanceSummaryTable">
+                <thead>
+                    <tr>
+                        <th>Tên bảng chấm công</th>
+                        <th>Khoảng thời gian</th>
+                        <th>Vị trí áp dụng</th>
+                        <th class="action-column">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for summary in attendance_summaries %}
+                    <tr>
+                        <td><a href="{% url 'attendance:attendance_summary_view' summary.id %}">{{ summary.name }}</a></td>
+                        <td>{{ summary.date_range }}</td>
+                        <td>{{ summary.position.name }}</td>
+                        <td class="action-column">
+                            <div class="dropdown action-dropdown">
+                                <button class="btn action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Thao tác">
+                                    <i class="bi bi-three-dots"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'attendance:attendance_summary_edit_form' summary.id %}"><i class="bi bi-pencil me-2"></i>Sửa</a></li>
+                                    <li><a class="dropdown-item text-danger" href="{% url 'attendance:attendance_summary_delete' summary.id %}" onclick="return confirm('Bạn có chắc chắn muốn xóa bảng chấm công tổng hợp này không?');"><i class="bi bi-trash me-2"></i>Xóa</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">Chưa có bảng chấm công tổng hợp nào.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% if page_obj %}
+<div class="list-pagination">
+    <div class="pagination-summary">
+        Tổng số bản ghi: {{ page_obj.paginator.count }}
+        {% if page_obj.paginator.count %} | Từ {{ page_obj.start_index }} đến {{ page_obj.end_index }}{% endif %}
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">Trước</a>
+            </li>
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}
+
 <div class="modal fade" id="attendanceSummaryModal" tabindex="-1" aria-labelledby="attendanceSummaryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -71,7 +90,7 @@ Bảng chấm công tổng hợp - Ms.Vy English
                 <h5 class="modal-title" id="attendanceSummaryModalLabel">Thêm bảng chấm công tổng hợp</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{% url 'attendance:attendance_summary_form' %}" method="post">
+            <form action="{% url 'attendance:attendance_summary_add' %}" method="post">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="mb-3">
@@ -112,32 +131,26 @@ function filterTable() {
     let visibleRows = 0;
 
     rows.forEach(row => {
-        const name = row.cells[0].innerText.toLowerCase();
-        if (name.includes(searchInput)) {
-            row.style.display = '';
-            visibleRows++;
-        } else {
-            row.style.display = 'none';
-        }
+        if (row.classList.contains('empty-row')) return;
+        const name = row.cells[0]?.innerText.toLowerCase() || '';
+        const matched = name.includes(searchInput);
+        row.style.display = matched ? '' : 'none';
+        if (matched) visibleRows++;
     });
 
-    // Cập nhật thông báo nếu không có hàng nào hiển thị
     const emptyRow = document.querySelector('#attendanceSummaryTable tbody tr.empty-row');
     if (visibleRows === 0 && !emptyRow) {
         const tbody = document.querySelector('#attendanceSummaryTable tbody');
         const newRow = document.createElement('tr');
         newRow.className = 'empty-row';
-        newRow.innerHTML = '<td colspan="4" class="text-center text-muted">Không tìm thấy bản ghi phù hợp.</td>';
+        newRow.innerHTML = '<td colspan="4" class="text-center text-muted py-4">Không tìm thấy bản ghi phù hợp.</td>';
         tbody.appendChild(newRow);
     } else if (visibleRows > 0 && emptyRow) {
         emptyRow.remove();
     }
 }
 
-// Thêm sự kiện cho searchInput
 document.getElementById('searchInput').addEventListener('input', filterTable);
-
-// Gọi filterTable lần đầu khi trang tải
 filterTable();
 </script>
 {% endblock %}
