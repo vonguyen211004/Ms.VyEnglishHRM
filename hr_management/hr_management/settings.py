@@ -1,6 +1,7 @@
 
 
 import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -115,6 +116,10 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Sử dụng PostgreSQL trên Render nếu có biến môi trường DATABASE_URL
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

@@ -15189,3 +15189,39 @@ INFO 2026-06-03 20:42:54,846 basehttp "GET /payroll/4/ HTTP/1.1" 200 18231
 INFO 2026-06-03 20:42:58,414 basehttp "GET /payroll/4/detail/4/ HTTP/1.1" 200 18808
 INFO 2026-06-03 20:43:01,975 basehttp "GET /payroll/4/ HTTP/1.1" 200 18231
 INFO 2026-06-03 20:43:04,258 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 21:18:07,866 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\settings.py changed, reloading.
+INFO 2026-06-03 21:18:10,244 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:18:34,729 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\settings.py changed, reloading.
+INFO 2026-06-03 21:18:35,934 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:18:52,644 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\settings.py changed, reloading.
+INFO 2026-06-03 21:18:53,733 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:18:56,917 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\settings.py changed, reloading.
+INFO 2026-06-03 21:18:58,094 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:23:07,770 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:24:27,629 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:24:32,048 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 21:24:35,425 basehttp "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-06-03 21:24:35,433 basehttp "GET /login/ HTTP/1.1" 200 1820
+INFO 2026-06-03 21:24:43,879 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2026-06-03 21:24:43,895 basehttp "GET / HTTP/1.1" 200 17555
+INFO 2026-06-03 21:24:46,763 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 21:24:47,366 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 21:24:47,404 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 21:24:47,960 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 21:24:48,862 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 21:24:48,883 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 21:24:49,461 basehttp "GET /attendance/work-shifts/ HTTP/1.1" 200 18213
+INFO 2026-06-03 21:24:49,922 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 21:24:50,282 basehttp "GET /attendance/attendance-details/ HTTP/1.1" 200 19613
+INFO 2026-06-03 21:24:50,573 basehttp "GET /attendance/summary/ HTTP/1.1" 200 21262
+INFO 2026-06-03 21:24:51,169 basehttp "GET /payroll/ HTTP/1.1" 200 23773
+INFO 2026-06-03 21:24:52,245 basehttp "GET /attendance/ HTTP/1.1" 302 0
+INFO 2026-06-03 21:24:52,264 basehttp "GET /attendance/daily-attendance/ HTTP/1.1" 200 19644
+INFO 2026-06-03 21:24:52,648 basehttp "GET /employees/ HTTP/1.1" 200 31888
+INFO 2026-06-03 21:24:53,445 basehttp "GET /employees/create/ HTTP/1.1" 200 29429
+INFO 2026-06-03 21:24:53,781 basehttp "GET /employees/contracts/ HTTP/1.1" 200 27027
+INFO 2026-06-03 21:24:54,414 basehttp "GET / HTTP/1.1" 200 17555
+INFO 2026-06-03 21:29:22,981 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\settings.py changed, reloading.
+INFO 2026-06-03 21:29:23,055 autoreload D:\dev-python\LTWNhom06\hr_management\hr_management\settings.py changed, reloading.
+INFO 2026-06-03 21:44:38,424 autoreload Watching for file changes with StatReloader
+INFO 2026-06-03 21:44:43,429 basehttp "GET / HTTP/1.1" 200 17555
