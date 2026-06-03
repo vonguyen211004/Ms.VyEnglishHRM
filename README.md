@@ -49,38 +49,56 @@ Các route public dùng tiếng Anh để nhất quán hơn:
 - `/payroll/`
 - `/api/employees/search/`
 
-Trong template nên luôn dùng `{% url %}` với route name thay vì hard-code path.
+## 📞 SUPPORT & CONTRIBUTION
 
-## Cấu trúc project
+### Reporting Issues
+- Check existing issues first
+- Provide clear description
+- Include error messages & logs
+- Attach screenshots if applicable
 
-```text
-LTWNhom06/
-├── README.md
-├── PROJECT_CONTEXT.md
-├── hr_management/
-│   ├── manage.py
-│   ├── hr_management/      # settings, root urls, project views
-│   ├── employees/          # employee, contract, position, department
-│   ├── attendance/         # work shifts, attendance records, summaries
-│   ├── payroll/            # payroll records and salary details
-│   ├── templates/          # global templates
-│   ├── static/             # css/js
-│   └── media/              # uploaded files
-```
+### Contributing
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Kiểm tra nhanh
+---
 
-```bash
-cd hr_management
-python manage.py check
-python manage.py test
-```
+## 👥 CONTRIBUTORS
 
-Nếu gặp `sqlite3.OperationalError: disk I/O error`, kiểm tra quyền ghi file `hr_management/db.sqlite3`, dung lượng ổ đĩa và việc DB có đang bị process khác lock hay không.
+- **Lead Developer**: Ms.Vy English Team
+- **Project Manager**: Development Team
 
-## Ghi chú cho contributor
+---
 
-- Không commit `venv/`, `__pycache__/`, `*.pyc`, `debug.log` hoặc database local nếu không có lý do rõ ràng.
-- Giữ route name ổn định để template reverse không bị lỗi.
-- Khi sửa UI form, các field `required` cần có dấu `*` đỏ để người dùng dễ nhận biết.
-- Xem thêm [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) trước khi giao việc cho AI code agent.
+## 📅 PROJECT STATUS
+
+- ✅ Core functionality implemented
+- ✅ Database schema finalized
+- ✅ Import issues fixed (June 2026)
+- ✅ Requirements.txt updated
+- ⏳ Full test coverage (in progress)
+- ⏳ API documentation (pending)
+
+---
+
+## 🎓 LEARNING OUTCOMES
+
+This project demonstrates:
+- Django Web Framework mastery
+- Database design & ORM usage
+- RESTful API development
+- Form validation & error handling
+- Template inheritance & static files
+- Authentication & authorization
+- Business logic implementation
+- Excel file generation
+
+---
+
+**Last Updated**: June 1, 2026
+**Version**: 1.0.0
+**Status**: Development/Beta
+---
