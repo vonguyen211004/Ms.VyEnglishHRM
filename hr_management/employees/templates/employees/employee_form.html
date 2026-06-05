@@ -26,6 +26,25 @@
         <form method="post">
             {% csrf_token %}
 
+            <!-- Trợ lý AI Autofill -->
+            <div class="card mb-4 border-primary">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0"><i class="bi bi-robot"></i> Trợ lý AI - Nhập hồ sơ nhanh</h5>
+                    <span class="badge bg-light text-primary">Groq</span>
+                </div>
+                <div class="card-body">
+                    <label for="ai_cv_upload" class="form-label fw-bold">Tải lên CV (PDF/Word/Ảnh) hoặc ảnh CCCD để AI tự điền Form:</label>
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="ai_cv_upload" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+                        <button class="btn btn-outline-primary" type="button" id="btn_run_ai">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="ai_spinner"></span>
+                            <span id="btn_text"><i class="bi bi-lightning-charge-fill"></i> Phân tích bằng AI</span>
+                        </button>
+                    </div>
+                    <small class="text-muted mt-1 d-block">* Hệ thống sẽ tự động phân tích và điền các thông tin tìm thấy vào các ô nhập liệu bên dưới.</small>
+                </div>
+            </div>
+
             <!-- Thông tin cơ bản -->
             <div class="card mb-4">
                 <div class="card-header">
@@ -87,4 +106,74 @@
         </form>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btnRunAi = document.getElementById('btn_run_ai');
+    if (!btnRunAi) return;
+
+    btnRunAi.addEventListener('click', function() {
+        const fileInput = document.getElementById('ai_cv_upload');
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('Vui lòng chọn 1 file CV hoặc ảnh CCCD trước!');
+            return;
+        }
+
+        // Hiển thị trạng thái Loading
+        const spinner = document.getElementById('ai_spinner');
+        const btnText = document.getElementById('btn_text');
+        spinner.classList.remove('d-none');
+        btnText.textContent = ' Đang phân tích...';
+        btnRunAi.disabled = true;
+
+        // Chuẩn bị FormData gửi lên backend
+        const formData = new FormData();
+        formData.append('cv_file', file);
+
+        fetch("{% url 'api_parse_cv' %}", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                const data = result.data;
+                
+                // Map dữ liệu từ AI trả về vào các trường input của Django Form
+                if (data.first_name) document.getElementById('id_first_name').value = data.first_name;
+                if (data.last_name) document.getElementById('id_last_name').value = data.last_name;
+                if (data.gender) document.getElementById('id_gender').value = data.gender;
+                if (data.date_of_birth) document.getElementById('id_date_of_birth').value = data.date_of_birth;
+                if (data.id_number) document.getElementById('id_id_number').value = data.id_number;
+                if (data.phone) document.getElementById('id_phone').value = data.phone;
+                if (data.email) document.getElementById('id_email').value = data.email;
+                if (data.address) document.getElementById('id_address').value = data.address;
+                
+                // Thông tin bằng cấp học vấn
+                if (data.education_level) document.getElementById('id_education_level').value = data.education_level;
+                if (data.degree) document.getElementById('id_degree').value = data.degree;
+                if (data.major) document.getElementById('id_major').value = data.major;
+                if (data.graduation_year) document.getElementById('id_graduation_year').value = data.graduation_year;
+                if (data.graduation_place) document.getElementById('id_graduation_place').value = data.graduation_place;
+                if (data.ranking) document.getElementById('id_ranking').value = data.ranking;
+                
+                alert('AI đã phân tích và tự điền dữ liệu thành công! Vui lòng kiểm tra lại trước khi Lưu.');
+            } else {
+                alert('Lỗi phân tích: ' + result.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra trong quá trình gọi AI. Vui lòng thử lại sau.');
+        })
+        .finally(() => {
+            // Tắt trạng thái Loading
+            spinner.classList.add('d-none');
+            btnText.innerHTML = '<i class="bi bi-lightning-charge-fill"></i> Phân tích bằng AI';
+            btnRunAi.disabled = false;
+        });
+    });
+});
+</script>
 {% endblock %}
