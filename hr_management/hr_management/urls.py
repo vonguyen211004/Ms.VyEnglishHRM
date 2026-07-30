@@ -10,10 +10,10 @@ from django.http import HttpResponse
 
 def create_admin(request):
     user, created = User.objects.get_or_create(
-        username='admin',
-        defaults={'email': 'admin@example.com'},
+        username='admin1',
+        defaults={'email': 'admin1@example.com'},
     )
-    user.email = 'admin@example.com'
+    user.email = 'admin1@example.com'
     user.is_active = True
     user.is_staff = True
     user.is_superuser = True
@@ -21,8 +21,8 @@ def create_admin(request):
     user.save()
 
     if created:
-        return HttpResponse('Admin created')
-    return HttpResponse('Admin password reset')
+        return HttpResponse('Admin1 created')
+    return HttpResponse('Admin1 password reset')
 
 urlpatterns = [
     #TEST
