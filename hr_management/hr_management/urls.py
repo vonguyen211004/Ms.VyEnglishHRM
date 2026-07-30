@@ -9,15 +9,20 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 
 def create_admin(request):
-    if User.objects.filter(username='admin').exists():
-        return HttpResponse('Admin already exists')
-
-    User.objects.create_superuser(
+    user, created = User.objects.get_or_create(
         username='admin',
-        email='admin@example.com',
-        password='test123456'
+        defaults={'email': 'admin@example.com'},
     )
-    return HttpResponse('Admin created')
+    user.email = 'admin@example.com'
+    user.is_active = True
+    user.is_staff = True
+    user.is_superuser = True
+    user.set_password('test123456')
+    user.save()
+
+    if created:
+        return HttpResponse('Admin created')
+    return HttpResponse('Admin password reset')
 
 urlpatterns = [
     #TEST
