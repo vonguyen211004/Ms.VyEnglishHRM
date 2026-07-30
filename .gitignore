@@ -40,6 +40,7 @@ db.sqlite3-journal
 /media/
 .env
 .env.local
+PROJECT_ANALYSIS.md
 
 # Coverage
 htmlcov/

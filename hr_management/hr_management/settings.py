@@ -3,16 +3,26 @@
 import os
 import dj_database_url
 from pathlib import Path
+from decouple import Csv, config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-only-key')
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.environ.get(
+
+def env_flag(name, default=False):
+    value = config(name, default=None)
+    if value is None:
+        return default
+    return str(value).strip().lower() in {'1', 'true', 'yes', 'on'}
+
+
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = env_flag('DEBUG', default=False)
+ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    'localhost,127.0.0.1'
-).split(',')
+    default='localhost,127.0.0.1',
+    cast=Csv(),
+)
 
 # Application definition
 INSTALLED_APPS = [
@@ -108,7 +118,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hr_management.wsgi.application'
 
-# Database - SQLite
+# Database - SQLite locally, PostgreSQL on Render when DATABASE_URL is set
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -116,9 +126,9 @@ DATABASES = {
     }
 }
 
-# Sử dụng PostgreSQL trên Render nếu có biến môi trường DATABASE_URL
-if os.environ.get('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASE_URL = config('DATABASE_URL', default='')
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
