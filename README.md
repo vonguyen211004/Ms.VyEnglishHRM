@@ -40,6 +40,20 @@
 - `gunicorn`, `whitenoise`, `dj-database-url`, `python-decouple` cho cấu hình production.
 - `google-generativeai`, `groq` cho chức năng parse CV/CCCD.
 
+## Các Màn hình chính
+-Trang chủ
+<img width="1920" height="1080" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/f1a7853e-abc1-4546-af26-5835a7f5a089" />
+-Quản lý Thông tin nhân viên
+<img width="1920" height="1080" alt="Screenshot (50)" src="https://github.com/user-attachments/assets/96f47d8b-d15a-4df8-8342-706d0386bfed" />
+-Quản lý Chấm công
+<img width="1920" height="1080" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/2b97aeb8-f70f-4abf-988c-2a7f94da4045" />
+-Quản lý Tiền lương
+<img width="1920" height="1080" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/d0ca08a5-59f7-4be1-8b79-b69e6b8dfc34" />
+
+
+
+
+
 ## Cấu Trúc Dự Án
 
 ```text
