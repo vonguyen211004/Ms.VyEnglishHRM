@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
+import unicodedata
 
 from django import forms
-from django.db.models import Q
 
 from employees.models import Employee, Position
 from .models import (
@@ -27,48 +27,64 @@ WEEKDAY_CHOICES = [
     ('6', 'Chủ nhật'),
 ]
 
-TEACHER_POSITION_FILTER = (
-    Q(position__name__icontains='giảng viên') |
-    Q(position__name__icontains='giao vien') |
-    Q(position__name__icontains='teacher') |
-    Q(position__name__icontains='lecturer') |
-    Q(position__name__icontains='instructor') |
-    Q(position__code__icontains='GV') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='giảng viên') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='giao vien') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='teacher') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='lecturer') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='instructor') |
-    Q(contracts__is_active=True, contracts__position__code__icontains='GV')
-)
+TEACHER_POSITION_KEYWORDS = {
+    'giao vien',
+    'giang vien',
+    'teacher',
+    'lecturer',
+    'instructor',
+}
+TEACHER_POSITION_CODES = {'gv', 'tp'}
 
-ASSISTANT_POSITION_FILTER = (
-    Q(position__name__icontains='trợ giảng') |
-    Q(position__name__icontains='tro giang') |
-    Q(position__name__icontains='assistant') |
-    Q(position__name__icontains='teaching assistant') |
-    Q(position__code__icontains='TG') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='trợ giảng') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='tro giang') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='assistant') |
-    Q(contracts__is_active=True, contracts__position__name__icontains='teaching assistant') |
-    Q(contracts__is_active=True, contracts__position__code__icontains='TG')
-)
+ASSISTANT_POSITION_KEYWORDS = {
+    'tro giang',
+    'assistant',
+    'teaching assistant',
+}
+ASSISTANT_POSITION_CODES = {'tg', 'tap'}
+
+
+def _normalize_text(value):
+    value = unicodedata.normalize('NFD', value or '')
+    value = ''.join(char for char in value if unicodedata.category(char) != 'Mn')
+    return value.lower().strip()
+
+
+def _position_matches(position, keywords, codes):
+    if not position:
+        return False
+    code = _normalize_text(position.code)
+    if code in codes:
+        return True
+    haystack = _normalize_text(position.name)
+    return any(keyword in haystack for keyword in keywords)
 
 
 def teaching_employee_queryset(role='teaching'):
-    role_filter = TEACHER_POSITION_FILTER
+    keywords = TEACHER_POSITION_KEYWORDS
+    codes = TEACHER_POSITION_CODES
     if role == 'assistant':
-        role_filter = ASSISTANT_POSITION_FILTER
-
-    return (
+        keywords = ASSISTANT_POSITION_KEYWORDS
+        codes = ASSISTANT_POSITION_CODES
+    employee_ids = []
+    employees = (
         Employee.objects
         .filter(is_active=True)
-        .filter(role_filter)
         .select_related('position')
-        .distinct()
+        .prefetch_related('contracts__position')
         .order_by('code')
     )
+
+    for employee in employees:
+        direct_match = _position_matches(employee.position, keywords, codes)
+        contract_match = any(
+            contract.is_active and _position_matches(contract.position, keywords, codes)
+            for contract in employee.contracts.all()
+        )
+        if direct_match or contract_match:
+            employee_ids.append(employee.id)
+
+    return Employee.objects.filter(id__in=employee_ids).select_related('position').order_by('code')
 
 
 class BootstrapFormMixin:
