@@ -1,35 +1,35 @@
 {% extends 'payroll/base_payroll.html' %}
-{% load static %}
 
-{% block title %}Quản lý Tiền lương{% endblock %}
+{% block title %}Quản lý tiền lương{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h2 class="fw-bold mb-0">Quản lý Tiền lương</h2>
-        <div>
-            <a href="{% url 'home' %}" class="btn btn-secondary me-2">
-                <i class="bi bi-arrow-left me-1"></i>Quay lại
-            </a>
-            <a href="{% url 'payroll_create' %}" class="btn btn-primary">
-                <i class="bi bi-plus-circle me-1"></i>Tạo bảng lương mới
-            </a>
-        </div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Quản lý tiền lương</h2>
+        <a href="{% url 'attendance:attendance_summary' %}" class="btn btn-primary">
+            <i class="bi bi-arrow-right-circle me-1"></i> Tạo từ bảng công đã khóa
+        </a>
     </div>
 
-    <div class="list-filter-card">
-        <form method="get" class="row g-3" id="payrollFilterForm">
-            <div class="col-lg-5 col-md-6">
-                <div class="d-flex gap-2">
-                    <input type="text" name="search" class="form-control" placeholder="Tìm kiếm bảng lương..." value="{{ search_query }}">
-                    {% comment %} <button class="btn btn-primary" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button> {% endcomment %}
-                </div>
-            </div>
+    <form method="get" class="list-filter-card mb-3" id="payrollFilterForm">
+        <div class="row g-3">
             <div class="col-lg-4 col-md-6">
-                <select name="status" class="form-select" onchange="this.form.submit()">
-                    <option value="">-- Tất cả trạng thái --</option>
+                <label class="form-label" for="search">Tìm kiếm</label>
+                <input type="text" id="search" name="search" class="form-control" placeholder="Tên bảng lương, vị trí..." value="{{ search_query }}">
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="source">Nhóm bảng lương</label>
+                <select id="source" name="source" class="form-select">
+                    <option value="">Tất cả</option>
+                    {% for value, label in source_choices %}
+                    <option value="{{ value }}" {% if source_filter == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <label class="form-label" for="status">Trạng thái</label>
+                <select id="status" name="status" class="form-select">
+                    <option value="">Tất cả</option>
                     <option value="draft" {% if status_filter == 'draft' %}selected{% endif %}>Nháp</option>
                     <option value="processing" {% if status_filter == 'processing' %}selected{% endif %}>Đang xử lý</option>
                     <option value="approved" {% if status_filter == 'approved' %}selected{% endif %}>Đã duyệt</option>
@@ -37,18 +37,27 @@
                     <option value="disabled" {% if status_filter == 'disabled' %}selected{% endif %}>Đã vô hiệu hóa</option>
                 </select>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 
-    <div class="card list-card">
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
+    <div data-bulk-form>
+        <div class="bulk-action-bar">
+            <div class="bulk-action-summary">Đã chọn <span data-bulk-count>0</span> dòng</div>
+        </div>
+
+        <div class="card list-card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
                     <thead>
                         <tr>
-                            <th>Mã</th>
+                            <th class="select-column">
+                                <input type="checkbox" class="form-check-input" data-bulk-select-all aria-label="Chọn tất cả bảng lương">
+                            </th>
                             <th>Tên bảng lương</th>
-                            <th>Thời gian</th>
+                            <th>Nhóm</th>
+                            <th>Tháng/Năm</th>
+                            <th>Vị trí</th>
                             <th>Trạng thái</th>
                             <th>Ngày tạo</th>
                             <th class="action-column">Thao tác</th>
@@ -57,55 +66,41 @@
                     <tbody>
                         {% for payroll in page_obj %}
                         <tr {% if payroll.status == 'disabled' %}class="table-secondary text-muted"{% endif %}>
-                            <td>{{ payroll.id }}</td>
-                            <td>{{ payroll.name }}</td>
-                            <td>Tháng {{ payroll.month }}/{{ payroll.year }}</td>
+                            <td class="select-column">
+                                <input type="checkbox" class="form-check-input" name="payroll_ids" value="{{ payroll.id }}" data-bulk-checkbox aria-label="Chọn bảng lương {{ payroll.name }}">
+                            </td>
+                            <td><a href="{% url 'payroll_detail' pk=payroll.pk %}">{{ payroll.name }}</a></td>
+                            <td>{{ payroll.source_type_display }}</td>
+                            <td>{{ payroll.month }}/{{ payroll.year }}</td>
+                            <td>{{ payroll.position.name }}</td>
                             <td>
                                 {% if payroll.status == 'draft' %}
-                                <span class="badge bg-secondary">Nháp</span>
+                                    <span class="badge bg-secondary">Nháp</span>
                                 {% elif payroll.status == 'processing' %}
-                                <span class="badge bg-info">Đang xử lý</span>
+                                    <span class="badge bg-info text-dark">Đang xử lý</span>
                                 {% elif payroll.status == 'approved' %}
-                                <span class="badge bg-success">Đã duyệt</span>
+                                    <span class="badge bg-success">Đã duyệt</span>
                                 {% elif payroll.status == 'paid' %}
-                                <span class="badge bg-primary">Đã thanh toán</span>
+                                    <span class="badge bg-primary">Đã thanh toán</span>
                                 {% elif payroll.status == 'disabled' %}
-                                <span class="badge bg-danger">Đã vô hiệu hóa</span>
+                                    <span class="badge bg-danger">Đã vô hiệu hóa</span>
                                 {% endif %}
                             </td>
                             <td>{{ payroll.created_at|date:"d/m/Y" }}</td>
                             <td class="action-column">
-                                <div class="dropdown action-dropdown">
-                                    <button class="btn action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Thao tác">
-                                        <i class="bi bi-three-dots"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="{% url 'payroll_detail' pk=payroll.pk %}"><i class="bi bi-eye me-2"></i>Xem chi tiết</a>
-                                        {% if payroll.status == 'draft' %}
-                                        <a class="dropdown-item" href="{% url 'payroll_update' pk=payroll.pk %}"><i class="bi bi-pencil me-2"></i>Sửa</a>
-                                        {% endif %}
-                                        <div class="dropdown-divider"></div>
-                                        {% if payroll.status != 'disabled' %}
-                                        <a class="dropdown-item text-danger" href="{% url 'disable_payroll' pk=payroll.pk %}"><i class="bi bi-slash-circle me-2"></i>Vô hiệu hóa</a>
-                                        {% else %}
-                                        <a class="dropdown-item text-success" href="{% url 'activate_payroll' pk=payroll.pk %}"><i class="bi bi-check-circle me-2"></i>Kích hoạt</a>
-                                        {% endif %}
-                                    </div>
-                                </div>
+                                <a class="btn btn-sm btn-outline-primary" href="{% url 'payroll_detail' pk=payroll.pk %}">
+                                    <i class="bi bi-eye"></i>
+                                </a>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6" class="text-center py-4">
-                                <div class="text-muted">
-                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
-                                    Không có bảng lương nào
-                                </div>
-                            </td>
+                            <td colspan="8" class="text-center text-muted py-4">Chưa có bảng lương.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -119,15 +114,27 @@
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% else %}#{% endif %}">Trước</a>
+                    <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if source_filter %}&source={{ source_filter }}{% endif %}{% else %}#{% endif %}">Trước</a>
                 </li>
                 <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
                 <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% else %}#{% endif %}">Sau</a>
+                    <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}{% if source_filter %}&source={{ source_filter }}{% endif %}{% else %}#{% endif %}">Sau</a>
                 </li>
             </ul>
         </nav>
     </div>
     {% endif %}
 </div>
+
+<script>
+const payrollFilterForm = document.getElementById('payrollFilterForm');
+let payrollSearchTimer;
+payrollFilterForm?.querySelectorAll('select').forEach((field) => {
+    field.addEventListener('change', () => payrollFilterForm.submit());
+});
+document.getElementById('search')?.addEventListener('input', () => {
+    window.clearTimeout(payrollSearchTimer);
+    payrollSearchTimer = window.setTimeout(() => payrollFilterForm.submit(), 450);
+});
+</script>
 {% endblock %}

@@ -1,48 +1,38 @@
 {% extends 'payroll/base_payroll.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}{{ title }} - Ms.Vy English HRM{% endblock %}
-
-{% block module_sidebar %}
-{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3">{{ title }}</h1>
-    <div>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">{{ title }}</h2>
         <a href="{% url 'payroll_list' %}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-2"></i>Quay lại
+            <i class="bi bi-arrow-left me-1"></i> Quay lại
         </a>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form.name|as_crispy_field }}
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ form.month|as_crispy_field }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form.year|as_crispy_field }}
-                        </div>
-                    </div>
-                    {{ form.position|as_crispy_field }}
+    <div class="alert alert-info">
+        Bảng lương nên được tạo từ bảng công tháng đã khóa để số công, giờ dạy và tỷ lệ hưởng khớp với module chấm công.
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">{{ form.name|as_crispy_field }}</div>
+                    <div class="col-md-6">{{ form.monthly_timesheet|as_crispy_field }}</div>
+                    <div class="col-md-6">{{ form.status|as_crispy_field }}</div>
                 </div>
-                <div class="col-md-6">
-                    {{ form.attendance_summary|as_crispy_field }}
-                    {{ form.status|as_crispy_field }}
+                <div class="mt-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i> Lưu
+                    </button>
+                    <a href="{% url 'payroll_list' %}" class="btn btn-secondary">Hủy</a>
                 </div>
-            </div>
-            <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Lưu</button>
-                <a href="{% url 'payroll_list' %}" class="btn btn-secondary">Hủy</a>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,87 +1,21 @@
-{% extends 'base.html' %}
-{% load static %}
-{% load humanize %}
+{% extends 'payroll/base_payroll.html' %}
 
 {% block title %}Kích hoạt bảng lương{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
-    <div class="row mb-4">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'payroll_list' %}">Bảng lương</a></li>
-                    <li class="breadcrumb-item"><a href="{% url 'payroll_detail' pk=payroll.pk %}">{{ payroll.name }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Kích hoạt</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-
-    <div class="card shadow-sm">
+    <div class="card">
         <div class="card-body">
-            <h4 class="card-title mb-4">Kích hoạt bảng lương</h4>
-
-            <div class="alert alert-info mb-4">
-                <i class="bi bi-info-circle me-2"></i>
-                Bạn đang chuẩn bị kích hoạt lại bảng lương <strong>{{ payroll.name }}</strong>. Bảng lương này hiện đang ở trạng thái <span class="badge bg-danger">Đã vô hiệu hóa</span>.
-            </div>
-
-            <div class="alert alert-warning mb-4">
-                <i class="bi bi-exclamation-triangle me-2"></i>
-                Khi kích hoạt lại, bảng lương sẽ được chuyển về trạng thái <span class="badge bg-secondary">Nháp</span> và có thể được chỉnh sửa.
-            </div>
-
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Thông tin bảng lương</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <table class="table">
-                                <tr>
-                                    <th style="width: 150px;">Tên bảng lương:</th>
-                                    <td>{{ payroll.name }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Tháng/Năm:</th>
-                                    <td>{{ payroll.month }}/{{ payroll.year }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Vị trí:</th>
-                                    <td>{{ payroll.position.name }}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table">
-                                <tr>
-                                    <th style="width: 150px;">Ngày tạo:</th>
-                                    <td>{{ payroll.created_at|date:"d/m/Y H:i" }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Trạng thái:</th>
-                                    <td>
-                                        <span class="badge bg-danger">Đã vô hiệu hóa</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <form method="post" class="mt-4">
+            <h4 class="mb-3"><i class="bi bi-check-circle me-2"></i>Kích hoạt bảng lương</h4>
+            <p>Bảng lương <strong>{{ payroll.name }}</strong> sẽ được đưa về trạng thái <span class="badge bg-secondary">Nháp</span>.</p>
+            <form method="post" class="d-flex gap-2">
                 {% csrf_token %}
-                <div class="d-flex justify-content-end gap-2">
-                    <a href="{% url 'payroll_detail' pk=payroll.pk %}" class="btn btn-outline-secondary">
-                        <i class="bi bi-x-circle me-1"></i>Hủy bỏ
-                    </a>
-                    <button type="submit" class="btn btn-success">
-                        <i class="bi bi-check-circle me-1"></i>Xác nhận kích hoạt
-                    </button>
-                </div>
+                <a href="{% url 'payroll_detail' pk=payroll.pk %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i> Quay lại
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle me-1"></i> Kích hoạt
+                </button>
             </form>
         </div>
     </div>

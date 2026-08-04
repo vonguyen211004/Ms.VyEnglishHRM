@@ -1,104 +1,290 @@
 # Ms.Vy English HR Management System
 
-Ứng dụng quản lý nhân sự nội bộ xây bằng Django 4.2.7. Hệ thống tập trung vào ba nghiệp vụ chính: hồ sơ nhân viên, chấm công và tính lương.
+Ứng dụng quản lý nhân sự nội bộ cho Ms.Vy English, xây dựng bằng Django 4.2.7. Hệ thống tập trung vào ba nhóm nghiệp vụ chính: quản lý hồ sơ nhân sự, chấm công/bảng công tháng và tính lương.
 
-## Tính năng chính
+## Mục Lục
 
-- Quản lý nhân viên, vị trí, phòng ban và hợp đồng lao động.
-- Quản lý ca làm việc, bảng chấm công chi tiết và bảng chấm công tổng hợp.
-- Tính lương theo dữ liệu chấm công, xuất Excel và quản lý trạng thái bảng lương.
-- Giao diện server-rendered bằng Django Template + Bootstrap 5.
-- Đăng nhập, đổi mật khẩu và trang hồ sơ người dùng.
+- [Tính năng chính](#tính-năng-chính)
+- [Công nghệ sử dụng](#công-nghệ-sử-dụng)
+- [Cấu trúc dự án](#cấu-trúc-dự-án)
+- [Các module chính](#các-module-chính)
+- [Luồng nghiệp vụ](#luồng-nghiệp-vụ)
+- [Cài đặt local](#cài-đặt-local)
+- [Biến môi trường](#biến-môi-trường)
+- [URL chính](#url-chính)
+- [Lệnh phát triển](#lệnh-phát-triển)
+- [Triển khai](#triển-khai)
+- [Ghi chú cho lập trình viên](#ghi-chú-cho-lập-trình-viên)
 
-## Công nghệ
+## Tính Năng Chính
 
-- Python 3.8+
-- Django 4.2.7
-- SQLite cho môi trường development
-- Bootstrap 5, Bootstrap Icons
-- django-crispy-forms, crispy-bootstrap5
-- openpyxl, xlsxwriter, Pillow
+- Đăng nhập, đăng xuất, đổi mật khẩu và xem hồ sơ người dùng.
+- Quản lý nhân viên, phòng ban, vị trí công việc, thông tin liên hệ, bằng cấp và trạng thái làm việc.
+- Quản lý hợp đồng lao động, file hợp đồng, loại hợp đồng, hình thức làm việc, loại lương và lương đóng bảo hiểm.
+- Quản lý ca làm việc, lịch làm việc cho nhân viên vận hành và chấm công hằng ngày.
+- Quản lý lớp/khóa học, buổi học, phân công giáo viên/trợ giảng và chấm công buổi dạy.
+- Tổng hợp bảng công tháng theo loại nhân sự, vị trí, tháng/năm; hỗ trợ duyệt, khóa, điều chỉnh công và chuyển sang tính lương.
+- Tính lương từ bảng công tháng đã khóa, quản lý trạng thái bảng lương, phụ cấp, khấu trừ, thuế TNCN và xuất Excel.
+- Giao diện server-rendered bằng Django Template, Bootstrap 5, Bootstrap Icons và crispy forms.
+- API nội bộ để tìm kiếm nhân viên và trích xuất dữ liệu CV/CCCD bằng AI khi cấu hình khóa API phù hợp.
 
-## Cài đặt local
+## Công Nghệ Sử Dụng
 
-```bash
-cd LTWNhom06
+- Python 3.11.9 theo `runtime.txt` trên môi trường triển khai.
+- Django 4.2.7.
+- SQLite cho phát triển local; PostgreSQL khi có `DATABASE_URL`.
+- Bootstrap 5, Bootstrap Icons, Django templates.
+- `django-crispy-forms` và `crispy-bootstrap5`.
+- `openpyxl`, `xlsxwriter` cho xử lý/xuất Excel.
+- `Pillow`, `pypdf` cho xử lý file upload/CV.
+- `gunicorn`, `whitenoise`, `dj-database-url`, `python-decouple` cho cấu hình production.
+- `google-generativeai`, `groq` cho chức năng parse CV/CCCD.
+
+## Cấu Trúc Dự Án
+
+```text
+LTWNhom06/
+├── README.md
+├── PROJECT_CONTEXT.md
+├── Procfile
+├── build.sh
+├── runtime.txt
+└── hr_management/
+    ├── manage.py
+    ├── requirements.txt
+    ├── hr_management/
+    │   ├── settings.py
+    │   ├── urls.py
+    │   ├── views.py
+    │   ├── wsgi.py
+    │   └── asgi.py
+    ├── employees/
+    ├── attendance/
+    ├── payroll/
+    ├── templates/
+    └── static/
+```
+
+## Các Module Chính
+
+### `hr_management`
+
+Module cấu hình lõi của Django project.
+
+- `settings.py`: cấu hình app, database, static/media, đăng nhập, crispy forms, logging và biến môi trường.
+- `urls.py`: khai báo route tổng, gồm trang chủ, xác thực, admin và include các app `employees`, `attendance`, `payroll`.
+- `views.py`: xử lý trang chủ, đăng nhập/đăng xuất, hồ sơ người dùng và đổi mật khẩu.
+- `templates/`: layout chung như `base.html`, `home.html`, `login.html`, `profile.html`, `change_password.html`.
+- `static/`: CSS/JS dùng chung cho giao diện.
+
+### `employees`
+
+Module quản lý dữ liệu nhân sự.
+
+Các model chính:
+
+- `Department`: phòng ban/đơn vị.
+- `Position`: vị trí công việc, có liên kết phòng ban và tự sinh mã khi cần.
+- `Employee`: hồ sơ nhân viên, thông tin cá nhân, liên hệ, công việc và học vấn.
+- `Contract`: hợp đồng lao động, loại hợp đồng, hình thức làm việc, loại lương, lương cơ bản, lương bảo hiểm và file đính kèm.
+- `WorkHistory`: lịch sử làm việc.
+- `SalaryHistory`: lịch sử thay đổi lương.
+
+Chức năng chính:
+
+- Danh sách, thêm, sửa, xem chi tiết, kích hoạt/ngưng kích hoạt nhân viên.
+- Quản lý hợp đồng theo nhân viên hoặc tạo hợp đồng độc lập.
+- Chấm dứt, xóa, tải file hợp đồng.
+- Tự đồng bộ vị trí/trạng thái nhân viên theo hợp đồng đang hiệu lực.
+- API tìm nhân viên đang hoạt động nhưng chưa có hợp đồng hiệu lực.
+- API parse CV/CCCD để gợi ý dữ liệu nhập hồ sơ.
+
+### `attendance`
+
+Module quản lý lịch làm việc, chấm công và bảng công.
+
+Các model chính:
+
+- `WorkShift`: mẫu ca làm việc, giờ vào/ra, thời gian nghỉ, giờ công và ngày công.
+- `StaffSchedule`: lịch ca cho nhân viên vận hành.
+- `Course`: lớp/khóa học.
+- `ClassSession`: buổi học theo lớp, ngày, giờ và phòng học.
+- `TeacherAssignment`: phân công giáo viên/trợ giảng/dạy thay cho buổi học.
+- `SessionAttendance`: chấm công buổi dạy.
+- `DailyAttendance`: chấm công hằng ngày cho nhân viên vận hành.
+- `MonthlyTimesheet`: bảng công tháng theo loại bảng công, vị trí và tháng/năm.
+- `TimesheetApproval`: lịch sử rà soát, duyệt, khóa, mở khóa bảng công.
+- `AttendanceAdjustment`: điều chỉnh công, giờ, nghỉ phép hoặc ghi chú.
+- `AttendanceRecord`, `AttendanceSummary`, `EmployeeAttendance`, `EmployeeSchedule`: model cũ được giữ để tương thích dữ liệu và endpoint legacy.
+
+Chức năng chính:
+
+- Dashboard chấm công.
+- Quản lý ca làm việc.
+- Xếp lịch nhân viên vận hành theo khoảng ngày và thứ trong tuần.
+- Quản lý lớp/khóa học và tạo lịch buổi học hàng loạt.
+- Nhập chấm công hằng ngày.
+- Lập bảng công tháng cho nhân viên vận hành hoặc giáo viên/trợ giảng.
+- Xem chi tiết, điều chỉnh, khóa và chuyển bảng công sang payroll.
+- Một số endpoint import/export Excel và cập nhật chấm công cũ vẫn được giữ để tương thích.
+
+### `payroll`
+
+Module tính lương và quản lý bảng lương.
+
+Các model chính:
+
+- `Payroll`: bảng lương theo tháng/năm, vị trí, người tạo, trạng thái và nguồn bảng công tháng.
+- `PayrollDetail`: dòng lương từng nhân viên, gồm lương cơ bản, công chuẩn, công thực tế, tỷ lệ hưởng lương, thưởng/phạt, khấu trừ, thuế TNCN, tổng thu nhập và thực lĩnh.
+- `PayrollAllowance`: phụ cấp theo dòng lương.
+- `PayrollDeduction`: khấu trừ theo dòng lương.
+
+Chức năng chính:
+
+- Tạo/sửa/xem danh sách/xem chi tiết bảng lương.
+- Tính lương từ `MonthlyTimesheet` đã khóa hoặc dữ liệu chấm công cũ.
+- Tự tính thực lĩnh khi lưu chi tiết lương.
+- Chuyển bảng công sang bảng lương.
+- Kích hoạt/vô hiệu hóa bảng lương.
+- Xuất bảng lương ra file Excel.
+
+## Luồng Nghiệp Vụ
+
+1. Tạo phòng ban và vị trí trong Django Admin hoặc qua dữ liệu có sẵn.
+2. Tạo hồ sơ nhân viên trong module `employees`.
+3. Tạo hợp đồng cho nhân viên, chọn loại lương và mức lương/đơn giá tính lương.
+4. Với nhân viên vận hành: tạo ca làm việc, xếp lịch ca, nhập chấm công hằng ngày.
+5. Với giáo viên/trợ giảng: tạo lớp/khóa học, tạo buổi học, phân công giảng dạy và ghi nhận chấm công buổi dạy.
+6. Tạo bảng công tháng trong module `attendance`, rà soát, điều chỉnh nếu cần và khóa bảng công.
+7. Chuyển bảng công đã khóa sang module `payroll`.
+8. Kiểm tra chi tiết lương, cập nhật phụ cấp/khấu trừ/trạng thái và xuất Excel.
+
+## Cài Đặt Local
+
+Yêu cầu:
+
+- Python 3.11 được khuyến nghị.
+- Git.
+- SQLite dùng được mặc định, không cần cài database riêng cho local.
+
+Các bước chạy trên Windows PowerShell:
+
+```powershell
+cd D:\dev-python\LTWNhom06
 python -m venv venv
-venv\Scripts\activate
-pip install -r hr_management/requirements.txt
-cd hr_management
+.\venv\Scripts\Activate.ps1
+pip install -r .\hr_management\requirements.txt
+```
+
+Tạo file `.env` ở thư mục `LTWNhom06/hr_management/`:
+
+```env
+SECRET_KEY=dev-secret-key-change-me
+DEBUG=true
+ALLOWED_HOSTS=localhost,127.0.0.1
+GROQ_API_KEY=
+GEMINI_API_KEY=
+```
+
+Khởi tạo database và tài khoản quản trị:
+
+```powershell
+cd .\hr_management
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Truy cập:
+Sau đó mở:
 
-- Trang chủ: `http://127.0.0.1:8000/`
-- Nhân viên: `http://127.0.0.1:8000/employees/`
-- Chấm công: `http://127.0.0.1:8000/attendance/`
-- Tiền lương: `http://127.0.0.1:8000/payroll/`
-- Admin: `http://127.0.0.1:8000/admin/`
+```text
+http://127.0.0.1:8000/
+```
 
-## API và URL
+## Biến Môi Trường
 
-Các route public dùng tiếng Anh để nhất quán hơn:
+| Biến | Bắt buộc | Mô tả |
+| --- | --- | --- |
+| `SECRET_KEY` | Có | Khóa bí mật của Django. Bắt buộc vì `settings.py` đọc bằng `python-decouple`. |
+| `DEBUG` | Không | `true` khi chạy local, `false` trên production. Mặc định là `false`. |
+| `ALLOWED_HOSTS` | Không | Danh sách host phân tách bằng dấu phẩy. Mặc định `localhost,127.0.0.1`. |
+| `DATABASE_URL` | Không | Nếu có, ứng dụng dùng PostgreSQL qua `dj-database-url`; nếu không có, dùng SQLite local. |
+| `GROQ_API_KEY` | Không | Dùng cho API parse CV/CCCD. |
+| `GEMINI_API_KEY` | Không | Đã được cấu hình trong API module; hiện chức năng parse chính đang gọi Groq. |
 
-- `/employees/`
-- `/attendance/`
-- `/payroll/`
-- `/api/employees/search/`
+## URL Chính
 
-## 📞 SUPPORT & CONTRIBUTION
+| URL | Chức năng |
+| --- | --- |
+| `/` | Trang chủ sau đăng nhập |
+| `/login/` | Đăng nhập |
+| `/logout/` | Đăng xuất |
+| `/profile/` | Hồ sơ người dùng |
+| `/change-password/` | Đổi mật khẩu |
+| `/admin/` | Django Admin |
+| `/employees/` | Danh sách nhân viên |
+| `/employees/contracts/` | Danh sách hợp đồng |
+| `/attendance/` | Dashboard chấm công |
+| `/attendance/work-shifts/` | Quản lý ca làm việc |
+| `/attendance/schedules/` | Lịch ca nhân viên vận hành |
+| `/attendance/courses/` | Quản lý lớp/khóa học |
+| `/attendance/sessions/` | Quản lý buổi học |
+| `/attendance/daily-attendance/` | Nhập chấm công hằng ngày |
+| `/attendance/summary/` | Bảng công tháng |
+| `/payroll/` | Danh sách bảng lương |
+| `/payroll/create/` | Tạo bảng lương |
+| `/payroll/calculate/` | Tính lương |
+| `/api/employees/search/` | API tìm kiếm nhân viên |
+| `/api/employees/parse-cv/` | API parse CV/CCCD |
 
-### Reporting Issues
-- Check existing issues first
-- Provide clear description
-- Include error messages & logs
-- Attach screenshots if applicable
+## Lệnh Phát Triển
 
-### Contributing
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Chạy từ thư mục `LTWNhom06/hr_management`:
+
+```powershell
+python manage.py check
+python manage.py makemigrations
+python manage.py migrate
+python manage.py test
+python manage.py runserver
+```
+
+Thu thập static file cho production:
+
+```powershell
+python manage.py collectstatic --noinput
+```
+
+## Triển Khai
+
+Repo có sẵn các file hỗ trợ triển khai:
+
+- `runtime.txt`: khai báo Python `3.11.9`.
+- `requirements.txt`: dependency của Django app.
+- `build.sh`: cài dependency, migrate database và collect static.
+- `Procfile`: chạy migrate, collectstatic và start Gunicorn.
+
+Gợi ý cấu hình production:
+
+- `DEBUG=false`.
+- Thiết lập `SECRET_KEY` mạnh và không commit vào Git.
+- Thiết lập `ALLOWED_HOSTS` theo domain triển khai.
+- Thiết lập `DATABASE_URL` nếu dùng PostgreSQL.
+- Thiết lập `GROQ_API_KEY` nếu bật chức năng parse CV/CCCD.
+- Kiểm tra lại route `create-admin-temp/` trong `hr_management/urls.py`; route này chỉ nên dùng tạm trong môi trường dev và cần gỡ hoặc bảo vệ trước khi public.
+
+## Ghi Chú Cho Lập Trình Viên
+
+- Không commit file runtime/local như `db.sqlite3`, `debug.log`, `venv/`, `__pycache__/`, `.env`, `media/`, `staticfiles/`.
+- Layout chung nằm ở `hr_management/templates/base.html`.
+- Trang nhân viên dùng sidebar `employees/sidebar.html`.
+- Trang chấm công dùng sidebar `attendance/sidebar.html` qua block `module_sidebar`.
+- Trang payroll nên kế thừa `payroll/base_payroll.html` để giữ sidebar lương.
+- Public URL đang dùng tiếng Anh để nhất quán: `/employees/`, `/attendance/`, `/payroll/`, `/api/employees/search/`.
+- Một số model/route legacy trong module `attendance` vẫn được giữ để tránh vỡ dữ liệu cũ; khi chỉnh sửa nên kiểm tra tác động tới cả bảng công tháng mới và dữ liệu legacy.
+- Nếu render trang có truy vấn SQLite bị `sqlite3.OperationalError: disk I/O error`, hãy kiểm tra quyền file database, dung lượng ổ đĩa, file lock hoặc process khác đang giữ `db.sqlite3`.
 
 ---
 
-## 👥 CONTRIBUTORS
-
-- **Lead Developer**: Ms.Vy English Team
-- **Project Manager**: Development Team
-
----
-
-## 📅 PROJECT STATUS
-
-- ✅ Core functionality implemented
-- ✅ Database schema finalized
-- ✅ Import issues fixed (June 2026)
-- ✅ Requirements.txt updated
-- ⏳ Full test coverage (in progress)
-- ⏳ API documentation (pending)
-
----
-
-## 🎓 LEARNING OUTCOMES
-
-This project demonstrates:
-- Django Web Framework mastery
-- Database design & ORM usage
-- RESTful API development
-- Form validation & error handling
-- Template inheritance & static files
-- Authentication & authorization
-- Business logic implementation
-- Excel file generation
-
----
-
-**Last Updated**: June 1, 2026
-**Version**: 1.0.0
-**Status**: Development/Beta
----
+**Phiên bản tài liệu**: cập nhật theo cấu trúc module hiện tại  
+**Trạng thái dự án**: Development/Beta

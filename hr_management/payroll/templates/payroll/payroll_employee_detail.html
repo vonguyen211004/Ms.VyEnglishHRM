@@ -1,180 +1,73 @@
 {% extends 'payroll/base_payroll.html' %}
-{% load static %}
 {% load humanize %}
-{% load payroll_filters %}
-{% block title %}Chi tiết lương nhân viên - Ms.Vy English HRM{% endblock %}
+
+{% block title %}Phiếu lương nhân viên{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3">Chi tiết lương nhân viên</h1>
-    <div class="d-flex gap-2">
-        <a href="{% url 'payroll_detail' payroll.id %}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-2"></i>Quay lại
-        </a>
-        <button class="btn btn-primary" onclick="window.print()">
-            <i class="bi bi-printer me-2"></i>In phiếu lương
-        </button>
-    </div>
-</div>
-
-<!-- Thông tin nhân viên -->
-<div class="card mb-4">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Thông tin nhân viên</h5>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <h6 class="text-muted mb-1">Mã nhân viên</h6>
-                <p class="fw-medium">{{ detail.employee.code }}</p>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h6 class="text-muted mb-1">Họ và tên</h6>
-                <p class="fw-medium">{{ detail.employee.full_name }}</p>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h6 class="text-muted mb-1">Vị trí</h6>
-                <p class="fw-medium">{{ detail.employee.position.name }}</p>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h6 class="text-muted mb-1">Mã số thuế</h6>
-                <p class="fw-medium">{{ detail.employee.tax_code|default:"Chưa cập nhật" }}</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Thông tin lương -->
-<div class="row mb-4">
-    <div class="col-md-6 mb-4 mb-md-0">
-        <div class="card h-100">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Thông tin lương cơ bản</h5>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                    <span class="text-muted">Lương cơ bản</span>
-                    <span class="fw-medium">{{ detail.basic_salary|floatformat:0|intcomma }} VNĐ</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                    <span class="text-muted">Số công chuẩn</span>
-                    <span class="fw-medium">{{ detail.standard_workdays }} ngày</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                    <span class="text-muted">Số công thực tế</span>
-                    <span class="fw-medium">{{ detail.actual_workdays }} ngày</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                    <span class="text-muted">Số ngày nghỉ không lương</span>
-                    <span class="fw-medium">{{ detail.unpaid_leave }} ngày</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                    <span class="text-muted fw-medium">Lương theo ngày công</span>
-                    <span class="fw-medium">{{ detail.gross_salary|floatformat:0|intcomma }} VNĐ</span>
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold mb-0">Phiếu lương nhân viên</h2>
+        <div class="d-flex gap-2">
+            <a href="{% url 'payroll_detail' payroll.id %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Quay lại
+            </a>
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="bi bi-printer me-1"></i> In phiếu lương
+            </button>
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="card h-100">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Tổng hợp thu nhập</h5>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                    <span class="text-muted">Lương theo ngày công</span>
-                    <span class="fw-medium">{{ detail.gross_salary|floatformat:0|intcomma }} VNĐ</span>
-                </div>
-
-                <!-- Phụ cấp -->
-                {% if allowances %}
-                <div class="py-2">
-                    <h6 class="text-muted mb-2">Phụ cấp</h6>
-                    {% for allowance in allowances %}
-                    <div class="d-flex justify-content-between align-items-center py-1 ps-4 border-bottom">
-                        <span class="text-muted">
-                            {{ allowance.name }}
-                            {% if allowance.is_percentage %}({{ allowance.amount }}%){% endif %}
-                        </span>
-                        <span class="fw-medium">{{ allowance.value|floatformat:0|intcomma }} VNĐ</span>
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header"><h5 class="card-title mb-0">Thông tin nhân viên</h5></div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6"><strong>Mã nhân viên:</strong> {{ detail.employee.code }}</div>
+                        <div class="col-md-6"><strong>Họ tên:</strong> {{ detail.employee.full_name }}</div>
+                        <div class="col-md-6"><strong>Vị trí:</strong> {{ detail.employee.position.name }}</div>
+                        <div class="col-md-6"><strong>Bảng lương:</strong> {{ payroll.month }}/{{ payroll.year }}</div>
                     </div>
-                    {% endfor %}
                 </div>
-                {% endif %}
-
-
-                <!-- Tổng thu nhập -->
-<div class="d-flex justify-content-between align-items-center py-2 border-bottom bg-light">
-    <span class="text-dark fw-medium">Tổng thu nhập</span>
-    <span class="fw-bold">
-        {% with total_allowances=0 %}
-            {% for allowance in allowances %}
-                {% with total_allowances=total_allowances|add:allowance.value %}
-                {% endwith %}
-            {% endfor %}
-            {% with total_income=detail.gross_salary|add:total_allowances %}
-                {{ total_income|floatformat:0|intcomma }} VNĐ
-            {% endwith %}
-        {% endwith %}
-    </span>
-</div>
-                <!-- Khấu trừ -->
-                {% if deductions %}
-                <div class="py-2">
-                    <h6 class="text-muted mb-2">Khấu trừ khác</h6>
-                    {% for deduction in deductions %}
-                    <div class="d-flex justify-content-between align-items-center py-1 ps-4 border-bottom">
-                        <span class="text-muted">
-                            {{ deduction.name }}
-                            {% if deduction.is_percentage %}({{ deduction.amount }}%){% endif %}
-                        </span>
-                        <span class="fw-medium text-danger">-{{ deduction.value|floatformat:0|intcomma }} VNĐ</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header"><h5 class="card-title mb-0">Căn cứ tính lương</h5></div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span>Nhóm bảng công</span><strong>{{ payroll.source_type_display }}</strong>
                     </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-
-
-
-                <!-- Thực lĩnh -->
-                <div class="d-flex justify-content-between align-items-center py-3 bg-primary bg-opacity-10 rounded px-3 mt-2">
-                    <span class="fw-medium" style="color: red;">Thực lĩnh</span>
-                    <span class="fw-bold " style="color: red;">{{ detail.net_salary|floatformat:0|intcomma }} VNĐ</span>
-
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span>Công/Giờ chuẩn</span><strong>{{ detail.standard_workdays }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                        <span>Công/Giờ tính lương</span><strong>{{ detail.actual_workdays }}</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-2">
+                        <span>Tỷ lệ hưởng</span><strong>{{ detail.attendance_ratio|floatformat:2 }}</strong>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Thông tin thuế TNCN -->
-<div class="card mb-4">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Chi tiết tính thuế TNCN</h5>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <table class="table">
-                    <tr>
-                        <th>Giảm trừ gia cảnh bản thân:</th>
-                        <td>11,000,000 VNĐ</td>
-                    </tr>
-                </table>
+    <div class="card">
+        <div class="card-header"><h5 class="card-title mb-0">Tổng hợp lương</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4"><strong>Lương cơ bản:</strong> {{ detail.basic_salary|floatformat:0|intcomma }} VNĐ</div>
+                <div class="col-md-4"><strong>Tổng thu nhập:</strong> {{ detail.gross_salary|floatformat:0|intcomma }} VNĐ</div>
+                <div class="col-md-4"><strong>Thuế TNCN:</strong> {{ detail.income_tax|floatformat:0|intcomma }} VNĐ</div>
+                <div class="col-md-4"><strong>Khấu trừ khác:</strong> {{ detail.deduction_amount|floatformat:0|intcomma }} VNĐ</div>
+                <div class="col-md-4"><strong>Khen thưởng:</strong> {{ detail.reward_amount|floatformat:0|intcomma }} VNĐ</div>
+                <div class="col-md-4"><strong>Kỷ luật:</strong> {{ detail.discipline_amount|floatformat:0|intcomma }} VNĐ</div>
+            </div>
+            <div class="border-top mt-3 pt-3 d-flex justify-content-between align-items-center">
+                <span class="fs-5 fw-bold">Thực lĩnh</span>
+                <span class="fs-4 fw-bold text-primary">{{ detail.net_salary|floatformat:0|intcomma }} VNĐ</span>
             </div>
         </div>
     </div>
 </div>
-
-
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Hàm nhân số với 100 để hiển thị phần trăm
-    function multiply(value, arg) {
-        return value * arg;
-    }
-</script>
 {% endblock %}

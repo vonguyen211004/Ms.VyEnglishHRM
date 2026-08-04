@@ -1,10 +1,20 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from employees.models import Employee, Position
-from attendance.models import AttendanceSummary
+from attendance.models import AttendanceSummary, MonthlyTimesheet
 from django.utils import timezone
 from decimal import Decimal
 from django.contrib.auth.models import User
+
+
+def current_month():
+	return timezone.now().month
+
+
+def current_year():
+	return timezone.now().year
+
+
 class Payroll(models.Model):
 	attendance_summary = models.ForeignKey(
 		AttendanceSummary,
@@ -14,12 +24,20 @@ class Payroll(models.Model):
 		related_name='payrolls',
 		verbose_name="Bảng chấm công"
 	)
+	monthly_timesheet = models.ForeignKey(
+		MonthlyTimesheet,
+		on_delete=models.SET_NULL,
+		null=True,
+		blank=True,
+		related_name='payrolls',
+		verbose_name="Bảng công tháng"
+	)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=200, verbose_name="Tên bảng lương")
 	code = models.CharField(max_length=50, blank=True, null=True, verbose_name="Mã bảng lương")
 	# Thêm các trường month và year nếu chưa có
-	month = models.IntegerField(verbose_name="Tháng", default=timezone.now().month)
-	year = models.IntegerField(verbose_name="Năm", default=timezone.now().year)
+	month = models.IntegerField(verbose_name="Tháng", default=current_month)
+	year = models.IntegerField(verbose_name="Năm", default=current_year)
 	position = models.ForeignKey(Position, on_delete=models.CASCADE, verbose_name="Vị trí")
 	status = models.CharField(
 		max_length=20,
@@ -27,7 +45,8 @@ class Payroll(models.Model):
 			('draft', 'Nháp'),
 			('processing', 'Đang xử lý'),
 			('approved', 'Đã duyệt'),
-			('paid', 'Đã thanh toán')
+			('paid', 'Đã thanh toán'),
+			('disabled', 'Vô hiệu hóa')
 		],
 		default='draft',
 		verbose_name="Trạng thái"
@@ -45,6 +64,12 @@ class Payroll(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	@property
+	def source_type_display(self):
+		if self.monthly_timesheet_id:
+			return self.monthly_timesheet.get_timesheet_type_display()
+		return "Bảng lương cũ"
 
 
 class PayrollDetail(models.Model):
@@ -130,16 +155,13 @@ class PayrollDetail(models.Model):
 		unique_together = ('payroll', 'employee')
 
 	def save(self, *args, **kwargs):
-		# Đảm bảo net_salary được tính đúng trước khi lưu
-		if self.gross_salary and self.deduction_amount:
-			# Tính lương thực lĩnh = tổng thu nhập - khấu trừ + thưởng - phạt
-			self.net_salary = (
-					self.gross_salary -
-					self.deduction_amount -
-					self.income_tax +
-					self.reward_amount -
-					self.discipline_amount
-			)
+		self.net_salary = (
+				(self.gross_salary or Decimal('0')) -
+				(self.deduction_amount or Decimal('0')) -
+				(self.income_tax or Decimal('0')) +
+				(self.reward_amount or Decimal('0')) -
+				(self.discipline_amount or Decimal('0'))
+		)
 		super().save(*args, **kwargs)
 
 

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}Lịch làm việc / phân ca - Ms.Vy English{% endblock %}
+
+{% block module_sidebar %}
+{% include "attendance/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold mb-0">Lịch làm việc / phân ca</h2>
+    <a href="{% url 'attendance:schedule_add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Tạo lịch
+    </a>
+</div>
+
+<form method="get" class="list-filter-card mb-3" id="scheduleFilterForm">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-3">
+            <label for="date" class="form-label">Ngày</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ selected_date }}">
+        </div>
+        <div class="col-md-3">
+            <label for="employee" class="form-label">Nhân viên</label>
+            <select id="employee" name="employee" class="form-select">
+                <option value="">Tất cả</option>
+                {% for employee in employees %}
+                <option value="{{ employee.id }}" {% if employee_filter == employee.id|stringformat:"s" %}selected{% endif %}>
+                    {{ employee.full_name }} ({{ employee.code }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="shift" class="form-label">Ca làm</label>
+            <select id="shift" name="shift" class="form-select">
+                <option value="">Tất cả</option>
+                {% for shift in work_shifts %}
+                <option value="{{ shift.id }}" {% if shift_filter == shift.id|stringformat:"s" %}selected{% endif %}>
+                    {{ shift.name }} ({{ shift.code }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</form>
+
+<div id="bulkDeleteForm" data-bulk-form>
+    <div class="bulk-action-bar">
+        <div class="bulk-action-summary">Đã chọn <span data-bulk-count>0</span> dòng</div>
+    </div>
+
+    <div class="card list-card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 48px;">
+                                <input type="checkbox" class="form-check-input" id="selectAllSchedules" data-bulk-select-all aria-label="Chọn tất cả">
+                            </th>
+                            <th>Ngày</th>
+                            <th>Nhân viên</th>
+                            <th>Vị trí</th>
+                            <th>Ca làm</th>
+                            <th>Giờ ca</th>
+                            <th>Công dự kiến</th>
+                            <th>Ghi chú</th>
+                            <th class="action-column">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for schedule in schedules %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input schedule-checkbox" name="schedule_ids" value="{{ schedule.id }}" data-bulk-checkbox aria-label="Chọn lịch {{ schedule.id }}">
+                            </td>
+                            <td>{{ schedule.date|date:"d/m/Y" }}</td>
+                            <td>{{ schedule.employee.full_name }}<br><small class="text-muted">{{ schedule.employee.code }}</small></td>
+                            <td>{{ schedule.employee.position.name|default:"-" }}</td>
+                            <td>{{ schedule.work_shift.name }} ({{ schedule.work_shift.code }})</td>
+                            <td>{{ schedule.work_shift.start_time|time:"H:i" }} - {{ schedule.work_shift.end_time|time:"H:i" }}</td>
+                            <td>{{ schedule.expected_work_days|unlocalize }}</td>
+                            <td>{{ schedule.note|default:"" }}</td>
+                            <td class="action-column">
+                                <a href="{% url 'attendance:schedule_delete' schedule.id %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">
+                                Chưa có lịch làm việc. Hãy tạo lịch trước khi chấm công theo ngày.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if page_obj %}
+<div class="list-pagination">
+    <div class="pagination-summary">
+        Tổng số bản ghi: {{ page_obj.paginator.count }}
+        {% if page_obj.paginator.count %} | Từ {{ page_obj.start_index }} đến {{ page_obj.end_index }}{% endif %}
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}">Trước</a>
+            </li>
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}">Sau</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}
+
+<script>
+const scheduleFilterForm = document.getElementById('scheduleFilterForm');
+
+scheduleFilterForm?.querySelectorAll('input, select').forEach((field) => {
+    field.addEventListener('change', () => scheduleFilterForm.submit());
+});
+
+</script>
+{% endblock %}

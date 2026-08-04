@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Buổi dạy - Ms.Vy English{% endblock %}
+
+{% block module_sidebar %}
+{% include "attendance/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold mb-0">Buổi dạy</h2>
+    <a href="{% url 'attendance:session_add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Tạo buổi dạy
+    </a>
+</div>
+
+<form method="get" class="list-filter-card mb-3" id="sessionFilterForm">
+    <div class="row g-3 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label" for="date">Ngày</label>
+            <input type="date" id="date" name="date" class="form-control" value="{{ selected_date }}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label" for="status">Trạng thái</label>
+            <select id="status" name="status" class="form-select">
+                <option value="">Tất cả</option>
+                {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if status_filter == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</form>
+
+<div data-bulk-form>
+    <div class="bulk-action-bar">
+        <div class="bulk-action-summary">Đã chọn <span data-bulk-count>0</span> dòng</div>
+    </div>
+
+    <div class="card list-card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="select-column">
+                            <input type="checkbox" class="form-check-input" data-bulk-select-all aria-label="Chọn tất cả buổi dạy">
+                        </th>
+                        <th>Ngày</th>
+                        <th>Lớp</th>
+                        <th>Giờ</th>
+                        <th>Phòng</th>
+                        <th>Phân công</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sessions %}
+                    <tr>
+                        <td class="select-column">
+                            <input type="checkbox" class="form-check-input" name="session_ids" value="{{ session.id }}" data-bulk-checkbox aria-label="Chọn buổi dạy {{ session.id }}">
+                        </td>
+                        <td>{{ session.date|date:"d/m/Y" }}</td>
+                        <td>{{ session.course.name }}<br><small class="text-muted">{{ session.course.code }}</small></td>
+                        <td>{{ session.start_time|time:"H:i" }} - {{ session.end_time|time:"H:i" }}</td>
+                        <td>{{ session.room|default:"-" }}</td>
+                        <td>
+                            {% for assignment in session.assignments.all %}
+                                <div>{{ assignment.employee.full_name }} <small class="text-muted">({{ assignment.get_role_display }})</small></div>
+                            {% empty %}
+                                <span class="text-muted">Chưa phân công</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if session.status == 'scheduled' %}
+                                <span class="badge bg-info text-dark">{{ session.get_status_display }}</span>
+                            {% elif session.status == 'completed' %}
+                                <span class="badge bg-success">{{ session.get_status_display }}</span>
+                            {% elif session.status == 'cancelled' %}
+                                <span class="badge bg-danger">{{ session.get_status_display }}</span>
+                            {% elif session.status == 'makeup' %}
+                                <span class="badge bg-warning text-dark">{{ session.get_status_display }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ session.get_status_display }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="7" class="text-center text-muted py-4">Chưa có buổi dạy.</td></tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+const sessionFilterForm = document.getElementById('sessionFilterForm');
+sessionFilterForm?.querySelectorAll('input, select').forEach((field) => {
+    field.addEventListener('change', () => sessionFilterForm.submit());
+});
+</script>
+{% endblock %}

@@ -1,112 +1,17 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
-{% load payroll_filters %}
+{% extends 'payroll/base_payroll.html' %}
 
-{% block title %}Tính lương - Ms.Vy English HRM{% endblock %}
-
-{% block module_sidebar %}
-{% include 'payroll/sidebar.html' %}
-{% endblock %}
+{% block title %}Tính lương{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3">Tính lương</h1>
-    <div>
-        <a href="{% url 'payroll_list' %}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-2"></i>Quay lại
-        </a>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="fw-bold mb-3">Tính lương</h2>
+            <p class="mb-3">Workflow mới tạo bảng lương từ bảng công tháng đã khóa. Hãy vào bảng công tháng, khóa bảng công, rồi bấm Chuyển tính lương.</p>
+            <a href="{% url 'attendance:attendance_summary' %}" class="btn btn-primary">
+                <i class="bi bi-table me-1"></i> Mở bảng công tháng
+            </a>
+        </div>
     </div>
 </div>
-
-<div class="card">
-    <div class="card-body">
-        <form method="post">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="{{ form.attendance_summary.id_for_label }}" class="form-label">{{ form.attendance_summary.label }}</label>
-                {{ form.attendance_summary }}
-                {% if form.attendance_summary.errors %}
-                <div class="text-danger">
-                    {% for error in form.attendance_summary.errors %}
-                    <small>{{ error }}</small>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-
-            <div class="mb-3">
-                <label for="{{ form.payroll_name.id_for_label }}" class="form-label">{{ form.payroll_name.label }}</label>
-                {{ form.payroll_name }}
-                {% if form.payroll_name.errors %}
-                <div class="text-danger">
-                    {% for error in form.payroll_name.errors %}
-                    <small>{{ error }}</small>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-
-            {% if form.attendance_summary.value %}
-            <div class="mt-4">
-                <h5 class="mb-3">Thông tin bảng chấm công</h5>
-                {% with summary=form.attendance_summary.value|get_attendance_summary %}
-                {% if summary %}
-                <div class="row bg-light p-3 rounded">
-                    <div class="col-md-6 mb-3">
-                        <p class="text-muted mb-1">Tên bảng chấm công</p>
-                        <p class="fw-medium">{{ summary.name }}</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="text-muted mb-1">Vị trí áp dụng</p>
-                        <p class="fw-medium">{{ summary.position.name }}</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="text-muted mb-1">Thời gian</p>
-                        <p class="fw-medium">{{ summary.date_range }}</p>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <p class="text-muted mb-1">Số công chuẩn</p>
-                        <p class="fw-medium">{{ summary.standard_workdays|default:"24" }} ngày</p>
-                    </div>
-                </div>
-                {% endif %}
-                {% endwith %}
-            </div>
-            {% endif %}
-
-            <div class="mt-3">
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-calculator me-2"></i>Tính lương
-                </button>
-                <a href="{% url 'payroll_list' %}" class="btn btn-secondary">Hủy</a>
-            </div>
-        </form>
-    </div>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const attendanceSummarySelect = document.getElementById('{{ form.attendance_summary.id_for_label }}');
-        const payrollNameInput = document.getElementById('{{ form.payroll_name.id_for_label }}');
-
-        // Cập nhật tên bảng lương khi chọn bảng chấm công
-        attendanceSummarySelect.addEventListener('change', function() {
-            if (this.value) {
-                // Gửi AJAX request để lấy thông tin bảng chấm công
-                fetch(`/api/attendance-summary/${this.value}/`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.name) {
-                            const month = new Date().getMonth() + 1;
-                            const year = new Date().getFullYear();
-                            payrollNameInput.value = `Bảng lương tháng ${month}/${year} - ${data.name}`;
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        });
-    });
-</script>
 {% endblock %}

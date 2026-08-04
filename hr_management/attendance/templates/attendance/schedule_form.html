@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}Tạo lịch làm việc - Ms.Vy English{% endblock %}
+
+{% block module_sidebar %}
+{% include "attendance/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold mb-0">Tạo lịch làm việc / phân ca</h2>
+    <a href="{% url 'attendance:schedule_list' %}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label" for="{{ form.employee.id_for_label }}">Nhân viên</label>
+                    {{ form.employee }}
+                    {{ form.employee.errors }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label" for="{{ form.work_shift.id_for_label }}">Ca làm</label>
+                    {{ form.work_shift }}
+                    <div class="form-text">Công dự kiến sẽ lấy theo ngày công của ca, có thể chỉnh tay nếu cần.</div>
+                    {{ form.work_shift.errors }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ form.start_date.id_for_label }}">Từ ngày <span class="text-danger">*</span></label>
+                    {{ form.start_date }}
+                    {{ form.start_date.errors }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ form.end_date.id_for_label }}">Đến ngày <span class="text-danger">*</span></label>
+                    {{ form.end_date }}
+                    {{ form.end_date.errors }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ form.expected_work_days.id_for_label }}">Công dự kiến</label>
+                    {{ form.expected_work_days }}
+                    <div class="form-text">1 = một công; 0.5 = nửa công.</div>
+                    {{ form.expected_work_days.errors }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label" for="{{ form.note.id_for_label }}">Ghi chú</label>
+                    {{ form.note }}
+                    {{ form.note.errors }}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Ngày trong tuần</label>
+                    <div class="d-flex flex-wrap gap-3">
+                        {% for checkbox in form.weekdays %}
+                        <div class="form-check">
+                            {{ checkbox.tag }}
+                            <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {{ form.weekdays.errors }}
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save me-1"></i> Lưu
+                </button>
+                <a href="{% url 'attendance:schedule_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-x-circle me-1"></i> Hủy
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{ work_shift_days|json_script:"work-shift-days" }}
+<script>
+const shiftDays = JSON.parse(document.getElementById('work-shift-days').textContent);
+const shiftSelect = document.getElementById('{{ form.work_shift.id_for_label }}');
+const expectedInput = document.getElementById('{{ form.expected_work_days.id_for_label }}');
+
+function syncExpectedWorkDays() {
+    const selectedValue = shiftSelect.value;
+    if (selectedValue && shiftDays[selectedValue] !== undefined) {
+        expectedInput.value = shiftDays[selectedValue];
+    }
+}
+
+shiftSelect.addEventListener('change', syncExpectedWorkDays);
+if (!expectedInput.value) {
+    syncExpectedWorkDays();
+}
+</script>
+{% endblock %}

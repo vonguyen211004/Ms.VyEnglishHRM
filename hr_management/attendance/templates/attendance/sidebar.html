@@ -1,22 +1,32 @@
 <ul class="nav flex-column">
     <li class="nav-item">
-        <a class="nav-link {% if request.resolver_match.url_name == 'work_shift_list' %}active{% endif %}" href="{% url 'attendance:work_shift_list' %}">
-            <i class="bi bi-clock me-2"></i> Danh sách ca làm việc
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'daily_attendance_form' %}active{% endif %}" href="{% url 'attendance:daily_attendance_form' %}">
-            <i class="bi bi-calendar-check me-2"></i> Chấm công hàng ngày
+            <i class="bi bi-calendar-check me-2"></i> Chấm công hôm nay
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {% if request.resolver_match.url_name == 'attendance_detail_list' %}active{% endif %}" href="{% url 'attendance:attendance_detail_list' %}">
-            <i class="bi bi-list-check me-2"></i> Bảng chấm công chi tiết
+        <a class="nav-link {% if request.resolver_match.url_name == 'work_shift_list' %}active{% endif %}" href="{% url 'attendance:work_shift_list' %}">
+            <i class="bi bi-clock me-2"></i> Ca vận hành
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'schedule_list' or request.resolver_match.url_name == 'schedule_add' %}active{% endif %}" href="{% url 'attendance:schedule_list' %}">
+            <i class="bi bi-calendar-week me-2"></i> Lịch ca nhân viên
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'course_list' or request.resolver_match.url_name == 'course_add' %}active{% endif %}" href="{% url 'attendance:course_list' %}">
+            <i class="bi bi-journal-bookmark me-2"></i> Lớp/Khóa học
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'session_list' or request.resolver_match.url_name == 'session_add' %}active{% endif %}" href="{% url 'attendance:session_list' %}">
+            <i class="bi bi-easel me-2"></i> Buổi dạy
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'attendance_summary' %}active{% endif %}" href="{% url 'attendance:attendance_summary' %}">
-            <i class="bi bi-table me-2"></i> Bảng chấm công tổng hợp
+            <i class="bi bi-table me-2"></i> Bảng công tháng
         </a>
     </li>
 </ul>

@@ -134,8 +134,14 @@
                     <div class="col-md-6">{{ employee.ranking|default:"-" }}</div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-6 fw-bold">Lương cơ bản:</div>
-                    <div class="col-md-6">{{ employee.basic_salary|floatformat:0|default:"-" }} VNĐ</div>
+                    <div class="col-md-6 fw-bold">Nguồn lương hiện tại:</div>
+                    <div class="col-md-6">
+                        {% if current_contract %}
+                            {{ current_contract.get_salary_type_display }} - {{ salary_basis.amount|floatformat:0 }} VNĐ
+                        {% else %}
+                            {{ salary_basis.amount|floatformat:0 }} VNĐ
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -158,7 +164,7 @@
                         <th>Ngày bắt đầu</th>
                         <th>Ngày kết thúc</th>
                         <th>Vị trí</th>
-                        <th>Lương cơ bản</th>
+                        <th>Mức lương / Đơn giá</th>
                         <th>Trạng thái</th>
                     </tr>
                 </thead>
@@ -169,7 +175,7 @@
                         <td>{{ contract.start_date }}</td>
                         <td>{{ contract.end_date|default:"Không xác định" }}</td>
                         <td>{{ contract.position.name }}</td>
-                        <td>{{ contract.basic_salary|floatformat:0 }} VND</td>
+                        <td>{% if contract.basic_salary %}{{ contract.basic_salary|floatformat:0 }} VND{% else %}-{% endif %}</td>
                         <td>
                             {% if contract.is_active %}
                             <span class="badge bg-success">Đang hiệu lực</span>

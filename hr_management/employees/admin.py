@@ -31,16 +31,13 @@ class EmployeeAdmin(admin.ModelAdmin):
         ('Thông tin bằng cấp', {
             'fields': ('education_level', 'degree', 'major')
         }),
-        ('Thông tin lương', {
-            'fields': ('basic_salary',)
-        }),
     )
 
 @admin.register(Contract)
 class ContractAdmin(admin.ModelAdmin):
-    list_display = ('employee', 'contract_number', 'contract_type', 'start_date', 'end_date', 'basic_salary', 'is_active')
+    list_display = ('employee', 'contract_number', 'contract_type', 'work_form', 'salary_type', 'start_date', 'end_date', 'basic_salary', 'is_active')
     search_fields = ('employee__full_name', 'employee__code', 'contract_number')
-    list_filter = ('contract_type', 'is_active')
+    list_filter = ('contract_type', 'work_form', 'salary_type', 'is_active')
     date_hierarchy = 'start_date'
 
 @admin.register(WorkHistory)

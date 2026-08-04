@@ -1,8 +1,6 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}
-Chi tiết ca làm việc - Ms.Vy English
-{% endblock %}
+{% block title %}Chi tiết ca vận hành - Ms.Vy English{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
@@ -10,43 +8,33 @@ Chi tiết ca làm việc - Ms.Vy English
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Chi tiết ca làm việc: {{ work_shift.name }}</h2>
-    <a href="{% url 'attendance:work_shift_list' %}" class="btn btn-secondary">
-    <i class="bi bi-arrow-left me-1"></i> Quay lại
-</a>
+    <h2 class="fw-bold mb-0">Chi tiết ca vận hành: {{ work_shift.name }}</h2>
+    <div class="d-flex gap-2">
+        <a href="{% url 'attendance:work_shift_edit' work_shift.id %}" class="btn btn-primary">
+            <i class="bi bi-pencil me-1"></i> Sửa
+        </a>
+        <a href="{% url 'attendance:work_shift_list' %}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Quay lại
+        </a>
+    </div>
 </div>
 
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title text-primary">Thông tin chung</h4>
-        <p><strong>Tên ca:</strong> {{ work_shift.name }}</p>
-        <p><strong>Mã ca:</strong> {{ work_shift.code }}</p>
-        <p><strong>Giờ bắt đầu ca:</strong> {{ work_shift.start_time }}</p>
-        <p><strong>Chấm vào:</strong> Từ {{ work_shift.check_in_start }} đến {{ work_shift.check_in_end }}</p>
-        <p><strong>Giờ kết thúc ca:</strong> {{ work_shift.end_time }}</p>
-        <p><strong>Chấm ra:</strong> Từ {{ work_shift.check_out_start }} đến {{ work_shift.check_out_end }}</p>
-        <p><strong>Có nghỉ giữa ca:</strong> {% if work_shift.has_break %}Có{% else %}Không{% endif %}</p>
-
-        <h4 class="mt-4 text-primary">Tính công</h4>
-        <p><strong>Giờ công:</strong> {{ work_shift.work_hours }}</p>
-        <p><strong>Ngày công:</strong> {{ work_shift.work_days }}</p>
-        <p><strong>Hệ số ngày thường:</strong> {{ work_shift.normal_day_coefficient }}</p>
-        <p><strong>Hệ số ngày nghỉ:</strong> {{ work_shift.rest_day_coefficient }}</p>
-        <p><strong>Hệ số ngày lễ:</strong> {{ work_shift.holiday_coefficient }}</p>
-        <p><strong>Nếu không có giờ vào thì bị trừ công:</strong> {% if work_shift.deduct_if_no_check_in %}Có{% else %}Không{% endif %}</p>
-        <p><strong>Nếu không có giờ ra thì bị trừ công:</strong> {% if work_shift.deduct_if_no_check_out %}Có{% else %}Không{% endif %}</p>
-
-        <h4 class="mt-4 text-primary">Đối tượng áp dụng</h4>
-        <p><strong>Áp dụng:</strong> {% if work_shift.apply_to_all %}Toàn đơn vị{% else %}Danh sách nhân viên{% endif %}</p>
-        {% if not work_shift.apply_to_all %}
-        <p><strong>Danh sách nhân viên:</strong>
-            {% for employee in work_shift.employees.all %}
-                {{ employee.full_name }} ({{ employee.code }}){% if not forloop.last %}, {% endif %}
-            {% empty %}
-                Chưa có nhân viên
-            {% endfor %}
-        </p>
-        {% endif %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <p><strong>Mã ca:</strong> {{ work_shift.code }}</p>
+                <p><strong>Tên ca:</strong> {{ work_shift.name }}</p>
+                <p><strong>Giờ bắt đầu:</strong> {{ work_shift.start_time|time:"H:i" }}</p>
+                <p><strong>Giờ kết thúc:</strong> {{ work_shift.end_time|time:"H:i" }}</p>
+                <p><strong>Nghỉ giữa ca:</strong> {{ work_shift.break_minutes }} phút</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Giờ công:</strong> {{ work_shift.work_hours }}</p>
+                <p><strong>Ngày công:</strong> {{ work_shift.work_days }}</p>
+                <p><strong>Cho phép đi muộn đến:</strong> {{ work_shift.check_in_end|time:"H:i" }}</p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

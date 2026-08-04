@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Lớp/Khóa học - Ms.Vy English{% endblock %}
+
+{% block module_sidebar %}
+{% include "attendance/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold mb-0">Lớp/Khóa học</h2>
+    <a href="{% url 'attendance:course_add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i> Tạo lớp
+    </a>
+</div>
+
+<form method="get" class="list-filter-card mb-3" id="courseFilterForm">
+    <div class="row g-3 align-items-end">
+        <div class="col-lg-4 col-md-6">
+            <label class="form-label" for="courseSearch">Tìm kiếm</label>
+            <input type="text" id="courseSearch" name="search" class="form-control" placeholder="Tìm kiếm theo mã lớp, tên lớp..." value="{{ search_query }}">
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label" for="courseStatus">Trạng thái</label>
+            <select id="courseStatus" name="status" class="form-select">
+                <option value="">Tất cả</option>
+                <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Đang diễn ra</option>
+                <option value="inactive" {% if status_filter == 'inactive' %}selected{% endif %}>Đã dừng</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+<div data-bulk-form>
+    <div class="bulk-action-bar">
+        <div class="bulk-action-summary">Đã chọn <span data-bulk-count>0</span> dòng</div>
+    </div>
+
+    <div class="card list-card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th class="select-column">
+                            <input type="checkbox" class="form-check-input" data-bulk-select-all aria-label="Chọn tất cả lớp/khóa học">
+                        </th>
+                        <th>Mã lớp</th>
+                        <th>Tên lớp</th>
+                        <th>Cấp độ</th>
+                        <th>Thời gian</th>
+                        <th>Trạng thái</th>
+                        <th class="action-column">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+                    <tr>
+                        <td class="select-column">
+                            <input type="checkbox" class="form-check-input" name="course_ids" value="{{ course.id }}" data-bulk-checkbox aria-label="Chọn lớp {{ course.code }}">
+                        </td>
+                        <td>{{ course.code }}</td>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.level|default:"-" }}</td>
+                        <td>
+                            {% if course.start_date %}{{ course.start_date|date:"d/m/Y" }}{% endif %}
+                            {% if course.end_date %} - {{ course.end_date|date:"d/m/Y" }}{% endif %}
+                        </td>
+                        <td>{% if course.is_active %}<span class="badge bg-success">Đang diễn ra</span>{% else %}<span class="badge bg-secondary">Đã dừng</span>{% endif %}</td>
+                        <td><a class="btn btn-sm btn-outline-primary" href="{% url 'attendance:course_edit' course.id %}"><i class="bi bi-pencil"></i></a></td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="7" class="text-center text-muted py-4">Chưa có lớp/khóa học.</td></tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const courseFilterForm = document.getElementById('courseFilterForm');
+let courseSearchTimer;
+courseFilterForm?.querySelectorAll('select').forEach((field) => {
+    field.addEventListener('change', () => courseFilterForm.submit());
+});
+document.getElementById('courseSearch')?.addEventListener('input', () => {
+    window.clearTimeout(courseSearchTimer);
+    courseSearchTimer = window.setTimeout(() => courseFilterForm.submit(), 450);
+});
+</script>
+{% endblock %}

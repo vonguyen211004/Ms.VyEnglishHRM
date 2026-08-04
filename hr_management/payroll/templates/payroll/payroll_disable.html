@@ -1,38 +1,22 @@
 {% extends 'payroll/base_payroll.html' %}
-{% load static %}
 
 {% block title %}Vô hiệu hóa bảng lương{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h4 class="card-title mb-4 text-danger">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Vô hiệu hóa bảng lương
-                    </h4>
-                    
-                    <p class="alert alert-danger">
-                        Bạn có chắc chắn muốn vô hiệu hóa bảng lương "<strong>{{ payroll.name }}</strong>"?
-                        <br>
-                        Bảng lương sẽ không thể sử dụng sau khi vô hiệu hóa, nhưng dữ liệu vẫn được lưu trữ.
-                    </p>
-                    
-                    <div class="d-flex justify-content-between mt-4">
-                        <a href="{% url 'payroll_detail' pk=payroll.pk %}" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left me-2"></i>Quay lại
-                        </a>
-                        
-                        <form method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">
-                                <i class="bi bi-slash-circle me-2"></i>Vô hiệu hóa
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="text-danger mb-3"><i class="bi bi-exclamation-triangle-fill me-2"></i>Vô hiệu hóa bảng lương</h4>
+            <p>Bạn có chắc muốn vô hiệu hóa bảng lương <strong>{{ payroll.name }}</strong>?</p>
+            <form method="post" class="d-flex gap-2">
+                {% csrf_token %}
+                <a href="{% url 'payroll_detail' pk=payroll.pk %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i> Quay lại
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-slash-circle me-1"></i> Vô hiệu hóa
+                </button>
+            </form>
         </div>
     </div>
 </div>

@@ -60,6 +60,7 @@
                 <i class="bi bi-search"></i>
             </button>
         </div>
+        <small class="text-muted d-block mb-2">Danh sách này chỉ hiển thị nhân viên chưa có hợp đồng đang hiệu lực.</small>
         <div id="employeeResults" class="list-group">
             <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
         </div>
@@ -72,7 +73,7 @@
         <h5 class="card-title mb-0">Thông tin hợp đồng</h5>
     </div>
     <div class="card-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if not employee and not contract %}
             <input type="hidden" name="employee_id" id="selectedEmployeeId">
@@ -96,8 +97,15 @@
                     <div id="end_date_field">
                         {{ form.end_date|as_crispy_field }}
                     </div>
-                    {{ form.basic_salary|as_crispy_field }}
+                    {{ form.salary_type|as_crispy_field }}
+                    <div id="basic_salary_field">
+                        {{ form.basic_salary|as_crispy_field }}
+                        <small class="text-muted d-block mt-1">
+                            Bắt buộc với lương tháng, lương theo ngày công, lương theo ca hoặc lương theo giờ. Không bắt buộc với hoa hồng hoặc không áp dụng lương cơ bản.
+                        </small>
+                    </div>
                     {{ form.insurance_salary|as_crispy_field }}
+                    {{ form.file|as_crispy_field }}
                     {{ form.is_active|as_crispy_field }}
                 </div>
             </div>
@@ -127,7 +135,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Xử lý ẩn/hiện trường thời gian kết thúc dựa trên loại hợp đồng
         const contractTypeSelect = document.querySelector('select[name="contract_type"]');
+        const salaryTypeSelect = document.querySelector('select[name="salary_type"]');
         const endDateField = document.getElementById('end_date_field');
+        const basicSalaryField = document.getElementById('basic_salary_field');
 
         function toggleEndDateField() {
             if (contractTypeSelect.value === 'indefinite') {
@@ -142,12 +152,31 @@
             }
         }
 
+        function toggleSalaryAmountField() {
+            if (!salaryTypeSelect || !basicSalaryField) return;
+            const requiresAmount = ['monthly', 'daily', 'shift', 'hourly'].includes(salaryTypeSelect.value);
+            const input = basicSalaryField.querySelector('input');
+            if (input) {
+                input.required = requiresAmount;
+                if (requiresAmount) {
+                    input.setAttribute('required', 'required');
+                } else {
+                    input.removeAttribute('required');
+                }
+            }
+        }
+
         // Kiểm tra ban đầu
         if (contractTypeSelect) {
             toggleEndDateField();
 
             // Thêm sự kiện change
             contractTypeSelect.addEventListener('change', toggleEndDateField);
+        }
+
+        if (salaryTypeSelect) {
+            toggleSalaryAmountField();
+            salaryTypeSelect.addEventListener('change', toggleSalaryAmountField);
         }
 
         {% if not employee and not contract %}

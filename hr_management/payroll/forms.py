@@ -1,17 +1,30 @@
 from django import forms
+from django.db.models import Q
+from attendance.models import MonthlyTimesheet
 from .models import Payroll, PayrollDetail, PayrollAllowance, PayrollDeduction
 
 class PayrollForm(forms.ModelForm):
     class Meta:
         model = Payroll
-        fields = ['name', 'month', 'year', 'position' , 'attendance_summary', 'status']
+        fields = ['name', 'monthly_timesheet', 'status']
+        labels = {
+            'name': 'Tên bảng lương',
+            'monthly_timesheet': 'Bảng công tháng',
+            'status': 'Trạng thái',
+        }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'month': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 12}),
-            'year': forms.NumberInput(attrs={'class': 'form-control', 'min': 2000, 'max': 2100}),
-            'position': forms.Select(attrs={'class': 'form-control'}),
-            'attendance_summary': forms.Select(attrs={'class': 'form-control'}),
+            'monthly_timesheet': forms.Select(attrs={'class': 'form-select'}),
+            'status': forms.Select(attrs={'class': 'form-select'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        filters = Q(status='locked', transferred=False)
+        if self.instance and self.instance.pk and self.instance.monthly_timesheet_id:
+            filters |= Q(pk=self.instance.monthly_timesheet_id)
+        self.fields['monthly_timesheet'].queryset = MonthlyTimesheet.objects.filter(filters).select_related('position').order_by('-year', '-month', 'position__code')
+        self.fields['monthly_timesheet'].required = False
 
 
 class PayrollDetailForm(forms.ModelForm):

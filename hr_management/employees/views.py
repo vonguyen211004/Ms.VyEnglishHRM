@@ -5,6 +5,7 @@ from django.db.models import Q, Prefetch
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.http import HttpResponse
+from django.core.exceptions import ValidationError
 import os
 from django.conf import settings
 
@@ -72,12 +73,16 @@ def employee_detail(request, pk):
     contracts = Contract.objects.filter(employee=employee).order_by('-start_date')
     work_history = WorkHistory.objects.filter(employee=employee).order_by('-start_date')
     salary_history = SalaryHistory.objects.filter(employee=employee).order_by('-effective_date')
+    current_contract = employee.get_current_contract()
+    salary_basis = employee.get_salary_basis()
 
     context = {
         'employee': employee,
         'contracts': contracts,
         'work_history': work_history,
         'salary_history': salary_history,
+        'current_contract': current_contract,
+        'salary_basis': salary_basis,
     }
     return render(request, 'employees/employee_detail.html', context)
 
@@ -133,9 +138,11 @@ def employee_deactivate(request, pk):
     employee.save()
 
     # Cập nhật end_date cho tất cả hợp đồng của nhân viên
-    active_contracts = Contract.objects.filter(employee=employee, end_date__isnull=True)
+    active_contracts = Contract.objects.filter(employee=employee, is_active=True)
     for contract in active_contracts:
-        contract.end_date = timezone.now().date()
+        if not contract.end_date or contract.end_date > timezone.now().date():
+            contract.end_date = timezone.now().date()
+        contract.is_active = False
         contract.save()
 
     messages.success(request, f'Nhân viên {employee.full_name} đã được vô hiệu hóa.')
@@ -147,6 +154,7 @@ def employee_activate(request, pk):
     employee = get_object_or_404(Employee, pk=pk)
     employee.is_active = True
     employee.save()
+    employee.sync_from_current_contract()
     messages.success(request, f'Nhân viên {employee.full_name} đã được kích hoạt lại.')
     return redirect('employee_list')
 
@@ -299,6 +307,13 @@ def contract_create(request, employee_id=None):
                 employee = get_object_or_404(Employee, pk=employee_id)
                 contract.employee = employee
 
+            if employee.get_current_contract():
+                form.add_error(None, 'Nhân viên này đã có hợp đồng đang hiệu lực.')
+                return render(request, 'employees/contract_form.html', {
+                    'form': form,
+                    'employee': employee,
+                })
+
             # Nếu không có ngày ký, sử dụng ngày hiện tại
             if not contract.sign_date:
                 contract.sign_date = timezone.now().date()
@@ -315,12 +330,17 @@ def contract_create(request, employee_id=None):
             if contract.contract_type == 'indefinite':
                 contract.end_date = None
 
-            contract.save()
-            messages.success(request, f'Hợp đồng mới cho nhân viên {employee.full_name} đã được tạo thành công')
+            try:
+                contract.full_clean()
+            except ValidationError as error:
+                form.add_error(None, error)
+            else:
+                contract.save()
+                messages.success(request, f'Hợp đồng mới cho nhân viên {employee.full_name} đã được tạo thành công')
 
-            if 'save_and_new' in request.POST:
-                return redirect('contract_create_general')
-            return redirect('contract_detail', pk=contract.pk)
+                if 'save_and_new' in request.POST:
+                    return redirect('contract_create_general')
+                return redirect('contract_detail', pk=contract.pk)
     else:
         # Tạo số hợp đồng tự động
         last_contract = Contract.objects.order_by('-contract_number').first()
@@ -392,9 +412,19 @@ def contract_update(request, pk):
             if contract.end_date and contract.end_date <= today:
                 contract.is_active = False
 
-            contract.save()
-            messages.success(request, 'Hợp đồng đã được cập nhật thành công')
-            return redirect('contract_detail', pk=contract.pk)
+            try:
+                contract.full_clean()
+            except ValidationError as error:
+                form.add_error(None, error)
+            else:
+                contract.save()
+                if not contract.is_active:
+                    contract.employee.sync_from_current_contract()
+                    if not contract.employee.get_current_contract():
+                        contract.employee.is_active = False
+                        contract.employee.save(update_fields=['is_active', 'updated_at'])
+                messages.success(request, 'Hợp đồng đã được cập nhật thành công')
+                return redirect('contract_detail', pk=contract.pk)
     else:
         form = ContractForm(instance=contract)
 
@@ -431,6 +461,10 @@ def contract_terminate(request, pk):
         # Đặt trạng thái hợp đồng thành không còn hiệu lực
         contract.is_active = False
         contract.save()
+        contract.employee.sync_from_current_contract()
+        if not contract.employee.get_current_contract():
+            contract.employee.is_active = False
+            contract.employee.save(update_fields=['is_active', 'updated_at'])
 
         messages.success(request, 'Hợp đồng đã được chấm dứt')
         return redirect('contract_detail', pk=contract.pk)
@@ -482,6 +516,7 @@ def contract_delete(request, pk):
         'contract': contract,
     }
     return render(request, 'employees/contract_delete.html', context)
+
 
 # Personnel views
 @login_required

@@ -1,11 +1,12 @@
 from django.http import JsonResponse
-from django.db.models import Q
+from django.db.models import Q, Exists, OuterRef
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import json
 import google.generativeai as genai
 from decouple import config
-from .models import Employee
+from django.utils import timezone
+from .models import Employee, Contract
 
 # Configure Gemini API
 genai.configure(api_key=config('GEMINI_API_KEY', default=''))
@@ -16,13 +17,28 @@ def employee_search(request):
     if len(query) < 2:
         return JsonResponse([], safe=False)
 
+    today = timezone.now().date()
+    active_contracts = Contract.objects.filter(
+        employee_id=OuterRef('pk'),
+        is_active=True,
+        start_date__lte=today,
+    ).filter(
+        Q(end_date__isnull=True) | Q(end_date__gte=today)
+    )
+
     employees = Employee.objects.filter(
         Q(code__icontains=query) |
         Q(first_name__icontains=query) |
         Q(last_name__icontains=query) |
         Q(full_name__icontains=query) |
         Q(email__icontains=query)
-    ).filter(is_active=True)[:10]
+    ).filter(
+        is_active=True
+    ).annotate(
+        has_active_contract=Exists(active_contracts)
+    ).filter(
+        has_active_contract=False
+    )[:10]
 
     results = []
     for employee in employees:

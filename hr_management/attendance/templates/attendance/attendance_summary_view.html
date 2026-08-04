@@ -1,151 +1,156 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends "base.html" %}
 
-{% block title %}Chi tiết bảng chấm công tổng hợp{% endblock %}
+{% block title %}Chi tiet bang cong thang{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
 {% endblock %}
 
-{% block extra_css %}
-<style>
-    .table-responsive {
-        overflow-x: auto;
-    }
-    .badge-transferred {
-        background-color: #28a745;
-        color: white;
-    }
-    .badge-not-transferred {
-        background-color: #6c757d;
-        color: white;
-    }
-    #loading-message {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 20px;
-        border-radius: 5px;
-        z-index: 9999;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3">Chi tiết bảng chấm công tổng hợp</h1>
+        <h1 class="h3 mb-0">{{ timesheet.get_timesheet_type_display }} - {{ timesheet.month }}/{{ timesheet.year }}</h1>
         <div class="d-flex gap-2">
             <a href="{% url 'attendance:attendance_summary' %}" class="btn btn-outline-secondary">
-    <i class="bi bi-arrow-left me-1"></i> Quay lại
-</a>
-            {% if not attendance_summary.transferred %}
-<a href="{% url 'attendance:transfer_to_payroll' summary_id=attendance_summary.id %}" class="btn btn-primary">
-    <i class="bi bi-arrow-right-circle me-1"></i> Chuyển tính lương
-</a>
-{% else %}
-<button disabled class="btn btn-success">
-    <i class="bi bi-check-circle me-1"></i> Đã chuyển tính lương
-</button>
-{% endif %}
+                <i class="bi bi-arrow-left me-1"></i> Quay lại
+            </a>
+            {% if timesheet.transferred %}
+            <button disabled class="btn btn-success">
+                <i class="bi bi-check-circle me-1"></i> Đã chuyển lương
+            </button>
+            {% elif timesheet.status == 'locked' or timesheet.status == 'approved' %}
+            <a href="{% url 'attendance:transfer_to_payroll' summary_id=timesheet.id %}" class="btn btn-primary">
+                <i class="bi bi-arrow-right-circle me-1"></i> Chuyển tính lương
+            </a>
+            {% else %}
+            <form method="post" action="{% url 'attendance:timesheet_lock' timesheet.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="bi bi-lock me-1"></i> Khóa bảng công
+                </button>
+            </form>
+            {% endif %}
         </div>
     </div>
 
     <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0">Thông tin bảng chấm công</h5>
-            <div id="status-badge-{{ attendance_summary.id }}">
-                {% if attendance_summary.transferred %}
-                <span class="badge bg-success">Đã chuyển</span>
-                {% else %}
-                <span class="badge bg-secondary">Chưa chuyển</span>
-                {% endif %}
-            </div>
-        </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
-                    <p><strong>Tên bảng chấm công:</strong> {{ attendance_summary.name }}</p>
-                    <p><strong>Vị trí áp dụng:</strong> {{ attendance_summary.position.name }}</p>
-                </div>
-                <div class="col-md-6">
-                    <p><strong>Số bảng chấm công chi tiết:</strong> {{ attendance_summary.attendance_records.count }}</p>
-                    <p><strong>Số công chuẩn:</strong> <span id="standard-workdays">{{ employee_data.0.standard_work_days|default:"0" }}</span></p>
-                </div>
+                <div class="col-md-3"><strong>Tên bảng công:</strong> {{ timesheet.name }}</div>
+                <div class="col-md-3"><strong>Loại:</strong> {{ timesheet.get_timesheet_type_display }}</div>
+                <div class="col-md-3"><strong>Vị trí:</strong> {{ timesheet.position.name }}</div>
+                <div class="col-md-3"><strong>Trạng thái:</strong> {{ timesheet.get_status_display }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="card-title mb-0">
+                {% if is_operations %}Bảng công nhân viên vận hành{% else %}Bảng công giáo viên / trợ giảng{% endif %}
+            </h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                {% if is_operations %}
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Ma NV</th>
+                            <th>Ho ten</th>
+                            <th>Công chuẩn</th>
+                            <th>Công đi làm</th>
+                            <th>Công tính lương</th>
+                            <th>Nghỉ có lương</th>
+                            <th>Nghỉ không lương</th>
+                            <th>Đi muộn/ về sớm</th>
+                            <th>Tỷ lệ hưởng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in employee_data %}
+                        <tr>
+                            <td>{{ data.employee.code }}</td>
+                            <td>{{ data.employee.full_name }}</td>
+                            <td>{{ data.standard_work_days|floatformat:2 }}</td>
+                            <td>{{ data.actual_workdays|floatformat:2 }}</td>
+                            <td>{{ data.paid_workdays|floatformat:2 }}</td>
+                            <td>{{ data.paid_leave|floatformat:2 }}</td>
+                            <td>{{ data.unpaid_leave|floatformat:2 }}</td>
+                            <td>{{ data.late_early_minutes }} phút</td>
+                            <td>{{ data.attendance_ratio|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="9" class="text-center text-muted py-4">Chưa có dữ liệu công vận hành cho bảng này.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã NV</th>
+                            <th>Họ tên</th>
+                            <th>Số buổi phân công</th>
+                            <th>Số buổi đã dạy</th>
+                            <th>Giờ dạy chuẩn</th>
+                            <th>Giờ dạy tính lương</th>
+                            <th>Giờ không tính lương</th>
+                            <th>Tỷ lệ hoàn thành giờ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in employee_data %}
+                        <tr>
+                            <td>{{ data.employee.code }}</td>
+                            <td>{{ data.employee.full_name }}</td>
+                            <td>{{ data.assigned_sessions|floatformat:2 }}</td>
+                            <td>{{ data.taught_sessions|floatformat:2 }}</td>
+                            <td>{{ data.standard_teaching_hours|floatformat:2 }}</td>
+                            <td>{{ data.teaching_paid_hours|floatformat:2 }}</td>
+                            <td>{{ data.teaching_unpaid_hours|floatformat:2 }}</td>
+                            <td>{{ data.attendance_ratio|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="8" class="text-center text-muted py-4">Chưa có dữ liệu giảng dạy cho bảng này.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
             </div>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title mb-0">Dữ liệu chấm công nhân viên</h5>
+            <h5 class="card-title mb-0">Thêm điều chỉnh công</h5>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã NV</th>
-                            <th>Họ tên</th>
-                            <th>Công chuẩn</th>
-                            <th>Công thực tế</th>
-                            <th>Nghỉ không lương</th>
-                            <th>Tỷ lệ hưởng</th>
-                            <th>Công ngày thường</th>
-                            <th>Công ngày nghỉ</th>
-                            <th>Đi muộn/về sớm (phút)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for data in employee_data %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ data.employee.employee_id|default:data.employee.id }}</td>
-                            <td>{{ data.employee.full_name }}</td>
-                            <td>{{ data.standard_work_days|floatformat:1 }}</td>
-                            <td>{{ data.actual_workdays|floatformat:1 }}</td>
-                            <td>{{ data.unpaid_leave|floatformat:1 }}</td>
-                            <td>{{ data.attendance_ratio|floatformat:2 }}</td>
-                            <td>{{ data.normal_work_days|floatformat:1 }}</td>
-                            <td>{{ data.rest_work_days|floatformat:1 }}</td>
-                            <td>{{ data.late_early_minutes }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="10" class="text-center py-4">
-                                <div class="text-muted">
-                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
-                                    Không có dữ liệu chấm công
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+            <form method="post" action="{% url 'attendance:timesheet_add_adjustment' timesheet.id %}">
+                {% csrf_token %}
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label class="form-label">Nhân viên</label>
+                        {{ adjustment_form.employee }}
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Loại</label>
+                        {{ adjustment_form.adjustment_type }}
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Giá trị</label>
+                        {{ adjustment_form.value }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Lý do</label>
+                        {{ adjustment_form.reason }}
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary w-100"><i class="bi bi-plus"></i></button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
-<!-- Thông báo đang xử lý -->
-<div id="loading-message">
-    <div class="d-flex align-items-center">
-        <div class="spinner-border me-2" role="status">
-            <span class="visually-hidden">Đang xử lý...</span>
-        </div>
-        <span>Đang chuyển dữ liệu sang tính lương...</span>
-    </div>
-</div>
-
-<!-- Container cho thông báo -->
-<div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/attendance.js' %}"></script>
 {% endblock %}

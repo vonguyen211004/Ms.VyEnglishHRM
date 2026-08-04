@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}
-Thêm ca làm việc - Ms.Vy English
+{% if work_shift %}Cập nhật ca vận hành{% else %}Thêm ca vận hành{% endif %} - Ms.Vy English
 {% endblock %}
 
 {% block module_sidebar %}
@@ -10,133 +10,75 @@ Thêm ca làm việc - Ms.Vy English
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>{% if work_shift %}Cập nhật ca làm việc{% else %}Thêm mới ca làm việc{% endif %}</h2>
+    <h2 class="fw-bold mb-0">{% if work_shift %}Cập nhật ca vận hành{% else %}Thêm ca vận hành{% endif %}</h2>
     <a href="{% url 'attendance:work_shift_list' %}" class="btn btn-secondary">
-    <i class="bi bi-arrow-left me-1"></i> Quay lại
-</a>
+        <i class="bi bi-arrow-left me-1"></i> Quay lại
+    </a>
 </div>
 
 <div class="card">
     <div class="card-body">
-        <form method="POST" id="work_shift_form">
+        <form method="post" id="work_shift_form">
             {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+
             <div class="mb-4">
-                <h4 class="text-primary mb-3">THÔNG TIN CHUNG</h4>
-                <div class="row mb-3">
+                <h4 class="text-primary mb-3">THÔNG TIN CA</h4>
+                <div class="row g-3">
                     <div class="col-md-6">
-                        <label for="name" class="form-label">Tên ca <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ work_shift.name|default_if_none:'' }}" placeholder="Nhập tên ca" required>
+                        <label class="form-label" for="{{ form.name.id_for_label }}">Tên ca</label>
+                        {{ form.name }}
+                        {{ form.name.errors }}
                     </div>
                     <div class="col-md-6">
-                        <label for="code" class="form-label">Mã ca <span class="text-danger">*</span></label>
-                        <input type="text" name="code" id="code" class="form-control" value="{{ work_shift.code|default_if_none:'' }}" placeholder="Nhập mã ca" required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="start_time" class="form-label">Giờ bắt đầu ca <span class="text-danger">*</span></label>
-                        <input type="time" name="start_time" id="start_time" class="form-control" value="{{ work_shift.start_time|default_if_none:'08:00' }}" required onchange="calculateWorkHours()">
+                        <label class="form-label" for="{{ form.code.id_for_label }}">Mã ca</label>
+                        {{ form.code }}
+                        {{ form.code.errors }}
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Chấm vào</label>
-                        <div class="row">
-                            <div class="col">
-                                <label for="check_in_start" class="form-label">Từ</label>
-                                <input type="time" name="check_in_start" id="check_in_start" class="form-control" value="{{ work_shift.check_in_start|default_if_none:'07:00' }}">
-                            </div>
-                            <div class="col">
-                                <label for="check_in_end" class="form-label">Đến</label>
-                                <input type="time" name="check_in_end" id="check_in_end" class="form-control" value="{{ work_shift.check_in_end|default_if_none:'09:00' }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <label for="end_time" class="form-label">Giờ kết thúc ca <span class="text-danger">*</span></label>
-                        <input type="time" name="end_time" id="end_time" class="form-control" value="{{ work_shift.end_time|default_if_none:'17:30' }}" required onchange="calculateWorkHours()">
+                        <label class="form-label" for="{{ form.start_time.id_for_label }}">Giờ bắt đầu</label>
+                        {{ form.start_time }}
+                        {{ form.start_time.errors }}
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Chấm ra</label>
-                        <div class="row">
-                            <div class="col">
-                                <label for="check_out_start" class="form-label">Từ</label>
-                                <input type="time" name="check_out_start" id="check_out_start" class="form-control" value="{{ work_shift.check_out_start|default_if_none:'16:30' }}">
-                            </div>
-                            <div class="col">
-                                <label for="check_out_end" class="form-label">Đến</label>
-                                <input type="time" name="check_out_end" id="check_out_end" class="form-control" value="{{ work_shift.check_out_end|default_if_none:'18:30' }}">
-                            </div>
-                        </div>
+                        <label class="form-label" for="{{ form.end_time.id_for_label }}">Giờ kết thúc</label>
+                        {{ form.end_time }}
+                        {{ form.end_time.errors }}
                     </div>
-                </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" name="has_break" id="has_break" {% if work_shift.has_break %}checked{% endif %}>
-                    <label class="form-check-label" for="has_break">Có nghỉ giữa ca</label>
+                    <div class="col-md-6">
+                        <label class="form-label" for="{{ form.break_minutes.id_for_label }}">Nghỉ giữa ca (phút)</label>
+                        {{ form.break_minutes }}
+                        {{ form.break_minutes.errors }}
+                    </div>
                 </div>
             </div>
 
             <div class="mb-4">
-                <h4 class="text-primary mb-3">TÍNH CÔNG</h4>
-                <div class="row mb-3">
+                <h4 class="text-primary mb-3">QUY ĐỔI CÔNG</h4>
+                <div class="row g-3">
                     <div class="col-md-6">
-                        <label for="work_hours" class="form-label">Giờ công</label>
-                        <input type="number" step="0.1" name="work_hours" id="work_hours" class="form-control" value="{{ work_shift.work_hours|default_if_none:'9.5' }}" readonly>
+                        <label class="form-label" for="{{ form.work_hours.id_for_label }}">Giờ công</label>
+                        {{ form.work_hours }}
+                        {{ form.work_hours.errors }}
                     </div>
                     <div class="col-md-6">
-                        <label for="work_days" class="form-label">Ngày công</label>
-                        <input type="number" step="0.1" name="work_days" id="work_days" class="form-control" value="{{ work_shift.work_days|default_if_none:'1' }}" required>
+                        <label class="form-label" for="{{ form.work_days.id_for_label }}">Ngày công</label>
+                        {{ form.work_days }}
+                        {{ form.work_days.errors }}
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="normal_day_coefficient" class="form-label">Hệ số ngày thường</label>
-                        <input type="number" step="0.1" name="normal_day_coefficient" id="normal_day_coefficient" class="form-control" value="{{ work_shift.normal_day_coefficient|default_if_none:'1' }}" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="rest_day_coefficient" class="form-label">Hệ số ngày nghỉ</label>
-                        <input type="number" step="0.1" name="rest_day_coefficient" id="rest_day_coefficient" class="form-control" value="{{ work_shift.rest_day_coefficient|default_if_none:'2' }}" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="holiday_coefficient" class="form-label">Hệ số ngày lễ</label>
-                        <input type="number" step="0.1" name="holiday_coefficient" id="holiday_coefficient" class="form-control" value="{{ work_shift.holiday_coefficient|default_if_none:'3' }}" required>
-                    </div>
-                </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" name="deduct_if_no_check_in" id="deduct_if_no_check_in" {% if work_shift.deduct_if_no_check_in %}checked{% endif %}>
-                    <label class="form-check-label" for="deduct_if_no_check_in">Nếu không có giờ vào thì bị trừ công</label>
-                </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" name="deduct_if_no_check_out" id="deduct_if_no_check_out" {% if work_shift.deduct_if_no_check_out %}checked{% endif %}>
-                    <label class="form-check-label" for="deduct_if_no_check_out">Nếu không có giờ ra thì bị trừ công</label>
                 </div>
             </div>
 
             <div class="mb-4">
-                <h4 class="text-primary mb-3">ĐỐI TƯỢNG ÁP DỤNG</h4>
-                <div class="mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="apply_to_all" id="apply_to_all_yes" value="yes" {% if work_shift.apply_to_all %}checked{% endif %} onchange="toggleEmployees()">
-                        <label class="form-check-label" for="apply_to_all_yes">Toàn đơn vị</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="apply_to_all" id="apply_to_all_no" value="no" {% if not work_shift.apply_to_all %}checked{% endif %} onchange="toggleEmployees()">
-                        <label class="form-check-label" for="apply_to_all_no">Danh sách nhân viên</label>
-                    </div>
-                </div>
-                <div class="mb-3" id="employees_section">
-                    <label for="employees" class="form-label">Danh sách nhân viên:</label>
-                    <div class="input-group">
-                        <select name="employees" id="employees" class="form-control" multiple>
-                            {% for employee in work_shift.employees.all %}
-                            <option value="{{ employee.id }}" selected>
-                                {{ employee.full_name }} ({{ employee.code }})
-                            </option>
-                            {% endfor %}
-                        </select>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal">
-                            <i class="bi bi-plus-circle me-1"></i> Thêm
-                        </button>
+                <h4 class="text-primary mb-3">QUY TẮC CHẤM CÔNG</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label" for="{{ form.late_grace_minutes.id_for_label }}">Cho phép đi muộn (phút)</label>
+                        {{ form.late_grace_minutes }}
+                        <div class="form-text">{{ form.late_grace_minutes.help_text }}</div>
+                        {{ form.late_grace_minutes.errors }}
                     </div>
                 </div>
             </div>
@@ -146,101 +88,39 @@ Thêm ca làm việc - Ms.Vy English
                     <i class="bi bi-save me-1"></i> Lưu
                 </button>
                 <a href="{% url 'attendance:work_shift_list' %}" class="btn btn-secondary">
-    <i class="bi bi-x-circle me-1"></i> Hủy
-</a>
+                    <i class="bi bi-x-circle me-1"></i> Hủy
+                </a>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Modal để chọn nhân viên -->
-<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="employeeModalLabel">Chọn nhân viên</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Chọn</th>
-                            <th>Mã nhân viên</th>
-                            <th>Tên nhân viên</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for employee in employees %}
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="employee-checkbox" value="{{ employee.id }}"
-                                    data-id-number="{{ employee.code }}"
-                                    data-name="{{ employee.full_name }} ({{ employee.code }})">
-                            </td>
-                            <td>{{ employee.code }}</td>
-                            <td>{{ employee.full_name }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle me-1"></i> Đóng
-                </button>
-                <button type="button" class="btn btn-primary" onclick="addSelectedEmployees()">
-                    <i class="bi bi-plus-circle me-1"></i> Thêm
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
+function parseTimeToMinutes(value) {
+    if (!value) return null;
+    const parts = value.split(':').map(Number);
+    return parts[0] * 60 + parts[1];
+}
+
 function calculateWorkHours() {
-    const startTime = document.getElementById('start_time').value;
-    const endTime = document.getElementById('end_time').value;
+    const startInput = document.getElementById('{{ form.start_time.id_for_label }}');
+    const endInput = document.getElementById('{{ form.end_time.id_for_label }}');
+    const breakInput = document.getElementById('{{ form.break_minutes.id_for_label }}');
+    const hoursInput = document.getElementById('{{ form.work_hours.id_for_label }}');
+    const start = parseTimeToMinutes(startInput.value);
+    const end = parseTimeToMinutes(endInput.value);
+    const breakMinutes = Number.parseInt(breakInput.value || '0', 10);
 
-    if (startTime && endTime) {
-        const start = new Date(`1970-01-01T${startTime}:00`);
-        const end = new Date(`1970-01-01T${endTime}:00`);
-
-        let diff = end - start;
-        if (diff < 0) {
-            diff += 24 * 60 * 60 * 1000;
-        }
-
-        const hours = diff / (1000 * 60 * 60);
-        document.getElementById('work_hours').value = hours.toFixed(1);
-    }
+    if (start === null || end === null) return;
+    let diff = end - start;
+    if (diff < 0) diff += 24 * 60;
+    const paidMinutes = Math.max(0, diff - breakMinutes);
+    hoursInput.value = (paidMinutes / 60).toFixed(1);
 }
 
-function toggleEmployees() {
-    const applyToAllYes = document.getElementById('apply_to_all_yes').checked;
-    const employeesSection = document.getElementById('employees_section');
-    employeesSection.style.display = applyToAllYes ? 'none' : 'block';
-}
-
-function addSelectedEmployees() {
-    var selectElement = document.getElementById('employees');
-    var checkboxes = document.getElementsByClassName('employee-checkbox');
-    for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            var value = checkboxes[i].value;
-            var text = checkboxes[i].getAttribute('data-name');
-            var idNumber = checkboxes[i].getAttribute('data-id-number');
-            var optionExists = Array.from(selectElement.options).some(option => option.value === value);
-            if (!optionExists) {
-                var option = new Option(text, value, true, true);
-                selectElement.add(option);
-            }
-        }
-    }
-    var modal = bootstrap.Modal.getInstance(document.getElementById('employeeModal'));
-    modal.hide();
-}
-
-toggleEmployees();
+document.getElementById('{{ form.start_time.id_for_label }}').addEventListener('change', calculateWorkHours);
+document.getElementById('{{ form.end_time.id_for_label }}').addEventListener('change', calculateWorkHours);
+document.getElementById('{{ form.break_minutes.id_for_label }}').addEventListener('input', calculateWorkHours);
+calculateWorkHours();
 </script>
 {% endblock %}

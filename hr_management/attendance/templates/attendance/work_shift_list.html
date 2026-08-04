@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Danh sách ca làm việc - Ms.Vy English{% endblock %}
+{% block title %}Ca vận hành - Ms.Vy English{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
@@ -8,60 +8,77 @@
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h2 class="fw-bold mb-0">Danh sách ca làm việc</h2>
+    <h2 class="fw-bold mb-0">Ca vận hành</h2>
     <a href="{% url 'attendance:work_shift_add' %}" class="btn btn-primary">
-        <i class="bi bi-plus-circle me-1"></i> Thêm ca làm việc
+        <i class="bi bi-plus-circle me-1"></i> Thêm ca
     </a>
 </div>
 
 <div class="list-filter-card">
     <div class="row g-3 align-items-center">
         <div class="col-lg-5 col-md-7">
-            <input type="text" class="form-control" placeholder="Tìm kiếm theo mã ca hoặc tên ca..." id="searchInput">
+            <label class="form-label" for="searchInput">Tìm kiếm</label>
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo mã ca, tên ca..." id="searchInput">
         </div>
     </div>
 </div>
 
-<div class="card list-card">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0" id="workShiftTable">
+<div data-bulk-form>
+    <div class="bulk-action-bar">
+        <div class="bulk-action-summary">Đã chọn <span data-bulk-count>0</span> dòng</div>
+    </div>
+
+    <div class="card list-card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" id="workShiftTable">
                 <thead>
                     <tr>
+                        <th class="select-column">
+                            <input type="checkbox" class="form-check-input" data-bulk-select-all aria-label="Chọn tất cả ca làm">
+                        </th>
                         <th>Tên ca</th>
                         <th>Mã ca</th>
-                        <th>Giờ bắt đầu ca</th>
-                        <th>Giờ kết thúc ca</th>
+                        <th>Giờ ca</th>
+                        <th>Nghỉ giữa ca</th>
+                        <th>Giờ công</th>
+                        <th>Ngày công</th>
                         <th class="action-column">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for shift in work_shifts %}
                     <tr>
+                        <td class="select-column">
+                            <input type="checkbox" class="form-check-input" name="work_shift_ids" value="{{ shift.id }}" data-bulk-checkbox aria-label="Chọn ca {{ shift.code }}">
+                        </td>
                         <td>{{ shift.name }}</td>
                         <td>{{ shift.code }}</td>
-                        <td>{{ shift.start_time }}</td>
-                        <td>{{ shift.end_time }}</td>
+                        <td>{{ shift.start_time|time:"H:i" }} - {{ shift.end_time|time:"H:i" }}</td>
+                        <td>{{ shift.break_minutes }} phút</td>
+                        <td>{{ shift.work_hours }}</td>
+                        <td>{{ shift.work_days }}</td>
                         <td class="action-column">
                             <div class="dropdown action-dropdown">
                                 <button class="btn action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Thao tác">
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="{% url 'attendance:work_shift_edit' shift.id %}"><i class="bi bi-pencil me-2"></i>Sửa</a></li>
                                     <li><a class="dropdown-item" href="{% url 'attendance:work_shift_detail' shift.id %}"><i class="bi bi-eye me-2"></i>Xem chi tiết</a></li>
-                                    <li><a class="dropdown-item text-danger" href="{% url 'attendance:work_shift_delete' shift.id %}" onclick="return confirm('Bạn có chắc chắn muốn xóa ca làm việc này không?');"><i class="bi bi-trash me-2"></i>Xóa</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'attendance:work_shift_edit' shift.id %}"><i class="bi bi-pencil me-2"></i>Chỉnh sửa</a></li>
+                                    <li><a class="dropdown-item text-danger" href="{% url 'attendance:work_shift_delete' shift.id %}" onclick="return confirm('Ban co chac muon xoa ca nay khong?');"><i class="bi bi-trash me-2"></i>Xóa</a></li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center text-muted py-4">Chưa có ca làm việc nào.</td>
+                    <tr class="empty-row">
+                        <td colspan="8" class="text-center text-muted py-4">Chưa có ca vận hành nào.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -93,8 +110,8 @@ function filterTable() {
 
     rows.forEach(row => {
         if (row.classList.contains('empty-row')) return;
-        const name = row.cells[0]?.innerText.toLowerCase() || '';
-        const code = row.cells[1]?.innerText.toLowerCase() || '';
+        const name = row.cells[1]?.innerText.toLowerCase() || '';
+        const code = row.cells[2]?.innerText.toLowerCase() || '';
         row.style.display = name.includes(searchInput) || code.includes(searchInput) ? '' : 'none';
     });
 }

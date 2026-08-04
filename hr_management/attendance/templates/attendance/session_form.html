@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Tạo buổi dạy{% endblock %}
+
+{% block module_sidebar %}
+{% include "attendance/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold mb-0">Tạo lịch buổi dạy</h2>
+    <a href="{% url 'attendance:session_list' %}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Quay lại
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Lớp/Khóa học</label>
+                    {{ form.course }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Giáo viên</label>
+                    {{ form.teacher }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Trợ giảng</label>
+                    {{ form.assistant }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Từ ngày</label>
+                    {{ form.start_date }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Đến ngày</label>
+                    {{ form.end_date }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Giờ bắt đầu</label>
+                    {{ form.start_time }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Giờ kết thúc</label>
+                    {{ form.end_time }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Phòng học</label>
+                    {{ form.room }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Giờ tính lương</label>
+                    {{ form.expected_hours }}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Ngày trong tuần</label>
+                    <div class="d-flex flex-wrap gap-3">
+                        {% for checkbox in form.weekdays %}
+                        <div class="form-check">
+                            {{ checkbox.tag }}
+                            <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Ghi chú</label>
+                    {{ form.note }}
+                </div>
+            </div>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Lưu</button>
+                <a href="{% url 'attendance:session_list' %}" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

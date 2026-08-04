@@ -74,12 +74,32 @@
                     <div class="col-md-8">{{ contract.position.name }}</div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-4 fw-bold">Lương cơ bản:</div>
-                    <div class="col-md-8">{{ contract.basic_salary|floatformat:0 }} VND</div>
+                    <div class="col-md-4 fw-bold">Loại lương:</div>
+                    <div class="col-md-8">{{ contract.get_salary_type_display }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 fw-bold">Mức lương / Đơn giá tính lương:</div>
+                    <div class="col-md-8">
+                        {% if contract.basic_salary %}
+                        {{ contract.basic_salary|floatformat:0 }} VND
+                        {% else %}
+                        -
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 fw-bold">Lương đóng BHXH:</div>
                     <div class="col-md-8">{{ contract.insurance_salary|floatformat:0 }} VND</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-4 fw-bold">File hợp đồng:</div>
+                    <div class="col-md-8">
+                        {% if contract.file %}
+                        <a href="{{ contract.file.url }}" target="_blank" rel="noopener">Tải xuống</a>
+                        {% else %}
+                        -
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-4 fw-bold">Trạng thái:</div>

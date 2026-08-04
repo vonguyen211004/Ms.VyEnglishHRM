@@ -1,8 +1,6 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}
-{% if attendance_summary %}Sửa{% else %}Thêm{% endif %} bảng chấm công tổng hợp - Ms.Vy English
-{% endblock %}
+{% block title %}{% if timesheet %}Sửa{% else %}Tạo{% endif %} bảng công tháng{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
@@ -10,47 +8,48 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="text-center fw-bold">{% if attendance_summary %}Sửa{% else %}Thêm{% endif %} bảng chấm công tổng hợp</h2>
+    <h2 class="fw-bold mb-0">{% if timesheet %}Sửa{% else %}Tạo{% endif %} bảng công tháng</h2>
     <a href="{% url 'attendance:attendance_summary' %}" class="btn btn-secondary">
-    <i class="bi bi-arrow-left me-1"></i> Quay lại
-</a>
+        <i class="bi bi-arrow-left me-1"></i> Quay lại
+    </a>
 </div>
 
 <div class="card">
     <div class="card-body">
         <form method="post">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="position" class="form-label">Vị trí áp dụng</label>
-                <select class="form-control" id="position" name="position" required>
-                    <option value="">Chọn vị trí</option>
-                    {% for position in positions %}
-                    <option value="{{ position.id }}" {% if attendance_summary.position == position %}selected{% endif %}>{{ position.name }}</option>
-                    {% endfor %}
-                </select>
+            {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Tháng</label>
+                    {{ form.month }}
+                    {{ form.month.errors }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Năm</label>
+                    {{ form.year }}
+                    {{ form.year.errors }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Vị trí</label>
+                    {{ form.position }}
+                    {{ form.position.errors }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Loại bảng công</label>
+                    {{ form.timesheet_type }}
+                    {{ form.timesheet_type.errors }}
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">Tên bảng công</label>
+                    {{ form.name }}
+                    <div class="form-text">Có thể để trống, hệ thống sẽ tự đặt tên theo loại bảng công.</div>
+                    {{ form.name.errors }}
+                </div>
             </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Tên bảng chấm công</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{ attendance_summary.name|default_if_none:'' }}" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Danh sách bảng chấm công chi tiết</label>
-                <select class="form-control" name="attendance_records" multiple style="height: 200px;">
-                    {% for record in attendance_records %}
-                    <option value="{{ record.id }}"
-                        {% if attendance_summary %}
-                            {% for selected_record in attendance_summary.attendance_records.all %}
-                                {% if selected_record.id == record.id %}selected{% endif %}
-                            {% endfor %}
-                        {% endif %}>
-                        {{ record.name }} ({{ record.start_date }} - {{ record.end_date }})
-                    </option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="d-flex gap-2">
-                <a href="{% url 'attendance:attendance_summary' %}" class="btn btn-secondary"><i class="bi bi-x-circle me-1"></i> Hủy</a>
+            <div class="d-flex gap-2 mt-4">
                 <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i> Lưu</button>
+                <a href="{% url 'attendance:attendance_summary' %}" class="btn btn-secondary">Hủy</a>
             </div>
         </form>
     </div>

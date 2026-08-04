@@ -1,143 +1,139 @@
 {% extends "base.html" %}
+{% load l10n %}
+
+{% block title %}Chấm công hôm nay - Ms.Vy English{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4 text-dark fw-bold">Chấm công hàng ngày</h2>
+<div class="container-fluid mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0 fw-bold">Chấm công hôm nay</h2>
+        <div class="d-flex gap-2">
+            <a href="{% url 'attendance:schedule_add' %}" class="btn btn-outline-primary">
+                <i class="bi bi-calendar-plus me-1"></i> Phân ca
+            </a>
+            <a href="{% url 'attendance:session_add' %}" class="btn btn-outline-primary">
+                <i class="bi bi-easel me-1"></i> Tạo buổi dạy
+            </a>
+        </div>
+    </div>
 
-    <!-- Form chọn ngày -->
     <form method="get" class="mb-4">
         <div class="row align-items-end">
             <div class="col-md-4">
-                <label for="selected_date" class="form-label">Chọn ngày:</label>
-                <input type="date" name="selected_date" id="selected_date" class="form-control custom-date-input"
+                <label for="selected_date" class="form-label">Chọn ngày</label>
+                <input type="date" name="selected_date" id="selected_date" class="form-control"
                        value="{{ selected_date|date:'Y-m-d' }}" onchange="this.form.submit()">
             </div>
         </div>
     </form>
 
-    <!-- Form chấm công -->
-    {% if selected_date.weekday != 6 %}
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="selected_date" value="{{ selected_date|date:'Y-m-d' }}">
 
-        <div class="table-responsive">
-            <table class="table table-bordered custom-table">
-                <thead>
+        <h5 class="fw-bold mt-3">Nhân viên vận hành</h5>
+        <div class="table-responsive mb-4">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
                     <tr>
-                        <th class="sticky-column">Nhân viên</th>
-                        <th class="time-column">Giờ vào</th>
-                        <th class="time-column">Giờ ra</th>
-                        <th class="status-column">Trạng thái</th>
-                        <th class="work-days-column">Số công hưởng lương</th>
-                        <th class="work-days-column">Số công thực tế</th>
+                        <th>Nhân viên</th>
+                        <th>Ca</th>
+                        <th>Giờ vào</th>
+                        <th>Giờ ra</th>
+                        <th>Trạng thái</th>
+                        <th>Công tính lương</th>
+                        <th>Công đi làm</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in employee_forms %}
                     <tr>
-                        <td class="sticky-column">
-                            <div class="employee-info">
-                                {{ item.employee.full_name }}
-                            </div>
-                            <input type="hidden" name="employee_id_{{ item.employee.id }}" value="{{ item.employee.id }}">
-                        </td>
-                        <td class="time-cell">
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="time" id="employee_{{ item.employee.id }}-check_in_time" name="employee_{{ item.employee.id }}-check_in_time" class="form-control"
-                                       value="{% if item.check_in_time %}{{ item.check_in_time }}{% endif %}">
-                                <button type="button" class="btn btn-outline-primary btn-sm set-time-btn"
-                                        onclick="setCurrentTime('employee_{{ item.employee.id }}-check_in_time')">
-                                    <i class="bi bi-clock"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td class="time-cell">
-                            <div class="d-flex align-items-center gap-2">
-                                <input type="time" id="employee_{{ item.employee.id }}-check_out_time" name="employee_{{ item.employee.id }}-check_out_time" class="form-control"
-                                       value="{% if item.check_out_time %}{{ item.check_out_time }}{% endif %}">
-                                <button type="button" class="btn btn-outline-primary btn-sm set-time-btn"
-                                        onclick="setCurrentTime('employee_{{ item.employee.id }}-check_out_time')">
-                                    <i class="bi bi-clock"></i>
-                                </button>
-                            </div>
+                        <td>
+                            {{ item.employee.full_name }}<br>
+                            <small class="text-muted">{{ item.employee.code }}</small>
+                            <input type="hidden" name="staff_schedule_id_{{ item.schedule.id }}" value="{{ item.schedule.id }}">
                         </td>
                         <td>
-                            <select name="employee_{{ item.employee.id }}-attendance_status" class="form-select">
+                            {{ item.work_shift.name }}<br>
+                            <small class="text-muted">{{ item.work_shift.start_time|time:"H:i" }} - {{ item.work_shift.end_time|time:"H:i" }}</small>
+                        </td>
+                        <td><input type="time" name="staff_{{ item.schedule.id }}-check_in_time" class="form-control" value="{{ item.check_in_time }}"></td>
+                        <td><input type="time" name="staff_{{ item.schedule.id }}-check_out_time" class="form-control" value="{{ item.check_out_time }}"></td>
+                        <td>
+                            <select name="staff_{{ item.schedule.id }}-attendance_status" class="form-select">
                                 <option value="not_absent" {% if item.attendance_status == 'not_absent' %}selected{% endif %}>Không nghỉ</option>
                                 <option value="permitted_absence" {% if item.attendance_status == 'permitted_absence' %}selected{% endif %}>Nghỉ có phép</option>
                                 <option value="unpermitted_absence" {% if item.attendance_status == 'unpermitted_absence' %}selected{% endif %}>Nghỉ không phép</option>
                                 <option value="regime_absence" {% if item.attendance_status == 'regime_absence' %}selected{% endif %}>Nghỉ chế độ</option>
                             </select>
                         </td>
-                        <td>
-                            <input type="number" step="0.5" min="0" max="1" class="form-control" name="employee_{{ item.employee.id }}-paid_work_days"
-                                   value="{{ item.paid_work_days|default:'1' }}">
-                        </td>
-                        <td>
-                            <input type="number" step="0.5" min="0" max="1" class="form-control" name="employee_{{ item.employee.id }}-actual_work_days"
-                                   value="{{ item.actual_work_days|default:'1' }}">
-                        </td>
+                        <td><input type="number" step="0.25" min="0" max="2" class="form-control" name="staff_{{ item.schedule.id }}-paid_work_days" value="{{ item.paid_work_days|unlocalize }}"></td>
+                        <td><input type="number" step="0.25" min="0" max="2" class="form-control" name="staff_{{ item.schedule.id }}-actual_work_days" value="{{ item.actual_work_days|unlocalize }}"></td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">
-                            <i class="bi bi-inbox fs-3 d-block mb-2"></i>
-                            Không có nhân viên nào được đăng ký ca làm việc vào ngày này.
-                        </td>
+                        <td colspan="7" class="text-center text-muted py-4">Ngày này chưa có lịch ca vận hành.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
 
+        <h5 class="fw-bold">Giáo viên / Trợ giảng theo buổi dạy</h5>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nhân sự</th>
+                        <th>Lớp</th>
+                        <th>Giờ học</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Giờ dạy tính lương</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in teaching_rows %}
+                    <tr>
+                        <td>
+                            {{ item.assignment.employee.full_name }}<br>
+                            <small class="text-muted">{{ item.assignment.employee.code }}</small>
+                            <input type="hidden" name="assignment_id_{{ item.assignment.id }}" value="{{ item.assignment.id }}">
+                        </td>
+                        <td>{{ item.assignment.class_session.course.name }}</td>
+                        <td>{{ item.assignment.class_session.start_time|time:"H:i" }} - {{ item.assignment.class_session.end_time|time:"H:i" }}</td>
+                        <td>{{ item.assignment.get_role_display }}</td>
+                        <td>
+                            <select name="assignment_{{ item.assignment.id }}-status" class="form-select">
+                                {% for value, label in session_status_choices %}
+                                <option value="{{ value }}" {% if item.status == value %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td><input type="number" step="0.25" min="0" class="form-control" name="assignment_{{ item.assignment.id }}-paid_hours" value="{{ item.paid_hours|unlocalize }}"></td>
+                        <td><input type="text" class="form-control" name="assignment_{{ item.assignment.id }}-note" value="{{ item.note }}"></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">Ngày này chưa có buổi dạy nào.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if employee_forms or teaching_rows %}
         <div class="d-flex justify-content-end mt-3">
-            <button type="submit" class="btn btn-primary custom-btn">
+            <button type="submit" class="btn btn-primary">
                 <i class="bi bi-save me-1"></i> Lưu chấm công
             </button>
         </div>
+        {% endif %}
     </form>
-    {% else %}
-    <div class="alert alert-warning" role="alert">
-        Không thể chấm công vào ngày Chủ nhật vì đây là ngày nghỉ!
-    </div>
-    {% endif %}
 </div>
-
-<script>
-function setCurrentTime(fieldId) {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    const currentTime = `${hours}:${minutes}`;
-    document.getElementById(fieldId).value = currentTime;
-}
-</script>
-
-<style>
-.custom-date-input {
-    border-radius: 8px;
-    font-size: 16px;
-    padding: 8px;
-}
-
-.table-hover tbody tr:hover {
-    background-color: #f1f5f9;
-}
-
-.custom-table th {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.set-time-btn {
-    background-color: var(--primary-color);
-    color: white;
-}
-</style>
-
 {% endblock %}
