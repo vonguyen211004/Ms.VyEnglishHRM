@@ -1,6 +1,7 @@
 from datetime import date, datetime, timedelta
 
 from django import forms
+from django.db.models import Q
 
 from employees.models import Employee, Position
 from .models import (
@@ -25,6 +26,49 @@ WEEKDAY_CHOICES = [
     ('5', 'Thứ 7'),
     ('6', 'Chủ nhật'),
 ]
+
+TEACHER_POSITION_FILTER = (
+    Q(position__name__icontains='giảng viên') |
+    Q(position__name__icontains='giao vien') |
+    Q(position__name__icontains='teacher') |
+    Q(position__name__icontains='lecturer') |
+    Q(position__name__icontains='instructor') |
+    Q(position__code__icontains='GV') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='giảng viên') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='giao vien') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='teacher') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='lecturer') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='instructor') |
+    Q(contracts__is_active=True, contracts__position__code__icontains='GV')
+)
+
+ASSISTANT_POSITION_FILTER = (
+    Q(position__name__icontains='trợ giảng') |
+    Q(position__name__icontains='tro giang') |
+    Q(position__name__icontains='assistant') |
+    Q(position__name__icontains='teaching assistant') |
+    Q(position__code__icontains='TG') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='trợ giảng') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='tro giang') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='assistant') |
+    Q(contracts__is_active=True, contracts__position__name__icontains='teaching assistant') |
+    Q(contracts__is_active=True, contracts__position__code__icontains='TG')
+)
+
+
+def teaching_employee_queryset(role='teaching'):
+    role_filter = TEACHER_POSITION_FILTER
+    if role == 'assistant':
+        role_filter = ASSISTANT_POSITION_FILTER
+
+    return (
+        Employee.objects
+        .filter(is_active=True)
+        .filter(role_filter)
+        .select_related('position')
+        .distinct()
+        .order_by('code')
+    )
 
 
 class BootstrapFormMixin:
@@ -196,11 +240,11 @@ class ClassSessionForm(BootstrapFormMixin, forms.Form):
         label="Lớp/Khóa học",
     )
     teacher = forms.ModelChoiceField(
-        queryset=Employee.objects.filter(is_active=True).select_related('position').order_by('code'),
+        queryset=teaching_employee_queryset('teacher'),
         label="Giáo viên",
     )
     assistant = forms.ModelChoiceField(
-        queryset=Employee.objects.filter(is_active=True).select_related('position').order_by('code'),
+        queryset=teaching_employee_queryset('assistant'),
         label="Trợ giảng",
         required=False,
     )
@@ -216,16 +260,25 @@ class ClassSessionForm(BootstrapFormMixin, forms.Form):
     end_time = forms.TimeField(label="Giờ kết thúc", widget=forms.TimeInput(attrs={'type': 'time'}))
     room = forms.CharField(label="Phòng học", required=False)
     expected_hours = forms.DecimalField(
-        label="Giờ tính lương dự kiến",
-        max_digits=5,
+        label="Số giờ tính lương dự kiến",
+        max_digits=8,
         decimal_places=2,
         required=False,
-        widget=forms.NumberInput(attrs={'step': '0.25', 'min': '0'}),
+        min_value=0,
+        max_value=24,
+        widget=forms.NumberInput(attrs={'step': '0.25', 'min': '0', 'max': '24'}),
+        help_text="Nhập số giờ, ví dụ 1.5 hoặc 2. Không nhập đơn giá tiền lương ở ô này.",
+        error_messages={
+            'max_value': "Số giờ tính lương không được lớn hơn 24.",
+            'min_value': "Số giờ tính lương không được âm.",
+        },
     )
     note = forms.CharField(label="Ghi chú", required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['teacher'].queryset = teaching_employee_queryset('teacher')
+        self.fields['assistant'].queryset = teaching_employee_queryset('assistant')
         self._apply_bootstrap()
 
     def clean(self):
@@ -238,6 +291,17 @@ class ClassSessionForm(BootstrapFormMixin, forms.Form):
             raise forms.ValidationError("Ngày bắt đầu không thể sau ngày kết thúc.")
         if start_time and end_time and start_time == end_time:
             raise forms.ValidationError("Giờ bắt đầu và kết thúc không được trùng nhau.")
+        if start_date and end_date:
+            selected_weekdays = {int(day) for day in cleaned_data.get('weekdays') or []}
+            current_date = start_date
+            has_matching_day = False
+            while current_date <= end_date:
+                if current_date.weekday() in selected_weekdays:
+                    has_matching_day = True
+                    break
+                current_date += timedelta(days=1)
+            if selected_weekdays and not has_matching_day:
+                self.add_error('weekdays', "Khoảng ngày đã chọn không có ngày nào khớp với thứ trong tuần.")
         return cleaned_data
 
 

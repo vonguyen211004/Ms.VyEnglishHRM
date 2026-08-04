@@ -292,6 +292,7 @@ def session_form(request):
 
             messages.success(request, f'Đã tạo {created_count} buổi học.')
             return redirect('attendance:session_list')
+        messages.error(request, 'Không thể tạo lịch buổi dạy. Vui lòng kiểm tra các lỗi trong form.')
     else:
         form = ClassSessionForm()
 

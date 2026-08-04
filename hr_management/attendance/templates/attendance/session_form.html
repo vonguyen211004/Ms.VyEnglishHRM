@@ -21,40 +21,50 @@
             {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label class="form-label">Lớp/Khóa học</label>
+                    <label class="form-label" for="{{ form.course.id_for_label }}">Lớp/Khóa học</label>
                     {{ form.course }}
+                    {{ form.course.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Giáo viên</label>
+                    <label class="form-label" for="{{ form.teacher.id_for_label }}">Giáo viên</label>
                     {{ form.teacher }}
+                    {{ form.teacher.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Trợ giảng</label>
+                    <label class="form-label" for="{{ form.assistant.id_for_label }}">Trợ giảng</label>
                     {{ form.assistant }}
+                    {{ form.assistant.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Từ ngày</label>
+                    <label class="form-label" for="{{ form.start_date.id_for_label }}">Từ ngày</label>
                     {{ form.start_date }}
+                    {{ form.start_date.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Đến ngày</label>
+                    <label class="form-label" for="{{ form.end_date.id_for_label }}">Đến ngày</label>
                     {{ form.end_date }}
+                    {{ form.end_date.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Giờ bắt đầu</label>
+                    <label class="form-label" for="{{ form.start_time.id_for_label }}">Giờ bắt đầu</label>
                     {{ form.start_time }}
+                    {{ form.start_time.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Giờ kết thúc</label>
+                    <label class="form-label" for="{{ form.end_time.id_for_label }}">Giờ kết thúc</label>
                     {{ form.end_time }}
+                    {{ form.end_time.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Phòng học</label>
+                    <label class="form-label" for="{{ form.room.id_for_label }}">Phòng học</label>
                     {{ form.room }}
+                    {{ form.room.errors }}
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Giờ tính lương</label>
+                    <label class="form-label" for="{{ form.expected_hours.id_for_label }}">Số giờ tính lương</label>
                     {{ form.expected_hours }}
+                    <div class="form-text">{{ form.expected_hours.help_text }}</div>
+                    {{ form.expected_hours.errors }}
                 </div>
                 <div class="col-12">
                     <label class="form-label">Ngày trong tuần</label>
@@ -66,10 +76,12 @@
                         </div>
                         {% endfor %}
                     </div>
+                    {{ form.weekdays.errors }}
                 </div>
                 <div class="col-12">
-                    <label class="form-label">Ghi chú</label>
+                    <label class="form-label" for="{{ form.note.id_for_label }}">Ghi chú</label>
                     {{ form.note }}
+                    {{ form.note.errors }}
                 </div>
             </div>
             <div class="d-flex gap-2 mt-4">

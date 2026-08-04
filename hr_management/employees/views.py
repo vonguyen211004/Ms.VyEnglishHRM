@@ -96,7 +96,7 @@ def employee_create(request):
             # Gộp họ tên
             employee.full_name = f"{employee.last_name} {employee.first_name}"
             employee.save()
-            messages.success(request, f'Nhân viên {employee.full_name} đã được tạo thành công')
+            messages.success(request, f'Nhân viên {employee.full_name} đã được tạo thành công!')
             return redirect('employee_detail', pk=employee.pk)
     else:
         form = EmployeeForm()
@@ -336,7 +336,7 @@ def contract_create(request, employee_id=None):
                 form.add_error(None, error)
             else:
                 contract.save()
-                messages.success(request, f'Hợp đồng mới cho nhân viên {employee.full_name} đã được tạo thành công')
+                messages.success(request, f'Hợp đồng mới cho nhân viên {employee.full_name} đã được tạo thành công!')
 
                 if 'save_and_new' in request.POST:
                     return redirect('contract_create_general')
@@ -423,7 +423,7 @@ def contract_update(request, pk):
                     if not contract.employee.get_current_contract():
                         contract.employee.is_active = False
                         contract.employee.save(update_fields=['is_active', 'updated_at'])
-                messages.success(request, 'Hợp đồng đã được cập nhật thành công')
+                messages.success(request, 'Hợp đồng đã được cập nhật thành công!')
                 return redirect('contract_detail', pk=contract.pk)
     else:
         form = ContractForm(instance=contract)
@@ -509,7 +509,7 @@ def contract_delete(request, pk):
         # Xóa hợp đồng
         contract.delete()
 
-        messages.success(request, f'Hợp đồng {contract_number} của nhân viên {employee_name} đã được xóa thành công')
+        messages.success(request, f'Hợp đồng {contract_number} của nhân viên {employee_name} đã được xóa thành công!')
         return redirect('contract_list')
 
     context = {

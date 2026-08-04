@@ -211,6 +211,14 @@
             margin-left: 0.2rem;
         }
 
+        .errorlist {
+            margin: 0.35rem 0 0;
+            padding-left: 0;
+            list-style: none;
+            color: #dc3545;
+            font-size: 0.875rem;
+        }
+
         .list-filter-card {
             background: #fff;
             border: 1px solid #edf0f3;
@@ -444,7 +452,7 @@
                 {% if messages %}
                 <div class="messages mt-3">
                     {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show django-message-alert" role="alert">
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show django-message-alert" role="alert">
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
                     </div>
@@ -485,7 +493,7 @@
             }
         });
 
-        document.querySelectorAll('.django-message-alert').forEach((alertElement) => {
+        document.querySelectorAll('.django-message-alert.alert-success, .django-message-alert.alert-info').forEach((alertElement) => {
             window.setTimeout(() => {
                 if (!alertElement.isConnected) return;
                 const alert = bootstrap.Alert.getOrCreateInstance(alertElement);
