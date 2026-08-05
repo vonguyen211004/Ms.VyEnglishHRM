@@ -4,12 +4,25 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "name": "Django: Run HR Management",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}\\hr_management\\manage.py",
+            "args": [
+                "runserver",
+                "127.0.0.1:8000"
+            ],
+            "django": true,
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}\\hr_management",
+            "python": "${workspaceFolder}\\hr_management\\venv\\Scripts\\python.exe"
+        },
         {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "url": "http://localhost:8000",
             "webRoot": "${workspaceFolder}"
         }
     ]
