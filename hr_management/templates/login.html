@@ -5,27 +5,364 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - Hệ thống Quản lý Nhân sự</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
+        :root {
+            --ink: #172b4d;
+            --muted: #6b7a90;
+            --primary: #1769e0;
+            --primary-dark: #0d4fb8;
+            --line: #dfe7f2;
+            --surface: #ffffff;
+            --background: #eef4fb;
+        }
+
         body {
-            background-color: #f5f5f5;
-            height: 100vh;
+            background: var(--background);
+            color: var(--ink);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 32px 20px;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
+
+        .login-shell {
+            width: 100%;
+            max-width: 1200px;
+            min-height: 650px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid rgba(23, 43, 77, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 24px 60px rgba(31, 63, 104, 0.16);
+        }
+
+        .login-intro {
+            position: relative;
+            overflow: hidden;
+            padding: 54px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100%;
+            color: #fff;
+            background: linear-gradient(145deg, #123d76 0%, #1769e0 58%, #36a9c9 100%);
+        }
+
+        .login-intro::before,
+        .login-intro::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .login-intro::before {
+            width: 330px;
+            height: 330px;
+            right: -150px;
+            top: 64px;
+        }
+
+        .login-intro::after {
+            width: 460px;
+            height: 460px;
+            left: -250px;
+            bottom: -230px;
+        }
+
+        .intro-content,
+        .intro-footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 12%;
+        }
+
+        .brand-mark {
+            width: 60px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            font-size: 1.4rem;
+        }
+
+        .brand-lockup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            max-width: 100%;
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: -0.4px;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            line-height: 1;
+            letter-spacing: -2px;
+            white-space: nowrap;
+        }
+
+        .intro-footer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.86rem;
+        }
+
+        .intro-footer i {
+            color: #9ce8dd;
+            font-size: 1.15rem;
+        }
+
+        .login-panel {
+            padding: 64px clamp(28px, 6vw, 78px);
+            display: flex;
+            align-items: center;
+        }
+
         .login-form {
             width: 100%;
-            max-width: 400px;
-            padding: 15px;
-            margin: auto;
+            max-width: 390px;
+            margin: 0 auto;
+        }
+
+        .form-heading {
+            margin-bottom: 30px;
+        }
+
+        .form-heading h2 {
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: -0.5px;
+        }
+
+        .form-label {
+            margin-bottom: 9px;
+            color: #344563;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(23, 105, 224, 0.12);
+        }
+
+        .input-group-text,
+        .form-control {
+            border: 0;
+            background: transparent;
+        }
+
+        .input-group-text {
+            padding-left: 15px;
+            color: #8b9ab1;
+        }
+
+        .form-control {
+            min-height: 48px;
+            padding-left: 8px;
+            color: var(--ink);
+            box-shadow: none !important;
+        }
+
+        .form-control::placeholder {
+            color: #a7b2c2;
+        }
+
+        .login-button {
+            min-height: 50px;
+            margin-top: 4px;
+            border: 0;
+            border-radius: 11px;
+            background: var(--primary);
+            box-shadow: 0 10px 20px rgba(23, 105, 224, 0.2);
+            font-weight: 700;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .login-button:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 12px 24px rgba(23, 105, 224, 0.28);
+            transform: translateY(-1px);
+        }
+
+        .test-account {
+            position: relative;
+            margin-top: 32px;
+            padding: 17px 18px 18px;
+            border: 1px solid #d8e6f8;
+            border-radius: 14px;
+            background: #f5f9ff;
+        }
+
+        .test-account-heading {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            color: #315680;
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .test-account-heading i {
+            color: #e6a72c;
+            font-size: 1rem;
+        }
+
+        .credential {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 8px 0;
+            border-top: 1px solid #e2ecf8;
+            font-size: 0.85rem;
+        }
+
+        .credential span {
+            color: var(--muted);
+        }
+
+        .credential strong {
+            color: var(--ink);
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .fill-login {
+            width: 100%;
+            margin-top: 10px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .fill-login:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .alert {
+            border: 0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 767.98px) {
+            body {
+                padding: 16px;
+            }
+
+            .login-shell {
+                display: block;
+                min-height: auto;
+                border-radius: 18px;
+            }
+
+            .login-intro {
+                min-height: 150px;
+                padding: 28px;
+            }
+
+            .intro-content {
+                padding-top: 0;
+            }
+
+            .brand-mark {
+                width: 48px;
+                height: 48px;
+                border-radius: 11px;
+            }
+
+            .brand-lockup {
+                gap: 10px;
+            }
+
+            .brand-name {
+                font-size: clamp(1.35rem, 7vw, 2rem);
+                letter-spacing: -0.5px;
+            }
+
+            .intro-footer {
+                display: none;
+            }
+
+            .login-panel {
+                padding: 38px 28px 32px;
+            }
+
+            .form-heading {
+                margin-bottom: 28px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1050px) {
+            .login-shell {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .login-intro {
+                padding: 40px 32px;
+            }
+
+            .brand-lockup {
+                gap: 16px;
+            }
+
+            .brand-name {
+                font-size: clamp(1.8rem, 4vw, 3rem);
+                letter-spacing: -1.5px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-form">
-        <div class="card shadow">
-            <div class="card-body p-4">
-                <h2 class="text-center mb-4">Đăng nhập</h2>
+    <main class="login-shell">
+        <section class="login-intro">
+            <div class="intro-content">
+                <div class="brand-lockup">
+                    <div class="brand-mark"><i class="bi bi-bar-chart-fill"></i></div>
+                    <span class="brand-name">Ms.VyEnglishHRM</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="login-panel">
+            <div class="login-form">
+                <div class="form-heading">
+                    <h2>Đăng nhập</h2>
+                </div>
 
                 {% if messages %}
                 <div class="messages mb-3">
@@ -39,30 +376,50 @@
 
                 <form method="post">
                     {% csrf_token %}
-                    <div class="mb-3">
+                    <div>
                         <label for="username" class="form-label">Tên đăng nhập</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" autocomplete="username" required>
+                        </div>
                     </div>
-                    <div class="mb-3">
+                    <div>
                         <label for="password" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" autocomplete="current-password" required>
+                        </div>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary login-button">Đăng nhập <i class="bi bi-arrow-right ms-1"></i></button>
                     </div>
                 </form>
 
-                <div class="mt-4 p-3 bg-light border rounded" style="font-size: 0.9rem;">
-                    <div class="text-muted mb-2 text-center">
-                        🔑 Tài khoản:
+                <div class="test-account">
+                    <div class="test-account-heading">
+                        <i class="bi bi-key-fill"></i>
+                        <span>Tài khoản dùng thử</span>
                     </div>
-                    <div class="d-flex justify-content-between px-2">
-                        <div><span class="text-secondary">Tên đăng nhập:</span> <strong>admin</strong></div>
-                        <div><span class="text-secondary">Mật khẩu:</span> <strong>test123456</strong></div>
+                    <div class="credential">
+                        <span>Tên đăng nhập</span>
+                        <strong>admin</strong>
                     </div>
+                    <div class="credential">
+                        <span>Mật khẩu</span>
+                        <strong>test123456</strong>
+                    </div>
+                    <button type="button" class="fill-login" id="fill-test-account">Điền tài khoản này <i class="bi bi-arrow-up-right"></i></button>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('fill-test-account').addEventListener('click', function () {
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'test123456';
+            document.getElementById('password').focus();
+        });
+    </script>
 </body>
 </html>
