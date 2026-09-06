@@ -41,14 +41,17 @@
 - `google-generativeai`, `groq` cho chức năng parse CV/CCCD.
 
 ## Các Màn hình chính
--Trang chủ
-<img width="1920" height="1080" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/f1a7853e-abc1-4546-af26-5835a7f5a089" />
--Quản lý Thông tin nhân viên
-<img width="1920" height="1080" alt="Screenshot (50)" src="https://github.com/user-attachments/assets/96f47d8b-d15a-4df8-8342-706d0386bfed" />
--Quản lý Chấm công
-<img width="1920" height="1080" alt="Screenshot (51)" src="https://github.com/user-attachments/assets/2b97aeb8-f70f-4abf-988c-2a7f94da4045" />
--Quản lý Tiền lương
-<img width="1920" height="1080" alt="Screenshot (52)" src="https://github.com/user-attachments/assets/d0ca08a5-59f7-4be1-8b79-b69e6b8dfc34" />
+-Đănh nhập:
+<img width="1920" height="1080" alt="Screenshot (56)" src="https://github.com/user-attachments/assets/e7e1affd-8e05-4aeb-9881-5f92f2c366c7" />
+-Trang chủ:
+<img width="1920" height="1080" alt="Screenshot (57)" src="https://github.com/user-attachments/assets/41906b96-e34b-4478-9704-bc34835938af" />
+-Quản lý Thông tin nhân viên:
+<img width="1920" height="1080" alt="Screenshot (58)" src="https://github.com/user-attachments/assets/f5f82b0a-7a9a-4ea1-ad57-92574087d106" />
+-Quản lý Chấm công:
+<img width="1920" height="1080" alt="Screenshot (59)" src="https://github.com/user-attachments/assets/f651beb8-18ff-42f5-bbd6-bf5b50059f1a" />
+-Quản lý Tiền lương:
+<img width="1920" height="1080" alt="Screenshot (60)" src="https://github.com/user-attachments/assets/edd8439b-ce12-4487-96c5-9e3d087ccc02" />
+
 
 
 
