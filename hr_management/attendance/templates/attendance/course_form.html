@@ -21,25 +21,25 @@
             {{ form.non_field_errors }}
             <div class="row g-3">
                 <div class="col-md-4">
-                    <label class="form-label">Mã lớp</label>
+                    <label class="form-label" for="{{ form.code.id_for_label }}">Mã lớp <span class="required-marker">*</span></label>
                     {{ form.code }}
                     {{ form.code.errors }}
                 </div>
                 <div class="col-md-8">
-                    <label class="form-label">Tên lớp</label>
+                    <label class="form-label" for="{{ form.name.id_for_label }}">Tên lớp <span class="required-marker">*</span></label>
                     {{ form.name }}
                     {{ form.name.errors }}
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Cấp độ</label>
+                    <label class="form-label" for="{{ form.level.id_for_label }}">Cấp độ <span class="required-marker">*</span></label>
                     {{ form.level }}
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Ngày bắt đầu</label>
+                    <label class="form-label" for="{{ form.start_date.id_for_label }}">Ngày bắt đầu <span class="required-marker">*</span></label>
                     {{ form.start_date }}
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Ngày kết thúc</label>
+                    <label class="form-label" for="{{ form.end_date.id_for_label }}">Ngày kết thúc <span class="required-marker">*</span></label>
                     {{ form.end_date }}
                 </div>
                 <div class="col-md-12">

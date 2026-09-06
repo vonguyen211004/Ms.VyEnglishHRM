@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load l10n %}
 
-{% block title %}Lịch làm việc / phân ca - Ms.Vy English{% endblock %}
+{% block title %}Lịch ca nhân viên - Ms.Vy English{% endblock %}
 
 {% block module_sidebar %}
 {% include "attendance/sidebar.html" %}
@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="fw-bold mb-0">Lịch làm việc / phân ca</h2>
+    <h2 class="fw-bold mb-0">Lịch ca nhân viên</h2>
     <a href="{% url 'attendance:schedule_add' %}" class="btn btn-primary">
         <i class="bi bi-plus-circle me-1"></i> Tạo lịch
     </a>

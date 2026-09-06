@@ -247,6 +247,8 @@ class CourseForm(BootstrapFormMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        for field_name in ('code', 'name', 'level', 'start_date', 'end_date'):
+            self.fields[field_name].required = True
         self._apply_bootstrap()
 
 
