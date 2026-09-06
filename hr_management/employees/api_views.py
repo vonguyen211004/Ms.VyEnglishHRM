@@ -1,15 +1,23 @@
 from django.http import JsonResponse
 from django.db.models import Q, Exists, OuterRef
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 import json
 import google.generativeai as genai
 from decouple import config
 from django.utils import timezone
+import logging
 from .models import Employee, Contract
 
 # Configure Gemini API
 genai.configure(api_key=config('GEMINI_API_KEY', default=''))
+
+GROQ_TEXT_MODEL = config('GROQ_TEXT_MODEL', default='openai/gpt-oss-120b')
+GEMINI_VISION_MODEL = config('GEMINI_VISION_MODEL', default='gemini-2.5-flash')
+MAX_AI_UPLOAD_SIZE = 10 * 1024 * 1024
+AI_PARSE_COOLDOWN_SECONDS = 30
+logger = logging.getLogger(__name__)
 
 
 def employee_search(request):
@@ -56,21 +64,51 @@ def employee_search(request):
 
     return JsonResponse(results, safe=False)
 
-@csrf_exempt
+@login_required
 @require_POST
 def parse_cv_api(request):
     if 'cv_file' not in request.FILES:
         return JsonResponse({'success': False, 'error': 'Không tìm thấy file tải lên'}, status=400)
+
+    if request.POST.get('ai_privacy_consent') != 'on':
+        return JsonResponse(
+            {'success': False, 'error': 'Bạn cần đồng ý gửi tài liệu tới dịch vụ AI'},
+            status=400,
+        )
     
     uploaded_file = request.FILES['cv_file']
-    file_data = uploaded_file.read()
     mime_type = uploaded_file.content_type
+    file_extension = uploaded_file.name.lower().rsplit('.', 1)[-1] if '.' in uploaded_file.name else ''
+    allowed_types = {
+        'pdf': 'application/pdf',
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'png': 'image/png',
+        'webp': 'image/webp',
+    }
+
+    if uploaded_file.size > MAX_AI_UPLOAD_SIZE:
+        return JsonResponse(
+            {'success': False, 'error': 'File không được vượt quá 10 MB'},
+            status=400,
+        )
+    if allowed_types.get(file_extension) != mime_type:
+        return JsonResponse(
+            {'success': False, 'error': 'Chỉ hỗ trợ file PDF hoặc ảnh JPG, PNG, WEBP'},
+            status=400,
+        )
+
+    throttle_key = f'ai-parse:{request.user.pk}'
+    if not cache.add(throttle_key, True, timeout=AI_PARSE_COOLDOWN_SECONDS):
+        return JsonResponse(
+            {'success': False, 'error': 'Vui lòng chờ 30 giây trước khi phân tích file tiếp theo'},
+            status=429,
+        )
+
+    file_data = uploaded_file.read()
 
     try:
-        from groq import Groq
-        import base64
         import io
-        client = Groq(api_key=config('GROQ_API_KEY', default=''))
         
         prompt = """
         Bạn là một hệ thống AI trích xuất thông tin. Hãy đọc tài liệu đính kèm (CV hoặc CCCD) và trích xuất các thông tin sau dưới dạng JSON. Không giải thích gì thêm ngoài cấu trúc JSON.
@@ -94,6 +132,14 @@ def parse_cv_api(request):
         """
         
         if mime_type == 'application/pdf':
+            from groq import Groq
+            groq_api_key = config('GROQ_API_KEY', default='')
+            if not groq_api_key:
+                return JsonResponse(
+                    {'success': False, 'error': 'Chưa cấu hình GROQ_API_KEY'},
+                    status=500,
+                )
+            client = Groq(api_key=groq_api_key)
             import pypdf
             pdf = pypdf.PdfReader(io.BytesIO(file_data))
             text = ""
@@ -109,31 +155,29 @@ def parse_cv_api(request):
                         "content": f"{prompt}\n\nDữ liệu CV/CCCD:\n{text}",
                     }
                 ],
-                model="llama-3.3-70b-versatile",
+                model=GROQ_TEXT_MODEL,
                 response_format={"type": "json_object"},
             )
+            response_content = chat_completion.choices[0].message.content
         else:
-            base64_image = base64.b64encode(file_data).decode('utf-8')
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": prompt},
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": f"data:{mime_type};base64,{base64_image}",
-                                }
-                            }
-                        ]
-                    }
-                ],
-                model="llama-3.2-11b-vision-preview",
-            )
+            if not config('GEMINI_API_KEY', default=''):
+                return JsonResponse(
+                    {'success': False, 'error': 'Chưa cấu hình GEMINI_API_KEY để phân tích ảnh'},
+                    status=500,
+                )
+            vision_model = genai.GenerativeModel(GEMINI_VISION_MODEL)
+            vision_response = vision_model.generate_content([
+                prompt,
+                {'mime_type': mime_type, 'data': file_data},
+            ])
+            response_content = vision_response.text
         
-        parsed_data = json.loads(chat_completion.choices[0].message.content)
+        parsed_data = json.loads(response_content)
         return JsonResponse({'success': True, 'data': parsed_data})
         
-    except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    except Exception:
+        logger.exception('AI CV parsing failed for user_id=%s', request.user.pk)
+        return JsonResponse(
+            {'success': False, 'error': 'Không thể phân tích tài liệu lúc này. Vui lòng thử lại sau.'},
+            status=502,
+        )

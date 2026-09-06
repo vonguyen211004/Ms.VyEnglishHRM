@@ -35,13 +35,19 @@
                 <div class="card-body">
                     <label for="ai_cv_upload" class="form-label fw-bold">Tải lên CV (PDF/Word/Ảnh) hoặc ảnh CCCD để AI tự điền Form:</label>
                     <div class="input-group">
-                        <input type="file" class="form-control" id="ai_cv_upload" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+                        <input type="file" class="form-control" id="ai_cv_upload" accept=".pdf,.png,.jpg,.jpeg,.webp">
                         <button class="btn btn-outline-primary" type="button" id="btn_run_ai">
                             <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="ai_spinner"></span>
                             <span id="btn_text"><i class="bi bi-lightning-charge-fill"></i> Phân tích bằng AI</span>
                         </button>
                     </div>
-                    <small class="text-muted mt-1 d-block">* Hệ thống sẽ tự động phân tích và điền các thông tin tìm thấy vào các ô nhập liệu bên dưới.</small>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="ai_privacy_consent" required>
+                        <label class="form-check-label small" for="ai_privacy_consent">
+                            Tôi đồng ý gửi tài liệu này tới dịch vụ AI bên ngoài để phân tích.
+                        </label>
+                    </div>
+                    <small class="text-muted mt-1 d-block">Hệ thống chỉ dùng kết quả để tự điền biểu mẫu; hãy kiểm tra lại trước khi lưu.</small>
                 </div>
             </div>
 
@@ -118,6 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Vui lòng chọn 1 file CV hoặc ảnh CCCD trước!');
             return;
         }
+        const privacyConsent = document.getElementById('ai_privacy_consent');
+        if (!privacyConsent.checked) {
+            alert('Vui lòng đồng ý gửi tài liệu tới dịch vụ AI trước khi phân tích.');
+            return;
+        }
 
         // Hiển thị trạng thái Loading
         const spinner = document.getElementById('ai_spinner');
@@ -129,9 +140,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Chuẩn bị FormData gửi lên backend
         const formData = new FormData();
         formData.append('cv_file', file);
+        formData.append('ai_privacy_consent', 'on');
 
         fetch("{% url 'api_parse_cv' %}", {
             method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
             body: formData
         })
         .then(response => response.json())
