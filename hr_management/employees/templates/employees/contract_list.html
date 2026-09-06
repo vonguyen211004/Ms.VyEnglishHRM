@@ -213,6 +213,17 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const contractFilterForm = document.getElementById('contractFilterForm');
+    const contractSearch = contractFilterForm.querySelector('input[name="search"]');
+    let contractSearchTimer;
+
+    contractSearch.addEventListener('input', function() {
+        clearTimeout(contractSearchTimer);
+        contractSearchTimer = setTimeout(function() {
+            contractFilterForm.submit();
+        }, 400);
+    });
+
     const exportExcelBtn = document.getElementById('exportExcel');
     if (exportExcelBtn) {
         exportExcelBtn.addEventListener('click', function() {
@@ -222,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('#contractFilterForm select').forEach((select) => {
         select.addEventListener('change', function() {
-            document.getElementById('contractFilterForm').submit();
+            contractFilterForm.submit();
         });
     });
 });

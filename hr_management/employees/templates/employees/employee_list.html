@@ -183,9 +183,20 @@
 {% endif %}
 
 <script>
+    const employeeFilterForm = document.getElementById('employeeFilterForm');
+    const employeeSearch = document.getElementById('employeeSearch');
+    let employeeSearchTimer;
+
+    employeeSearch.addEventListener('input', () => {
+        clearTimeout(employeeSearchTimer);
+        employeeSearchTimer = setTimeout(() => {
+            employeeFilterForm.submit();
+        }, 400);
+    });
+
     document.querySelectorAll('.auto-submit-filter').forEach((field) => {
         field.addEventListener('change', () => {
-            document.getElementById('employeeFilterForm').submit();
+            employeeFilterForm.submit();
         });
     });
 </script>

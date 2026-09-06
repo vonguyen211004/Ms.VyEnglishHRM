@@ -4,9 +4,10 @@
 <div class="col-md-3 col-lg-2 d-md-block sidebar collapse">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
+            <li class="sidebar-section-label">THÔNG TIN LƯƠNG</li>
             <li class="nav-item">
                 <a href="{% url 'payroll_list' %}" class="nav-link {% if request.resolver_match.url_name == 'payroll_list' %}active{% endif %}">
-                    <i class="bi bi-wallet2 me-2"></i> Bảng lương
+                    <i class="bi bi-wallet2 me-2"></i> Danh sách bảng lương
                 </a>
             </li>
             {% comment %} <li class="nav-item">

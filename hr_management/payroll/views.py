@@ -114,7 +114,16 @@ def payroll_list(request):
     if status_filter:
         payrolls = payrolls.filter(status=status_filter)
     if source_filter:
-        payrolls = payrolls.filter(monthly_timesheet__timesheet_type=source_filter)
+        source_query = Q(monthly_timesheet__timesheet_type=source_filter)
+        if source_filter == 'teaching':
+            source_query |= Q(
+                monthly_timesheet__isnull=True,
+                position__name__icontains='giáo viên',
+            ) | Q(
+                monthly_timesheet__isnull=True,
+                position__name__icontains='trợ giảng',
+            )
+        payrolls = payrolls.filter(source_query)
 
     page_obj = Paginator(payrolls, 10).get_page(request.GET.get('page'))
     return render(request, 'payroll/payroll_list.html', {

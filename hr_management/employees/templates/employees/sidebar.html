@@ -1,4 +1,5 @@
 <ul class="nav flex-column">
+    <li class="sidebar-section-label">THÔNG TIN NHÂN VIÊN</li>
     <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'employee_list' %}active{% endif %}" href="{% url 'employee_list' %}">
             <i class="bi bi-people me-2"></i>
@@ -11,6 +12,7 @@
             Thêm nhân viên mới
         </a>
     </li>
+    <li class="sidebar-section-label">HỢP ĐỒNG</li>
     <li class="nav-item">
         <a class="nav-link {% if request.resolver_match.url_name == 'contract_list' %}active{% endif %}" href="{% url 'contract_list' %}">
             <i class="bi bi-file-earmark-text me-2"></i>

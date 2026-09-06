@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-body">
                     <label for="ai_cv_upload" class="form-label fw-bold">Tải lên CV (PDF/Word/Ảnh) hoặc ảnh CCCD để AI tự điền Form:</label>
-                    <div class="input-group">
+                    <div class="input-group ai-upload-group">
                         <input type="file" class="form-control" id="ai_cv_upload" accept=".pdf,.png,.jpg,.jpeg,.webp">
                         <button class="btn btn-outline-primary" type="button" id="btn_run_ai">
                             <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="ai_spinner"></span>
@@ -42,12 +42,12 @@
                         </button>
                     </div>
                     <div class="form-check mt-2">
-                        <input class="form-check-input" type="checkbox" id="ai_privacy_consent" required>
+                        <input class="form-check-input" type="checkbox" id="ai_privacy_consent">
                         <label class="form-check-label small" for="ai_privacy_consent">
-                            Tôi đồng ý gửi tài liệu này tới dịch vụ AI bên ngoài để phân tích.
+                            Tôi đồng ý gửi dữ liệu này tới dịch vụ AI bên ngoài để phân tích.
                         </label>
                     </div>
-                    <small class="text-muted mt-1 d-block">Hệ thống chỉ dùng kết quả để tự điền biểu mẫu; hãy kiểm tra lại trước khi lưu.</small>
+                    {% comment %} <small class="text-muted mt-1 d-block">Hệ thống chỉ dùng kết quả để tự điền biểu mẫu; hãy kiểm tra lại trước khi lưu.</small> {% endcomment %}
                 </div>
             </div>
 
