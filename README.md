@@ -196,7 +196,13 @@ Tạo file `.env` ở thư mục `LTWNhom06/hr_management/`:
 SECRET_KEY=dev-secret-key-change-me
 DEBUG=true
 ALLOWED_HOSTS=localhost,127.0.0.1
+SECURE_SSL_REDIRECT=false
+SESSION_COOKIE_SECURE=false
+CSRF_COOKIE_SECURE=false
+SECURE_HSTS_SECONDS=0
 GROQ_API_KEY=
+GROQ_TEXT_MODEL=openai/gpt-oss-120b
+GEMINI_VISION_MODEL=gemini-2.5-flash
 GEMINI_API_KEY=
 ```
 
@@ -222,9 +228,15 @@ http://127.0.0.1:8000/
 | `SECRET_KEY` | Có | Khóa bí mật của Django. Bắt buộc vì `settings.py` đọc bằng `python-decouple`. |
 | `DEBUG` | Không | `true` khi chạy local, `false` trên production. Mặc định là `false`. |
 | `ALLOWED_HOSTS` | Không | Danh sách host phân tách bằng dấu phẩy. Mặc định `localhost,127.0.0.1`. |
+| `SECURE_SSL_REDIRECT` | Không | Chuyển hướng HTTP sang HTTPS; bật `true` trên production. |
+| `SESSION_COOKIE_SECURE` | Không | Chỉ gửi cookie phiên qua HTTPS; bật `true` trên production. |
+| `CSRF_COOKIE_SECURE` | Không | Chỉ gửi CSRF cookie qua HTTPS; bật `true` trên production. |
+| `SECURE_HSTS_SECONDS` | Không | Thời hạn HSTS; nên đặt `31536000` sau khi HTTPS production ổn định. |
 | `DATABASE_URL` | Không | Nếu có, ứng dụng dùng PostgreSQL qua `dj-database-url`; nếu không có, dùng SQLite local. |
 | `GROQ_API_KEY` | Không | Dùng cho API parse CV/CCCD. |
-| `GEMINI_API_KEY` | Không | Đã được cấu hình trong API module; hiện chức năng parse chính đang gọi Groq. |
+| `GROQ_TEXT_MODEL` | Không | Model Groq dùng để phân tích nội dung PDF; mặc định `openai/gpt-oss-120b`. |
+| `GEMINI_VISION_MODEL` | Không | Model Gemini dùng để phân tích CV/CCCD dạng ảnh; mặc định `gemini-2.5-flash`. |
+| `GEMINI_API_KEY` | Không | Dùng cho phân tích CV/CCCD dạng ảnh. |
 
 ## URL Chính
 
